@@ -1,0 +1,43 @@
+{
+  "name": "node-themoviedb",
+  "version": "0.0.0",
+  "description": "A Node.JS wrapper for The Movie DB API.",
+  "author": "Andy Wampir <wampirchikkkk@yandex.ru>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "devDependencies": {
+    "@types/got": "^9.6.6",
+    "@types/node": "^12.7.1",
+    "np": "^5.0.3",
+    "ts-node-dev": "^1.0.0-pre.40",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "got": "^9.6.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"No test specified\""
+  },
+  "files": [
+    "dist",
+    "LICENSE.md",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "tmdb",
+    "tmdb api",
+    "moviedb",
+    "the moviedb",
+    "the movie database"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andywampir/node-themoviedb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andywampir/node-themoviedb/issues"
+  },
+  "homepage": "https://github.com/andywampir/node-themoviedb"
+}

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": [
+      "esnext"
+    ],
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+  "exclude": [
+    "node_modules/**/*",
+    "dist/**/*"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}
