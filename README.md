@@ -1,9 +1,9 @@
 > A Node.JS wrapper for The Movie DB API.
 
-[![install size](https://packagephobia.now.sh/badge?p=node-mdbapi)](https://packagephobia.now.sh/result?p=node-mdbapi)
-[![npm](https://img.shields.io/npm/dm/node-mdbapi?style=flat)](https://www.npmjs.com/package/node-mdbapi)
-[![npm](https://img.shields.io/npm/v/node-mdbapi)](https://www.npmjs.com/package/node-mdbapi)
-![GitHub last commit](https://img.shields.io/github/last-commit/andywampir/node-mdbapi)
+[![install size](https://packagephobia.now.sh/badge?p=node-themoviedb)](https://packagephobia.now.sh/result?p=node-themoviedb)
+[![npm](https://img.shields.io/npm/dm/node-themoviedb?style=flat)](https://www.npmjs.com/package/node-themoviedb)
+[![npm](https://img.shields.io/npm/v/node-themoviedb)](https://www.npmjs.com/package/node-themoviedb)
+![GitHub last commit](https://img.shields.io/github/last-commit/andywampir/node-themoviedb)
 
 # Highlights
 - [Installation](#install)
@@ -13,18 +13,18 @@
 
 # Install
 ```bash
-yarn add node-themovidb
+yarn add node-themoviedb
 ```
 or
 ```bash
-npm install node-themovidb
+npm install node-themoviedb
 ```
 
 # Usage
 ```js
-const MovieDB = require('node-themovidb');
+const MovieDB = require('node-themoviedb');
 // ES6 Style
-// import MovieDB from 'node-themovidb';
+// import MovieDB from 'node-themoviedb';
 const mdb = new MovieDB(/* Your API Key */, options);
 
 (async () => {
