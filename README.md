@@ -13,18 +13,18 @@
 
 # Install
 ```bash
-yarn add node-mdbapi
+yarn add node-themovidb
 ```
 or
 ```bash
-npm install node-mdbapi
+npm install node-themovidb
 ```
 
 # Usage
 ```js
-const MovieDB = require('node-mdbapi');
+const MovieDB = require('node-themovidb');
 // ES6 Style
-// import MovieDB from 'node-mdbapi';
+// import MovieDB from 'node-themovidb';
 const mdb = new MovieDB(/* Your API Key */, options);
 
 (async () => {
@@ -56,7 +56,7 @@ const mdb = new MovieDB(/* Your API Key */, options);
 ```js
 const args = {
   pathParameters: {
-    // path parameters for query, i.e. movie_id
+    // path parameters for query, i.e. tv_id
   },
   query: {
     // query string, i.e. session_id
