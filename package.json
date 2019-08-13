@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo \"No test specified\""
+    "test": "echo \"No test specified\"",
+    "publish": "np"
   },
   "files": [
     "dist",
