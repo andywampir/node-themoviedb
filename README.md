@@ -39,7 +39,7 @@ const mdb = new MovieDB(/* Your API Key */, options);
     /*
       {
         data: Object. Parsed json data of response
-        header: Object. Headers of response
+        headers: Object. Headers of response
         rateLimit: {
           limit: Number. Total limit for requests
           remaining: Number. How much request remaining
@@ -69,6 +69,7 @@ const args = {
 const response = await mdb.tv.getVideos(args);
 // Or nested methods
 // const response = await mdb.tv.episode.rateTVEpisode(args);
+console.log(response.rateLimit.limit) // 40
 ```
 
 # API
