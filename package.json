@@ -8,9 +8,11 @@
   "devDependencies": {
     "@types/got": "^9.6.6",
     "@types/node": "^12.7.1",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.4.0",
     "np": "^5.0.3",
     "ts-node-dev": "^1.0.0-pre.40",
-    "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   },
   "dependencies": {
