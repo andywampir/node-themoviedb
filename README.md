@@ -1,5 +1,7 @@
 > A Node.JS wrapper for The Movie DB API.
 
+## Need a maintenance, cause i'm not enough now time for side projects like this
+
 [![install size](https://packagephobia.now.sh/badge?p=node-themoviedb)](https://packagephobia.now.sh/result?p=node-themoviedb)
 [![npm](https://img.shields.io/npm/dm/node-themoviedb?style=flat)](https://www.npmjs.com/package/node-themoviedb)
 [![npm](https://img.shields.io/npm/v/node-themoviedb)](https://www.npmjs.com/package/node-themoviedb)
