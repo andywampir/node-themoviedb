@@ -54,14 +54,6 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-
-# next.js build output
-.next
-
 dist
 .tsbuildinfo
 yarn.lock
-pnpm-lock.yaml
-package-lock.json

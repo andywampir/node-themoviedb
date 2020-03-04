@@ -5,24 +5,30 @@
   "author": "Andy Wampir <wampirchikkkk@yandex.ru>",
   "license": "MIT",
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=10"
+  },
   "devDependencies": {
-    "@types/got": "^9.6.6",
-    "@types/node": "^12.7.1",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
-    "eslint": "^6.4.0",
-    "np": "^5.0.3",
-    "ts-node-dev": "^1.0.0-pre.40",
-    "typescript": "^3.5.3"
+    "@types/node": "^13.7.7",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "eslint": "^6.8.0",
+    "np": "^6.2.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
-    "got": "^9.6.0"
+    "got": "^10.6.0"
   },
   "scripts": {
     "build": "tsc",
     "test": "echo \"No test specified\"",
-    "release": "np"
+    "release:patch": "np patch",
+    "release:minor": "np minor",
+    "release:major": "np major",
+    "release:preview": "np --preview"
   },
+  "types": "./dist",
   "files": [
     "dist",
     "LICENSE.md",
@@ -30,10 +36,10 @@
   ],
   "keywords": [
     "tmdb",
-    "tmdb api",
+    "tmdb-api",
     "moviedb",
-    "the moviedb",
-    "the movie database"
+    "themoviedb",
+    "themoviedatabase"
   ],
   "repository": {
     "type": "git",

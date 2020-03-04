@@ -1,9 +1,17 @@
 import got from 'got';
 
-export const request = got.extend({
-  json: true,
-  baseUrl: 'https://api.themoviedb.org/3',
-  headers: {
-    'user-agent': 'node-moviedb/0.1.0',
-  },
+const commonHeaders = { 'user-agent': 'node-moviedb/1.0.0' };
+
+export const requestV3 = got.extend({
+  responseType: 'json',
+  prefixUrl: 'https://api.themoviedb.org/3',
+  headers: { ...commonHeaders },
 });
+
+export const requestV4 = got.extend({
+  responseType: 'json',
+  prefixUrl: 'https://api.themoviedb.org/4',
+  headers: { ...commonHeaders }
+});
+
+export default requestV3;

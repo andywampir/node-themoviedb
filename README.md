@@ -1,7 +1,5 @@
 > A Node.JS wrapper for The Movie DB API.
 
-## Need a maintenance, cause i'm not enough now time for side projects like this
-
 [![install size](https://packagephobia.now.sh/badge?p=node-themoviedb)](https://packagephobia.now.sh/result?p=node-themoviedb)
 [![npm](https://img.shields.io/npm/dm/node-themoviedb?style=flat)](https://www.npmjs.com/package/node-themoviedb)
 [![npm](https://img.shields.io/npm/v/node-themoviedb)](https://www.npmjs.com/package/node-themoviedb)
@@ -76,36 +74,36 @@ console.log(response.rateLimit.limit) // 40
 
 # API
 
-## constructor(apiKey[, options])
+### constructor(apiKey[, options])
 
-### apiKey
+#### apiKey
 
 Your API key. [How to get API key](https://developers.themoviedb.org/3/getting-started/introduction)
 
-### options
+#### options
 
 - language - Optional. Default is `'en-US'`
 
 Additional options, which will be override the default settings
 
-## setApiKey(apiKey)
+### setApiKey(apiKey)
 
 Sets API key
 
-### apiKey
+#### apiKey
 
 Your API key
 
-## setLanguage(language)
+### setLanguage(language)
 
 Sets language for data of response
 
-### language
+#### language
 
 Language in ISO 639-1 format. I.e. `'en-US'`
 
 
-## Methods
+### Methods
 - account
   - [getDetails](https://developers.themoviedb.org/3/account/get-account-details)
   - [getCreatedList](https://developers.themoviedb.org/3/account/get-created-lists)
@@ -268,39 +266,39 @@ Language in ISO 639-1 format. I.e. `'en-US'`
   - group
     - [getDetails](https://developers.themoviedb.org/3/tv-episode-groups/get-tv-episode-group-details)
 
-# Errors
+## Errors
 
 > All errors extends [Node's Error](https://nodejs.org/dist/latest-v12.x/docs/api/errors.html#errors_class_error)
 
-## BadRequest
+### BadRequest
 
 Throws when server responses with http status code 400
 
 - code - Number. Usually to `0`
 - errorCode - Number. Equals to `400`
 
-## UnauthorizedError
+### UnauthorizedError
 
 Throws when set invalid api key
 
 - code - Number. Usually equals to `7`
 - errorCode - Number. Equals to `401`
 
-## NotFoundError
+### NotFoundError
 
 Throws when requested resource couldn't be found
 
 - code - Number. Usually equals to `34`
 - errorCode - Number. Equals to `404`
 
-## RequestTimeout
+### RequestTimeout
 
 Throws when request timed out
 
 - code - Number. Usually equals to `0`
 - errorCode - Number. Equals to `408`
 
-## TooManyRequests
+### TooManyRequests
 
 Throws when expired rate limit
 
