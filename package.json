@@ -6,14 +6,13 @@
   "license": "MIT",
   "main": "dist/index.js",
   "devDependencies": {
-    "@types/got": "^9.6.6",
     "@types/node": "^12.7.1",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "eslint": "^6.4.0",
-    "np": "^5.0.3",
+    "np": "^5.2.1",
     "ts-node-dev": "^1.0.0-pre.40",
-    "typescript": "^3.5.3"
+    "typescript": "3.7.5"
   },
   "dependencies": {
     "got": "^9.6.0"
@@ -21,7 +20,8 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"No test specified\"",
-    "release": "np"
+    "release": "np",
+    "release:preview": "np --preview"
   },
   "files": [
     "dist",

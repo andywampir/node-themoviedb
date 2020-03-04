@@ -1,42 +1,49 @@
+/* eslint-disable no-extra-parens */
+/* eslint-disable camelcase */
 import { HTTPError } from 'got';
 import * as errors from './errors';
 
+interface ErrorResponse {
+  status_code: number;
+  status_message: string;
+}
+
 export default (error: Error) => {
   if (error instanceof HTTPError) {
-    switch (error.statusCode) {
-      case 400: {
-        throw new errors.BadRequest();
-      }
+    switch ((error as HTTPError).response.statusCode) {
+    case 400: {
+      throw new errors.BadRequest();
+    }
 
-      case 401: {
-        const {
-          status_code,
-          status_message,
-        } = error.response.body;
+    case 401: {
+      const {
+        status_code,
+        status_message,
+      } = (error as HTTPError).response.body as ErrorResponse;
 
-        throw new errors.UnauthorizedError(status_code, status_message);
-      }
+      throw new errors.UnauthorizedError(status_code, status_message);
+    }
 
-      case 404: {
-        const {
-          status_code,
-          status_message,
-        } = error.response.body;
+    case 404: {
+      const {
+        status_code,
+        status_message,
+      } = (error as HTTPError).response.body as ErrorResponse;
 
-        throw new errors.NotFoundError(status_code, status_message);
-      }
+      throw new errors.NotFoundError(status_code, status_message);
+    }
 
-      case 408: {
-        throw new errors.RequestTimeout();
-      }
+    case 408: {
+      throw new errors.RequestTimeout();
+    }
 
-      case 429: {
-        const retryAfter = parseInt(error.headers['retry-after'], 10);
+    case 429: {
+      const retryAfter = parseInt((error as HTTPError).response.headers['retry-after']);
 
-        throw new errors.TooManyRequests(retryAfter);
-      }
+      throw new errors.TooManyRequests(retryAfter);
+    }
 
-      default: break;
+    default: break;
     }
   }
 };
