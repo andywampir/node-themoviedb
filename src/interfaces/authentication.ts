@@ -9,12 +9,12 @@ export interface AuthenticationValidateTokenOptions {
 
 // Return types
 export interface AuthenticationReturnType {
-  newGuestSession?: AuthenticationNewGuestSession;
-  newToken?: AuthenticationNewToken;
-  newSession?: AuthenticationNewSession;
-  validateToken?: AuthenticationValidateToken;
-  convertToken?: AuthenticationConvertToken;
-  deleteSession?: AuthenticationDeleteSession;
+  newGuestSession?: AuthenticationNewGuestSession[];
+  newToken?: AuthenticationNewToken[];
+  newSession?: AuthenticationNewSession[];
+  validateToken?: AuthenticationValidateToken[];
+  convertToken?: AuthenticationConvertToken[];
+  deleteSession?: AuthenticationDeleteSession[];
 }
 
 interface AuthenticationNewGuestSession {
