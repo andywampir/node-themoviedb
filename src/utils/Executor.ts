@@ -1,40 +1,77 @@
+/* eslint-disable camelcase */
 import {
-  Response, CancelableRequest
+  Response, CancelableRequest,
+  HTTPError,
 } from 'got';
 
-interface ExecutionList {
-  [key: string]: CancelableRequest<Response<unknown>>;
+import {
+  NotEnoughPermissionError, NotFoundError,
+  UnknownHTTPError, UnknownError,
+} from '../errors';
+import { ResponseError } from '../interfaces/common';
+
+interface ExecutionItem<TKeys> {
+  key: keyof TKeys;
+  value: CancelableRequest<Response<unknown>>;
 }
 
-interface ExecutionResult {
-  [key: string]: unknown;
+export interface ExecutionResult {
+  [key: string]: unknown[];
 }
 
 export default class Executor<ReturnType> {
-  protected executionList: ExecutionList = {};
+  protected executionList: ExecutionItem<ReturnType>[] = [];
 
-  protected async execute(): Promise<ReturnType> {
+  public async execute(): Promise<ReturnType | null> {
     const promises: CancelableRequest<Response<unknown>>[] = [];
     const keys: string[] = [];
 
-    for (const key in this.executionList) {
-      keys.push(key);
-      promises.push(this.executionList[key]);
+    for (const item of this.executionList) {
+      keys.push(item.key as string);
+      promises.push(item.value.json());
     }
 
     const responses: ExecutionResult = {};
 
-    (await Promise.all(promises)).forEach((res, index) => {
-      responses[keys[index]] = res;
-    });
+    try {
+      (await Promise.all(promises)).forEach((res, index) => {
+        if (!responses[keys[index]])
+          responses[keys[index]] = [];
+        responses[keys[index]].push(res);
+      });
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        if (error.response.statusCode === 401) {
+          const { body: {
+            status_code,
+            status_message,
+          } } = error.response as Response<ResponseError>;
+
+          throw new NotEnoughPermissionError(
+            status_message, status_code,
+          );
+        } else if (error.response.statusCode === 404) {
+          const { body: { status_code } } = error.response as Response<ResponseError>;
+
+          throw new NotFoundError(status_code);
+        } else {
+          throw new UnknownHTTPError(error.message, error.response.statusCode);
+        }
+      } else {
+        throw new UnknownError(error.message);
+      }
+    }
 
     return (responses as unknown) as ReturnType;
   }
 
-  protected addToExecutionList<TKeys, TExecution>(
-    key: keyof TKeys,
+  protected addToExecutionList<TExecution>(
+    key: keyof ReturnType,
     execution: CancelableRequest<Response<TExecution>>,
   ): void {
-    this.executionList[key as string] = execution;
+    this.executionList.push({
+      key,
+      value: execution,
+    });
   }
 }

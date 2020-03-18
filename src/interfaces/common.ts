@@ -1,6 +1,11 @@
 /* eslint-disable camelcase */
 
 // Utilities types
+export interface ResponseError {
+  status_message: string;
+  status_code: number;
+}
+
 export interface ResultsWithPage<TResults> {
   page: number;
   total_pages: number;
