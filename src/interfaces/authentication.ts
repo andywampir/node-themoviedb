@@ -17,27 +17,27 @@ export interface AuthenticationReturnType {
   deleteSession?: AuthenticationDeleteSession[];
 }
 
-interface AuthenticationNewGuestSession {
+export interface AuthenticationNewGuestSession {
   success: boolean;
   guest_session_id: string;
   expires_at: string;
 }
 
-interface AuthenticationNewToken {
+export interface AuthenticationNewToken {
   success: boolean;
   expires_at: string;
   request_token: string;
 }
 
-interface AuthenticationNewSession {
+export interface AuthenticationNewSession {
   success: boolean;
   session_id: string;
 }
 
-interface AuthenticationValidateToken extends AuthenticationNewToken {}
+export interface AuthenticationValidateToken extends AuthenticationNewToken {}
 
-interface AuthenticationConvertToken extends AuthenticationNewSession {}
+export interface AuthenticationConvertToken extends AuthenticationNewSession {}
 
-interface AuthenticationDeleteSession {
+export interface AuthenticationDeleteSession {
   success: boolean;
 }
