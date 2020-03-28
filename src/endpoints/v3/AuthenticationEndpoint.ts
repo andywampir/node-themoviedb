@@ -17,7 +17,7 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
   }
 
   public newGuestSession(): AuthenticationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'newGuestSession',
@@ -28,7 +28,7 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
   }
 
   public newToken(): AuthenticationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'newToken',
@@ -39,7 +39,7 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
   }
 
   public newSession(requestToken: string): AuthenticationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'newSession',
@@ -53,7 +53,7 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
   }
 
   public validateToken(options: AuthenticationValidateTokenOptions): AuthenticationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'validateToken',
@@ -71,7 +71,7 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
   }
 
   public convertToken(accessToken: string): AuthenticationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'convertToken',
@@ -85,7 +85,7 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
   }
 
   public deleteSession(sessionID: string): AuthenticationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'deleteSession',

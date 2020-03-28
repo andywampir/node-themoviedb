@@ -1,6 +1,8 @@
 import got from 'got';
 
-const commonHeaders = { 'user-agent': 'node-moviedb/1.0.0' };
+import pkg from '../../package.json';
+
+const commonHeaders = { 'user-agent': `node-themoviedb/${pkg.version}` };
 
 export const requestV3 = got.extend({
   responseType: 'json',

@@ -1,4 +1,6 @@
 import AccountEndpoint from './endpoints/v3/AccountEndpoint';
+import AuthentificationEndpoint from './endpoints/v3/AuthenticationEndpoint';
+import CertificationEndpoint from './endpoints/v3/CertificationEndpoint';
 
 import {
   RequiredApiKeyError, RequiredSessionIDError
@@ -9,20 +11,28 @@ interface AccountEndpointOptions {
   language?: string;
 }
 
+interface MovieDBConstructorOptions {
+  apiKey: string;
+  language?: string;
+}
+
 export default class MovieDB {
   private apiKey: string;
   private language: string;
   private sessionID?: string;
 
-  public constructor(apiKey: string, language?: string) {
-    if (!apiKey)
+  public constructor(options: MovieDBConstructorOptions) {
+    if (!options.apiKey)
       throw new RequiredApiKeyError();
 
-    this.apiKey = apiKey;
-    this.language = language ?? 'en-US';
+    this.apiKey = options.apiKey;
+    this.language = options.language ?? 'en-US';
   }
 
   public setApiKey(apiKey: string): void {
+    if (!apiKey || typeof apiKey !== 'string')
+      throw new RequiredApiKeyError();
+
     this.apiKey = apiKey;
   }
 
@@ -31,6 +41,9 @@ export default class MovieDB {
   }
 
   public setSessionID(sessionID: string): void {
+    if (!sessionID || typeof sessionID !== 'string')
+      throw new RequiredSessionIDError();
+
     this.sessionID = sessionID;
   }
 
@@ -43,6 +56,14 @@ export default class MovieDB {
       sessionID: options.sessionID ?? this.sessionID as string,
       language: options.language ?? this.language,
     });
+  }
+
+  public authentication(): AuthentificationEndpoint {
+    return new AuthentificationEndpoint(this.apiKey);
+  }
+
+  public certification(): CertificationEndpoint {
+    return new CertificationEndpoint(this.apiKey);
   }
 }
 

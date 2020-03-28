@@ -57,3 +57,4 @@ typings/
 dist
 .tsbuildinfo
 yarn.lock
+.env

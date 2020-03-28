@@ -2,8 +2,8 @@
 
 // Return types
 export interface CerificationReturnType {
-  movie?: CertificationMovie;
-  tv?: CertificationTv;
+  movie?: CertificationMovie[];
+  tv?: CertificationTv[];
 }
 
 interface CertificationMovie {

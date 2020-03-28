@@ -67,17 +67,17 @@ export interface AddToWatchlistOptions extends CommonPathParametrs {
 
 // Return types
 export interface AccountReturnType {
-  details?: AccountDetails;
-  createdLists?: ResultsWithPage<AccountCreatedLists>;
-  favoriteMovies?: ResultsWithPage<Movie>;
-  favoriteTVShows?: ResultsWithPage<TVShow>;
-  markAsFavorite?: ResponseWithCode;
-  ratedMovies?: ResultsWithPage<MovieWithRating>;
-  ratedTVShows?: ResultsWithPage<TVShowWithRating>;
-  ratedTVEpisodes?: ResultsWithPage<AccountFavoriteTVEpisodes>;
-  movieWatchlist?: ResultsWithPage<Movie>;
-  tvShowWatchlist?: ResultsWithPage<TVShow>;
-  addToWatchlist?: ResponseWithCode;
+  details?: AccountDetails[];
+  createdLists?: ResultsWithPage<AccountCreatedLists>[];
+  favoriteMovies?: ResultsWithPage<Movie>[];
+  favoriteTVShows?: ResultsWithPage<TVShow>[];
+  markAsFavorite?: ResponseWithCode[];
+  ratedMovies?: ResultsWithPage<MovieWithRating>[];
+  ratedTVShows?: ResultsWithPage<TVShowWithRating>[];
+  ratedTVEpisodes?: ResultsWithPage<AccountFavoriteTVEpisodes>[];
+  movieWatchlist?: ResultsWithPage<Movie>[];
+  tvShowWatchlist?: ResultsWithPage<TVShow>[];
+  addToWatchlist?: ResponseWithCode[];
 }
 
 interface AccountDetails {

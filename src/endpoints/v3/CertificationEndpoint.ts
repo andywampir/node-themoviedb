@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
 import rqst from '../../utils/requests';
 
@@ -14,7 +15,7 @@ export default class CertificationEndpoint extends Executor<CerificationReturnTy
   }
 
   public movie(): CertificationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'movie',
@@ -25,7 +26,7 @@ export default class CertificationEndpoint extends Executor<CerificationReturnTy
   }
 
   public tv(): CertificationEndpoint {
-    const searchParams: SearchParametrs = { apiKey: this.apiKey };
+    const searchParams: SearchParametrs = { api_key: this.apiKey };
 
     this.addToExecutionList(
       'tv',
