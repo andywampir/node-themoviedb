@@ -10,19 +10,20 @@
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
-    "@types/node": "^13.9.0",
-    "@typescript-eslint/eslint-plugin": "^2.23.0",
-    "@typescript-eslint/parser": "^2.23.0",
-    "ava": "^3.5.0",
+    "@types/node": "^13.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "ava": "^3.5.1",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
+    "eslint-plugin-ava": "^10.2.0",
     "np": "^6.2.0",
-    "nyc": "^15.0.0",
-    "ts-node": "^8.6.2",
+    "nyc": "14.1.1",
+    "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "got": "^10.6.0"
+    "got": "^10.7.0"
   },
   "scripts": {
     "build": "tsc",
@@ -30,7 +31,8 @@
     "release:patch": "np patch",
     "release:minor": "np minor",
     "release:major": "np major",
-    "release:preview": "np --preview"
+    "release:preview": "np --preview",
+    "lint": "eslint src/**/*.ts test/*.ts --ignore-path .gitignore --fix"
   },
   "types": "./dist/src",
   "files": [
@@ -69,6 +71,7 @@
     ]
   },
   "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript"
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "cache": false
   }
 }
