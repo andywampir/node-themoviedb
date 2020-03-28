@@ -47,14 +47,14 @@ export default class MovieDB {
     this.sessionID = sessionID;
   }
 
-  public account(options: AccountEndpointOptions): AccountEndpoint {
-    if (!options.sessionID && !this.sessionID)
+  public account(options?: AccountEndpointOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
       throw new RequiredSessionIDError();
 
     return new AccountEndpoint({
       apiKey: this.apiKey,
-      sessionID: options.sessionID ?? this.sessionID as string,
-      language: options.language ?? this.language,
+      sessionID: options?.sessionID ?? this.sessionID as string,
+      language: options?.language ?? this.language,
     });
   }
 
