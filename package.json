@@ -68,7 +68,9 @@
     ],
     "extensions": [
       "ts"
-    ]
+    ],
+    "failFast": false,
+    "timeout": "20s"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
