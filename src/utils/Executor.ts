@@ -20,7 +20,7 @@ export interface ExecutionResult {
 }
 
 export default class Executor<ReturnType> {
-  protected executionList: ExecutionItem<ReturnType>[] = [];
+  public executionList: ExecutionItem<ReturnType>[] = [];
 
   public async execute(): Promise<ReturnType | null> {
     const promises: CancelableRequest<Response<unknown>>[] = [];
@@ -42,10 +42,12 @@ export default class Executor<ReturnType> {
     } catch (error) {
       if (error instanceof HTTPError) {
         if (error.response.statusCode === 401) {
-          const { body: {
-            status_code,
-            status_message,
-          } } = error.response as Response<ResponseError>;
+          const {
+            body: {
+              status_code,
+              status_message,
+            },
+          } = error.response as Response<ResponseError>;
 
           throw new NotEnoughPermissionError(
             status_message, status_code,
@@ -60,6 +62,8 @@ export default class Executor<ReturnType> {
       } else {
         throw new UnknownError(error.message);
       }
+    } finally {
+      this.executionList = [];
     }
 
     return (responses as unknown) as ReturnType;

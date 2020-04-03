@@ -45,7 +45,7 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
       'newSession',
       rqst.post('authentication/session/new', {
         searchParams,
-        json: { request_token: requestToken }
+        json: { request_token: requestToken },
       }),
     );
 
