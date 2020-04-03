@@ -9,7 +9,10 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY as string;
 
 test('instance creating', t => {
   t.throws(() => new MovieDB({ apiKey: '' }), { instanceOf: RequiredApiKeyError });
-  t.notThrows(() => new MovieDB({ apiKey: TMDB_API_KEY }));
+  t.notThrows(() => new MovieDB({
+    apiKey: TMDB_API_KEY,
+    language: 'ru-RU',
+  }));
 });
 
 test('base functions', t => {
