@@ -22,7 +22,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
 
     this.apiKey = options.apiKey;
     this.sessionID = options.sessionID;
-    this.language = options.language ?? 'en-US';
+    this.language = options.language as string;
   }
 
   public details(sessionID?: string): AccountEndpoint {
@@ -49,7 +49,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
 
     this.addToExecutionList(
       'createdLists',
-      rqst(`account/${options.id ?? -1}/lists`, { searchParams }),
+      rqst(`account/${options.userID}/lists`, { searchParams }),
     );
 
     return this;
@@ -61,12 +61,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
       session_id: options.sessionID ?? this.sessionID,
       language: options.language ?? this.language,
       page: options.page ?? 1,
-      sort_by: options.sort_by ?? '',
+      sort_by: options.sortBy ?? '',
     };
 
     this.addToExecutionList(
       'favoriteMovies',
-      rqst(`account/${options.id}/favorite/movies`, { searchParams }),
+      rqst(`account/${options.userID}/favorite/movies`, { searchParams }),
     );
 
     return this;
@@ -78,12 +78,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
       session_id: options.sessionID ?? this.sessionID,
       language: options.language ?? this.language,
       page: options.page ?? 1,
-      sort_by: options.sort_by ?? '',
+      sort_by: options.sortBy ?? '',
     };
 
     this.addToExecutionList(
       'favoriteTVShows',
-      rqst(`account/${options.id}/favorite/tv`, { searchParams }),
+      rqst(`account/${options.userID}/favorite/tv`, { searchParams }),
     );
 
     return this;
@@ -98,12 +98,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
     this.addToExecutionList(
       'markAsFavorite',
       rqst.post(
-        `account/${options.id}/favorite`,
+        `account/${options.userID}/favorite`,
         {
           searchParams,
           json: {
-            media_type: options.media_type,
-            media_id: options.media_id,
+            media_type: options.mediaType,
+            media_id: options.mediaID,
             favorite: options.favorite,
           },
         },
@@ -119,12 +119,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
       session_id: options.sessionID ?? this.sessionID,
       language: options.language ?? this.language,
       page: options.page ?? 1,
-      sort_by: options.sort_by ?? '',
+      sort_by: options.sortBy ?? '',
     };
 
     this.addToExecutionList(
       'ratedMovies',
-      rqst(`account/${options.id}/rated/movies`, { searchParams }),
+      rqst(`account/${options.userID}/rated/movies`, { searchParams }),
     );
 
     return this;
@@ -136,12 +136,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
       session_id: options.sessionID ?? this.sessionID,
       language: options.language ?? this.language,
       page: options.page ?? 1,
-      sort_by: options.sort_by ?? '',
+      sort_by: options.sortBy ?? '',
     };
 
     this.addToExecutionList(
       'ratedTVShows',
-      rqst(`account/${options.id}/rated/tv`, { searchParams }),
+      rqst(`account/${options.userID}/rated/tv`, { searchParams }),
     );
 
     return this;
@@ -153,12 +153,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
       session_id: options.sessionID ?? this.sessionID,
       language: options.language ?? this.language,
       page: options.page ?? 1,
-      sort_by: options.sort_by ?? '',
+      sort_by: options.sortBy ?? '',
     };
 
     this.addToExecutionList(
       'ratedTVEpisodes',
-      rqst(`account/${options.id}/rated/tv/episodes`, { searchParams }),
+      rqst(`account/${options.userID}/rated/tv/episodes`, { searchParams }),
     );
 
     return this;
@@ -170,12 +170,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
       session_id: options.sessionID ?? this.sessionID,
       language: options.language ?? this.language,
       page: options.page ?? 1,
-      sort_by: options.sort_by ?? '',
+      sort_by: options.sortBy ?? '',
     };
 
     this.addToExecutionList(
       'movieWatchlist',
-      rqst(`account/${options.id}/watchlist/movies`, { searchParams }),
+      rqst(`account/${options.userID}/watchlist/movies`, { searchParams }),
     );
 
     return this;
@@ -187,12 +187,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
       session_id: options.sessionID ?? this.sessionID,
       language: options.language ?? this.language,
       page: options.page ?? 1,
-      sort_by: options.sort_by ?? '',
+      sort_by: options.sortBy ?? '',
     };
 
     this.addToExecutionList(
       'tvShowWatchlist',
-      rqst(`account/${options.id}/watchlist/tv`, { searchParams }),
+      rqst(`account/${options.userID}/watchlist/tv`, { searchParams }),
     );
 
     return this;
@@ -207,12 +207,12 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
     this.addToExecutionList(
       'addToWatchlist',
       rqst.post(
-        `account/${options.id}/watchlist`,
+        `account/${options.userID}/watchlist`,
         {
           searchParams,
           json: {
-            media_type: options.media_type,
-            media_id: options.media_id,
+            media_type: options.mediaType,
+            media_id: options.mediaID,
             watchlist: options.watchlist,
           },
         },

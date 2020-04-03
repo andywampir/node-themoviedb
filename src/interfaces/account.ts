@@ -3,12 +3,12 @@ import {
   ResultsWithPage, Movie,
   TVShow, ResponseWithCode,
   MovieWithRating, SortOrder,
-  MediaType, TVShowWithRating
+  MediaType, TVShowWithRating,
 } from './common';
 
 // Options
 interface CommonPathParametrs {
-  id: number;
+  userID: number;
 }
 
 interface CommonQueryString {
@@ -26,42 +26,42 @@ export interface AccountConstructorOptions {
 export interface CreatedListsOptions extends CommonPathParametrs, CommonQueryString {}
 
 export interface FavoriteMoviesOptions extends CommonPathParametrs, CommonQueryString {
-  sort_by?: SortOrder;
+  sortBy?: SortOrder;
 }
 
 export interface FavoriteTVShowsOptions extends FavoriteMoviesOptions {}
 
 export interface MarkAsFavoriteOptions extends CommonPathParametrs {
   sessionID?: string;
-  media_type: MediaType;
-  media_id: number;
+  mediaType: MediaType;
+  mediaID: number;
   favorite: boolean;
 }
 
 export interface RatedMoviesOptions extends CommonPathParametrs, CommonQueryString {
-  sort_by?: SortOrder;
+  sortBy?: SortOrder;
 }
 
 export interface RatedTVShowsOptions extends CommonPathParametrs, CommonQueryString {
-  sort_by?: SortOrder;
+  sortBy?: SortOrder;
 }
 
 export interface RatedTVEpisodesOptions extends CommonPathParametrs, CommonQueryString {
-  sort_by?: SortOrder;
+  sortBy?: SortOrder;
 }
 
 export interface MovieWatchlistOptions extends CommonPathParametrs, CommonQueryString {
-  sort_by?: SortOrder;
+  sortBy?: SortOrder;
 }
 
 export interface TVShowWatchlistOptions extends CommonPathParametrs, CommonQueryString {
-  sort_by?: SortOrder;
+  sortBy?: SortOrder;
 }
 
 export interface AddToWatchlistOptions extends CommonPathParametrs {
   sessionID?: string;
-  media_type: MediaType;
-  media_id: number;
+  mediaType: MediaType;
+  mediaID: number;
   watchlist: boolean;
 }
 
