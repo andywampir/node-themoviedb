@@ -132,7 +132,7 @@
     "array-bracket-spacing": [ "warn", "always" ],
     "block-spacing": [ "error", "always" ],
     "camelcase": "error",
-    "comma-dangle": [ "error", "only-multiline" ],
+    "comma-dangle": [ "error", "always-multiline" ],
     "comma-style": [ "error", "last" ],
     "computed-property-spacing": "error",
     "eol-last": [ "error", "always" ],
@@ -194,6 +194,7 @@
     "object-curly-newline": [
       "error",
       {
+        "multiline": true,
         "minProperties": 2
       }
     ],
@@ -258,6 +259,7 @@
     "symbol-description": "error",
     "template-curly-spacing": "error",
     "yield-star-spacing": "error",
+    "no-process-exit": "error",
     "@typescript-eslint/adjacent-overload-signatures": "error",
     "@typescript-eslint/array-type": [
       "error",
