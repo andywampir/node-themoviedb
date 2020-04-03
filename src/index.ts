@@ -3,7 +3,7 @@ import AuthentificationEndpoint from './endpoints/v3/AuthenticationEndpoint';
 import CertificationEndpoint from './endpoints/v3/CertificationEndpoint';
 
 import {
-  RequiredApiKeyError, RequiredSessionIDError
+  RequiredApiKeyError, RequiredSessionIDError,
 } from './errors';
 
 interface AccountEndpointOptions {

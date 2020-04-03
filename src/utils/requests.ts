@@ -13,7 +13,7 @@ export const requestV3 = got.extend({
 export const requestV4 = got.extend({
   responseType: 'json',
   prefixUrl: 'https://api.themoviedb.org/4',
-  headers: { ...commonHeaders }
+  headers: { ...commonHeaders },
 });
 
 export default requestV3;

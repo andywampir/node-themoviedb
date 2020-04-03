@@ -20,7 +20,7 @@ export interface ExecutionResult {
 }
 
 export default class Executor<ReturnType> {
-  public executionList: ExecutionItem<ReturnType>[] = [];
+  private executionList: ExecutionItem<ReturnType>[] = [];
 
   public async execute(): Promise<ReturnType | null> {
     const promises: CancelableRequest<Response<unknown>>[] = [];

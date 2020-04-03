@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "nyc ava",
+    "test": "nyc ava --serial",
     "release:patch": "np patch",
     "release:minor": "np minor",
     "release:major": "np major",
