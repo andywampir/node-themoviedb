@@ -8,7 +8,7 @@ import {
   MarkAsFavoriteOptions, RatedMoviesOptions,
   RatedTVShowsOptions, RatedTVEpisodesOptions,
   MovieWatchlistOptions, TVShowWatchlistOptions,
-  AddToWatchlistOptions, AccountConstructorOptions
+  AddToWatchlistOptions, AccountConstructorOptions,
 } from '../../interfaces/account';
 import { SearchParametrs } from '../../interfaces/common';
 
@@ -49,7 +49,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
 
     this.addToExecutionList(
       'createdLists',
-      rqst(`account/${options.id}/lists`, { searchParams }),
+      rqst(`account/${options.id ?? -1}/lists`, { searchParams }),
     );
 
     return this;
@@ -92,7 +92,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
   public markAsFavorite(options: MarkAsFavoriteOptions): AccountEndpoint {
     const searchParams: SearchParametrs = {
       api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID
+      session_id: options.sessionID ?? this.sessionID,
     };
 
     this.addToExecutionList(
@@ -201,7 +201,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
   public addToWatchlist(options: AddToWatchlistOptions): AccountEndpoint {
     const searchParams: SearchParametrs = {
       api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID
+      session_id: options.sessionID ?? this.sessionID,
     };
 
     this.addToExecutionList(
