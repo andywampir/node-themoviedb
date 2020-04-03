@@ -18,7 +18,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-ava": "^10.2.0",
     "np": "^6.2.0",
-    "nyc": "14.1.1",
+    "nyc": "^15.0.0",
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
   },
@@ -60,7 +60,8 @@
   "homepage": "https://github.com/andywampir/node-themoviedb",
   "ava": {
     "files": [
-      "test/*"
+      "test/*",
+      "!test/utils.ts"
     ],
     "require": [
       "ts-node/register",
@@ -70,7 +71,7 @@
       "ts"
     ],
     "failFast": false,
-    "timeout": "20s"
+    "timeout": "30s"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
