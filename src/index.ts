@@ -1,6 +1,7 @@
 import AccountEndpoint from './endpoints/v3/AccountEndpoint';
 import AuthentificationEndpoint from './endpoints/v3/AuthenticationEndpoint';
 import CertificationEndpoint from './endpoints/v3/CertificationEndpoint';
+import ChangesEndpoint from './endpoints/v3/ChangesEndpoint';
 
 import {
   RequiredApiKeyError, RequiredSessionIDError,
@@ -64,6 +65,10 @@ export default class MovieDB {
 
   public certification(): CertificationEndpoint {
     return new CertificationEndpoint(this.apiKey);
+  }
+
+  public changes(): ChangesEndpoint {
+    return new ChangesEndpoint(this.apiKey);
   }
 }
 
