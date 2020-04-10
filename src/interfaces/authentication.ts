@@ -38,6 +38,15 @@ export interface AuthenticationValidateToken extends AuthenticationNewToken {}
 
 export interface AuthenticationConvertToken extends AuthenticationNewSession {}
 
-export interface AuthenticationDeleteSession {
+export type AuthenticationDeleteSession =
+  AuthenticationDeleteSessionSuccess
+  | AuthenticationDeleteSessionFailure;
+
+export interface AuthenticationDeleteSessionSuccess {
   success: boolean;
+}
+
+export interface AuthenticationDeleteSessionFailure {
+  status_code: number;
+  status_message: string;
 }

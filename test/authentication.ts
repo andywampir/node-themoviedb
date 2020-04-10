@@ -5,6 +5,7 @@ import ava, { TestInterface } from 'ava';
 import MovieDB from '../src';
 
 import { NotEnoughPermissionError } from '../src/errors';
+import { AuthenticationDeleteSessionFailure } from '../src/interfaces/authentication';
 // eslint-disable-next-line ava/no-import-test-files
 import * as testUtils from './utils';
 
@@ -121,18 +122,14 @@ test('delete session', async t => {
 
   const response = await authentication
     .newGuestSession()
+    .deleteSession('fake_session_id')
     .execute();
   const guestSession = response?.newGuestSession?.[0];
+  const deleteSession = response?.deleteSession?.[0] as AuthenticationDeleteSessionFailure;
 
   t.truthy(guestSession);
-
-  // TODO: Incorrect behavior, it's must throws error
-  // await t.notThrowsAsync(
-  //   mdb
-  //     .authentication()
-  //     .deleteSession('fake_session_id')
-  //     .execute(),
-  // );
+  t.is(deleteSession.status_code, 6);
+  t.truthy(deleteSession.status_message);
 
   await t.notThrowsAsync(
     authentication
