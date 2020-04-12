@@ -37,8 +37,7 @@
   "types": "./dist/src",
   "files": [
     "dist/src",
-    "LICENSE.md",
-    "index.d.ts"
+    "LICENSE.md"
   ],
   "keywords": [
     "tmdb",
@@ -48,7 +47,8 @@
     "themoviedatabase",
     "wrapper",
     "movie",
-    "the movie db"
+    "the movie db",
+    "tv shows"
   ],
   "repository": {
     "type": "git",
