@@ -70,7 +70,7 @@
     "dot-location": [ "error", "property" ],
     "dot-notation": "warn",
     "eqeqeq": [ "error", "always" ],
-    "max-classes-per-file": [ "error", 3 ],
+    "max-classes-per-file": [ "error", 1 ],
     "no-alert": "error",
     "no-caller": "error",
     "no-case-declarations": "error",
