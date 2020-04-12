@@ -35,7 +35,6 @@ export interface AuthenticationNewSession {
 }
 
 export interface AuthenticationValidateToken extends AuthenticationNewToken {}
-
 export interface AuthenticationConvertToken extends AuthenticationNewSession {}
 
 export type AuthenticationDeleteSession =

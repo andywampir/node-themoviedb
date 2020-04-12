@@ -19,9 +19,7 @@ export interface ResponseWithCode {
 }
 
 export type SearchParametrs = Record<string, string | number>;
-
 export type MediaType = 'movie' | 'tv';
-
 export type SortOrder = 'created_at.asc' | 'created_at.desc';
 
 // Object types

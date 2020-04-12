@@ -6,60 +6,62 @@ import {
   ChangesReturnType, ChangesMovieOptions,
   ChangesPersonOptions, ChangesTVOptions,
 } from '../../interfaces/changes';
-import { SearchParametrs } from '../../interfaces/common';
 
 export default class ChangesEndpoint extends Executor<ChangesReturnType> {
   private readonly apiKey: string;
 
   public constructor(apiKey: string) {
-    super();
+    super(rqst);
 
     this.apiKey = apiKey;
   }
 
   public movie(options?: ChangesMovieOptions): ChangesEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      end_date: options?.endDate ?? '',
-      start_date: options?.startDate ?? '',
-      page: options?.page ?? 1,
-    };
-
     this.addToExecutionList(
       'movie',
-      rqst('movie/changes', { searchParams }),
+      {
+        uri: 'movie/changes',
+        searchParams: {
+          api_key: this.apiKey,
+          end_date: options?.endDate ?? '',
+          start_date: options?.startDate ?? '',
+          page: options?.page ?? 1,
+        },
+      },
     );
 
     return this;
   }
 
   public tv(options?: ChangesTVOptions): ChangesEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      end_date: options?.endDate ?? '',
-      start_date: options?.startDate ?? '',
-      page: options?.page ?? 1,
-    };
-
     this.addToExecutionList(
       'tv',
-      rqst('tv/changes', { searchParams }),
+      {
+        uri: 'tv/changes',
+        searchParams: {
+          api_key: this.apiKey,
+          end_date: options?.endDate ?? '',
+          start_date: options?.startDate ?? '',
+          page: options?.page ?? 1,
+        },
+      },
     );
 
     return this;
   }
 
   public person(options?: ChangesPersonOptions): ChangesEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      end_date: options?.endDate ?? '',
-      start_date: options?.startDate ?? '',
-      page: options?.page ?? 1,
-    };
-
     this.addToExecutionList(
       'person',
-      rqst('person/changes', { searchParams }),
+      {
+        uri: 'person/changes',
+        searchParams: {
+          api_key: this.apiKey,
+          end_date: options?.endDate ?? '',
+          start_date: options?.startDate ?? '',
+          page: options?.page ?? 1,
+        },
+      },
     );
 
     return this;

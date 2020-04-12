@@ -4,7 +4,7 @@ import ava, { TestInterface } from 'ava';
 
 import MovieDB from '../src';
 import {
-  NotEnoughPermissionError, RequiredSessionIDError,
+  NotEnoughPermissionError, RequiredParameterError,
 } from '../src/errors';
 // eslint-disable-next-line ava/no-import-test-files
 import * as testUtils from './utils';
@@ -13,6 +13,7 @@ interface Context {
   sessionID: string;
   userID: number;
   mdb: MovieDB;
+  mdbWithoutSessionID: MovieDB;
 }
 
 const test = ava as TestInterface<Context>;
@@ -36,6 +37,7 @@ test.before(async t => {
   t.context.mdb = mdb;
   t.context.userID = response?.details?.[0].id ?? -1;
   t.context.sessionID = session?.session_id ?? '';
+  t.context.mdbWithoutSessionID = new MovieDB({ apiKey: TMDB_API_KEY });
 });
 
 test('errors', async t => {
@@ -52,10 +54,6 @@ test('errors', async t => {
   mdb.setApiKey(TMDB_API_KEY);
 
   // Session ID
-  t.throws(
-    () => mdb.account(),
-    { instanceOf: RequiredSessionIDError },
-  );
   t.notThrows(
     () => mdb.account({ sessionID: 'fake_session_id' }),
   );
@@ -65,6 +63,7 @@ test('details', async t => {
   const {
     sessionID,
     mdb,
+    mdbWithoutSessionID,
   } = t.context;
   const account = mdb.account({ language: 'ru-RU' });
 
@@ -73,7 +72,14 @@ test('details', async t => {
       .details(sessionID)
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .details(),
+    { instanceOf: RequiredParameterError },
+  );
 
+  t.is(requiredSessionIDError.parameter, 'sessionID');
   const response = await account
     .details()
     .execute();
@@ -88,8 +94,13 @@ test('created lists', async t => {
     sessionID,
     userID,
     mdb,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account();
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -101,9 +112,32 @@ test('created lists', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .createdLists(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .createdLists({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .createdLists({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    })
+    .cancelAll(),
+  );
 
   const response = await account
-    .createdLists({ userID })
+    .createdLists()
     .execute();
   const createdLists = response?.createdLists?.[0];
 
@@ -116,8 +150,13 @@ test('favorite movies', async t => {
     sessionID,
     userID,
     mdb,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -130,9 +169,31 @@ test('favorite movies', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .favoriteMovies(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .favoriteMovies({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .favoriteMovies({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    }),
+  );
 
   const response = await account
-    .favoriteMovies({ userID })
+    .favoriteMovies()
     .execute();
   const favoriteMovies = response?.favoriteMovies?.[0];
 
@@ -145,8 +206,13 @@ test('favorite tv shows', async t => {
     sessionID,
     userID,
     mdb,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -159,9 +225,31 @@ test('favorite tv shows', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .favoriteTVShows(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .favoriteTVShows({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .favoriteTVShows({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    }),
+  );
 
   const response = await account
-    .favoriteTVShows({ userID })
+    .favoriteTVShows()
     .execute();
   const favoriteTVShows = response?.favoriteTVShows?.[0];
 
@@ -174,8 +262,13 @@ test('mark as favorite', async t => {
     sessionID,
     userID,
     mdb,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -188,10 +281,43 @@ test('mark as favorite', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .markAsFavorite({
+        favorite: false,
+        mediaID: 1337,
+        mediaType: 'tv',
+      }),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .markAsFavorite({
+        sessionID: 'fake_session_id',
+        favorite: false,
+        mediaID: 1337,
+        mediaType: 'tv',
+      }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .markAsFavorite({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+      favorite: false,
+      mediaID: 1337,
+      mediaType: 'tv',
+    }),
+  );
 
   const response = await account
     .markAsFavorite({
-      userID,
       favorite: false,
       mediaID: 63247,
       mediaType: 'tv',
@@ -208,8 +334,13 @@ test('rated movies', async t => {
     mdb,
     sessionID,
     userID,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -222,9 +353,31 @@ test('rated movies', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .ratedMovies(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .ratedMovies({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .ratedMovies({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    }),
+  );
 
   const response = await account
-    .ratedMovies({ userID })
+    .ratedMovies()
     .execute();
   const ratedMovies = response?.ratedMovies?.[0];
 
@@ -237,8 +390,13 @@ test('rated tv shows', async t => {
     mdb,
     sessionID,
     userID,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -251,9 +409,31 @@ test('rated tv shows', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .ratedTVShows(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .ratedTVShows({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .ratedTVShows({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    }),
+  );
 
   const response = await account
-    .ratedTVShows({ userID })
+    .ratedTVShows()
     .execute();
   const ratedTVShows = response?.ratedTVShows?.[0];
 
@@ -266,8 +446,13 @@ test('rated tv episodes', async t => {
     mdb,
     sessionID,
     userID,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -280,9 +465,31 @@ test('rated tv episodes', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .ratedTVEpisodes(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .ratedTVEpisodes({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .ratedTVEpisodes({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    }),
+  );
 
   const response = await account
-    .ratedTVEpisodes({ userID })
+    .ratedTVEpisodes()
     .execute();
   const ratedTVEpisodes = response?.ratedTVEpisodes?.[0];
 
@@ -295,8 +502,13 @@ test('movie watchlist', async t => {
     mdb,
     sessionID,
     userID,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -309,9 +521,31 @@ test('movie watchlist', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .movieWatchlist(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .movieWatchlist({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .movieWatchlist({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    }),
+  );
 
   const response = await account
-    .movieWatchlist({ userID })
+    .movieWatchlist()
     .execute();
   const movieWatchlist = response?.movieWatchlist?.[0];
 
@@ -324,8 +558,13 @@ test('tv show watchlist', async t => {
     mdb,
     sessionID,
     userID,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -338,9 +577,31 @@ test('tv show watchlist', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .tvShowWatchlist(),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .tvShowWatchlist({ sessionID: 'fake_session_id' }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .tvShowWatchlist({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+    }),
+  );
 
   const response = await account
-    .tvShowWatchlist({ userID })
+    .tvShowWatchlist()
     .execute();
   const tvShowWatchlist = response?.tvShowWatchlist?.[0];
 
@@ -353,8 +614,13 @@ test('add to watchlist', async t => {
     mdb,
     sessionID,
     userID,
+    mdbWithoutSessionID,
   } = t.context;
-  const account = mdb.account({ sessionID });
+  const account = mdb.account({
+    language: 'ru-RU',
+    sessionID,
+    userID,
+  });
 
   await t.notThrowsAsync(
     account
@@ -367,10 +633,43 @@ test('add to watchlist', async t => {
       })
       .execute(),
   );
+  const requiredSessionIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .addToWatchlist({
+        mediaID: 1337,
+        mediaType: 'tv',
+        watchlist: false,
+      }),
+    { instanceOf: RequiredParameterError },
+  );
+  const requiredUserIDError = t.throws<RequiredParameterError>(
+    () => mdbWithoutSessionID
+      .account()
+      .addToWatchlist({
+        sessionID: 'fake_session_id',
+        mediaID: 1337,
+        mediaType: 'tv',
+        watchlist: false,
+      }),
+    { instanceOf: RequiredParameterError },
+  );
+
+  t.is(requiredSessionIDError.parameter, 'sessionID');
+  t.is(requiredUserIDError.parameter, 'userID');
+  t.notThrows(() => mdbWithoutSessionID
+    .account()
+    .addToWatchlist({
+      sessionID: 'fake_session_id',
+      userID: 1337,
+      mediaID: 1337,
+      mediaType: 'tv',
+      watchlist: false,
+    }),
+  );
 
   const response = await account
     .addToWatchlist({
-      userID,
       mediaID: 63247,
       mediaType: 'tv',
       watchlist: false,

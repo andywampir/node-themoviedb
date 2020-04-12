@@ -8,24 +8,22 @@ import {
 
 // Options
 interface CommonPathParametrs {
-  userID: number;
-}
-
-interface CommonQueryString {
+  userID?: number;
   language?: string;
   page?: number;
   sessionID?: string;
 }
 
 export interface AccountConstructorOptions {
-  sessionID: string;
   apiKey: string;
+  userID?: number;
+  sessionID?: string;
   language?: string;
 }
 
-export interface CreatedListsOptions extends CommonPathParametrs, CommonQueryString {}
+export interface CreatedListsOptions extends CommonPathParametrs {}
 
-export interface FavoriteMoviesOptions extends CommonPathParametrs, CommonQueryString {
+export interface FavoriteMoviesOptions extends CommonPathParametrs {
   sortBy?: SortOrder;
 }
 
@@ -38,23 +36,23 @@ export interface MarkAsFavoriteOptions extends CommonPathParametrs {
   favorite: boolean;
 }
 
-export interface RatedMoviesOptions extends CommonPathParametrs, CommonQueryString {
+export interface RatedMoviesOptions extends CommonPathParametrs {
   sortBy?: SortOrder;
 }
 
-export interface RatedTVShowsOptions extends CommonPathParametrs, CommonQueryString {
+export interface RatedTVShowsOptions extends CommonPathParametrs {
   sortBy?: SortOrder;
 }
 
-export interface RatedTVEpisodesOptions extends CommonPathParametrs, CommonQueryString {
+export interface RatedTVEpisodesOptions extends CommonPathParametrs {
   sortBy?: SortOrder;
 }
 
-export interface MovieWatchlistOptions extends CommonPathParametrs, CommonQueryString {
+export interface MovieWatchlistOptions extends CommonPathParametrs {
   sortBy?: SortOrder;
 }
 
-export interface TVShowWatchlistOptions extends CommonPathParametrs, CommonQueryString {
+export interface TVShowWatchlistOptions extends CommonPathParametrs {
   sortBy?: SortOrder;
 }
 

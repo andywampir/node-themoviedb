@@ -1,18 +1,27 @@
 /* eslint-disable camelcase */
 import {
   Response, CancelableRequest,
-  HTTPError,
+  HTTPError, Got,
 } from 'got';
 
 import {
   NotEnoughPermissionError, NotFoundError,
   UnknownHTTPError, UnknownError,
 } from '../errors';
-import { ResponseError } from '../interfaces/common';
+import {
+  ResponseError, SearchParametrs,
+} from '../interfaces/common';
 
 interface ExecutionItem<TKeys> {
   key: keyof TKeys;
-  value: CancelableRequest<Response<unknown>>;
+  value: ExecutionItemValue;
+}
+
+interface ExecutionItemValue {
+  uri: string;
+  searchParams?: SearchParametrs;
+  json?: { [key: string]: unknown };
+  method?: 'get' | 'post' | 'delete';
 }
 
 export interface ExecutionResult {
@@ -21,6 +30,11 @@ export interface ExecutionResult {
 
 export default class Executor<ReturnType> {
   private executionList: ExecutionItem<ReturnType>[] = [];
+  private readonly httpClient: Got;
+
+  protected constructor(httpClient: Got) {
+    this.httpClient = httpClient;
+  }
 
   public async execute(): Promise<ReturnType | null> {
     const promises: CancelableRequest<Response<unknown>>[] = [];
@@ -28,7 +42,15 @@ export default class Executor<ReturnType> {
 
     for (const item of this.executionList) {
       keys.push(item.key as string);
-      promises.push(item.value.json());
+      promises.push(
+        this.httpClient[item.value.method ?? 'get'](
+          item.value.uri,
+          {
+            searchParams: item.value.searchParams,
+            json: item.value.json,
+          },
+        ).json(),
+      );
     }
 
     const responses: ExecutionResult = {};
@@ -69,13 +91,17 @@ export default class Executor<ReturnType> {
     return (responses as unknown) as ReturnType;
   }
 
-  protected addToExecutionList<TExecution>(
+  public cancelAll(): void {
+    this.executionList = [];
+  }
+
+  protected addToExecutionList(
     key: keyof ReturnType,
-    execution: CancelableRequest<Response<TExecution>>,
+    value: ExecutionItemValue,
   ): void {
     this.executionList.push({
       key,
-      value: execution,
+      value,
     });
   }
 }

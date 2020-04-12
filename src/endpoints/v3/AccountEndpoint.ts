@@ -10,213 +10,271 @@ import {
   MovieWatchlistOptions, TVShowWatchlistOptions,
   AddToWatchlistOptions, AccountConstructorOptions,
 } from '../../interfaces/account';
-import { SearchParametrs } from '../../interfaces/common';
+import { RequiredParameterError } from '../../errors';
 
 export default class AccountEndpoint extends Executor<AccountReturnType> {
   private readonly apiKey: string;
-  private readonly sessionID: string;
   private readonly language: string;
+  private readonly sessionID?: string;
+  private readonly userID?: number;
 
   public constructor(options: AccountConstructorOptions) {
-    super();
+    super(rqst);
 
     this.apiKey = options.apiKey;
-    this.sessionID = options.sessionID;
     this.language = options.language as string;
+    this.sessionID = options.sessionID;
+    this.userID = options.userID;
   }
 
   public details(sessionID?: string): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: sessionID ?? this.sessionID,
-    };
+    if (!sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
 
     this.addToExecutionList(
       'details',
-      rqst('account', { searchParams }),
+      {
+        uri: 'account',
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: sessionID ?? this.sessionID as string,
+        },
+      },
     );
 
     return this;
   }
 
-  public createdLists(options: CreatedListsOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-    };
+  public createdLists(options?: CreatedListsOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'createdLists',
-      rqst(`account/${options.userID}/lists`, { searchParams }),
+      {
+        uri: `account/${options?.userID ?? this.userID}/lists`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+        },
+      },
     );
 
     return this;
   }
 
-  public favoriteMovies(options: FavoriteMoviesOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-      sort_by: options.sortBy ?? '',
-    };
+  public favoriteMovies(options?: FavoriteMoviesOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'favoriteMovies',
-      rqst(`account/${options.userID}/favorite/movies`, { searchParams }),
+      {
+        uri: `account/${options?.userID ?? this.userID}/favorite/movies`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+          sort_by: options?.sortBy ?? '',
+        },
+      },
     );
 
     return this;
   }
 
-  public favoriteTVShows(options: FavoriteTVShowsOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-      sort_by: options.sortBy ?? '',
-    };
+  public favoriteTVShows(options?: FavoriteTVShowsOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'favoriteTVShows',
-      rqst(`account/${options.userID}/favorite/tv`, { searchParams }),
+      {
+        uri: `account/${options?.userID}/favorite/tv`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+          sort_by: options?.sortBy ?? '',
+        },
+      },
     );
 
     return this;
   }
 
   public markAsFavorite(options: MarkAsFavoriteOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-    };
+    if (!options.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'markAsFavorite',
-      rqst.post(
-        `account/${options.userID}/favorite`,
-        {
-          searchParams,
-          json: {
-            media_type: options.mediaType,
-            media_id: options.mediaID,
-            favorite: options.favorite,
-          },
+      {
+        uri: `account/${options.userID ?? this.userID}/favorite`,
+        method: 'post',
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options.sessionID ?? this.sessionID as string,
         },
-      ),
+        json: {
+          media_type: options.mediaType,
+          media_id: options.mediaID,
+          favorite: options.favorite,
+        },
+      },
     );
 
     return this;
   }
 
-  public ratedMovies(options: RatedMoviesOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-      sort_by: options.sortBy ?? '',
-    };
+  public ratedMovies(options?: RatedMoviesOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'ratedMovies',
-      rqst(`account/${options.userID}/rated/movies`, { searchParams }),
+      {
+        uri: `account/${options?.userID ?? this.userID}/rated/movies`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+          sort_by: options?.sortBy ?? '',
+        },
+      },
     );
 
     return this;
   }
 
-  public ratedTVShows(options: RatedTVShowsOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-      sort_by: options.sortBy ?? '',
-    };
+  public ratedTVShows(options?: RatedTVShowsOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'ratedTVShows',
-      rqst(`account/${options.userID}/rated/tv`, { searchParams }),
+      {
+        uri: `account/${options?.userID ?? this.userID}/rated/tv`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+          sort_by: options?.sortBy ?? '',
+        },
+      },
     );
 
     return this;
   }
 
-  public ratedTVEpisodes(options: RatedTVEpisodesOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-      sort_by: options.sortBy ?? '',
-    };
+  public ratedTVEpisodes(options?: RatedTVEpisodesOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'ratedTVEpisodes',
-      rqst(`account/${options.userID}/rated/tv/episodes`, { searchParams }),
+      {
+        uri: `account/${options?.userID ?? this.userID}/rated/tv/episodes`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+          sort_by: options?.sortBy ?? '',
+        },
+      },
     );
 
     return this;
   }
 
-  public movieWatchlist(options: MovieWatchlistOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-      sort_by: options.sortBy ?? '',
-    };
+  public movieWatchlist(options?: MovieWatchlistOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'movieWatchlist',
-      rqst(`account/${options.userID}/watchlist/movies`, { searchParams }),
+      {
+        uri: `account/${options?.userID ?? this.userID}/watchlist/movies`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+          sort_by: options?.sortBy ?? '',
+        },
+      },
     );
 
     return this;
   }
 
-  public tvShowWatchlist(options: TVShowWatchlistOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-      language: options.language ?? this.language,
-      page: options.page ?? 1,
-      sort_by: options.sortBy ?? '',
-    };
+  public tvShowWatchlist(options?: TVShowWatchlistOptions): AccountEndpoint {
+    if (!options?.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options?.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'tvShowWatchlist',
-      rqst(`account/${options.userID}/watchlist/tv`, { searchParams }),
+      {
+        uri: `account/${options?.userID ?? this.userID}/watchlist/tv`,
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options?.sessionID ?? this.sessionID as string,
+          language: options?.language ?? this.language,
+          page: options?.page ?? 1,
+          sort_by: options?.sortBy ?? '',
+        },
+      },
     );
 
     return this;
   }
 
   public addToWatchlist(options: AddToWatchlistOptions): AccountEndpoint {
-    const searchParams: SearchParametrs = {
-      api_key: this.apiKey,
-      session_id: options.sessionID ?? this.sessionID,
-    };
+    if (!options.sessionID && !this.sessionID)
+      throw new RequiredParameterError('sessionID');
+    if (!options.userID && !this.userID)
+      throw new RequiredParameterError('userID');
 
     this.addToExecutionList(
       'addToWatchlist',
-      rqst.post(
-        `account/${options.userID}/watchlist`,
-        {
-          searchParams,
-          json: {
-            media_type: options.mediaType,
-            media_id: options.mediaID,
-            watchlist: options.watchlist,
-          },
+      {
+        uri: `account/${options.userID ?? this.userID}/watchlist`,
+        method: 'post',
+        searchParams: {
+          api_key: this.apiKey,
+          session_id: options.sessionID ?? this.sessionID as string,
         },
-      ),
+        json: {
+          media_type: options.mediaType,
+          media_id: options.mediaID,
+          watchlist: options.watchlist,
+        },
+      },
     );
 
     return this;

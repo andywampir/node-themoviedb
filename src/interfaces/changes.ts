@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-
 import { ResultsWithPage } from './common';
 
 // Options
@@ -10,9 +9,7 @@ interface CommonParameters {
 }
 
 export interface ChangesMovieOptions extends CommonParameters {}
-
 export interface ChangesTVOptions extends CommonParameters {}
-
 export interface ChangesPersonOptions extends CommonParameters {}
 
 // Return types
@@ -28,7 +25,5 @@ interface CommonReturnType {
 }
 
 interface ChangesMovie extends CommonReturnType {}
-
 interface ChangesTV extends CommonReturnType {}
-
 interface ChangesPerson extends CommonReturnType {}

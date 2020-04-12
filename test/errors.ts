@@ -20,20 +20,13 @@ test('not found error', t => {
   t.is(notFoundError.message, 'The resource you requested could not be found');
 });
 
-test('required api key error', t => {
-  const requiredApiKeyError = t.throws<errors.RequiredApiKeyError>(() => {
-    throw new errors.RequiredApiKeyError();
-  }, { instanceOf: errors.RequiredApiKeyError });
+test('required parameter', t => {
+  const requiredParameterError = t.throws<errors.RequiredParameterError>(() => {
+    throw new errors.RequiredParameterError('exampleParam');
+  }, { instanceOf: errors.RequiredParameterError });
 
-  t.is(requiredApiKeyError.message, 'You must specify api key');
-});
-
-test('required session id error', t => {
-  const requiredSessionIDError = t.throws<errors.RequiredSessionIDError>(() => {
-    throw new errors.RequiredSessionIDError();
-  }, { instanceOf: errors.RequiredSessionIDError });
-
-  t.is(requiredSessionIDError.message, 'You must specify session id');
+  t.is(requiredParameterError.message, 'You must specify a parameter: exampleParam');
+  t.is(requiredParameterError.parameter, 'exampleParam');
 });
 
 test('unknown error', t => {
