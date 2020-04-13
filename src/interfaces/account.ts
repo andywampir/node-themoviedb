@@ -7,7 +7,7 @@ import {
 } from './common';
 
 // Options
-interface CommonPathParametrs {
+interface CommonParametrs {
   userID?: number;
   language?: string;
   page?: number;
@@ -21,42 +21,42 @@ export interface AccountConstructorOptions {
   language?: string;
 }
 
-export interface CreatedListsOptions extends CommonPathParametrs {}
+export interface CreatedListsOptions extends CommonParametrs {}
 
-export interface FavoriteMoviesOptions extends CommonPathParametrs {
+export interface FavoriteMoviesOptions extends CommonParametrs {
   sortBy?: SortOrder;
 }
 
 export interface FavoriteTVShowsOptions extends FavoriteMoviesOptions {}
 
-export interface MarkAsFavoriteOptions extends CommonPathParametrs {
+export interface MarkAsFavoriteOptions extends CommonParametrs {
   sessionID?: string;
   mediaType: MediaType;
   mediaID: number;
   favorite: boolean;
 }
 
-export interface RatedMoviesOptions extends CommonPathParametrs {
+export interface RatedMoviesOptions extends CommonParametrs {
   sortBy?: SortOrder;
 }
 
-export interface RatedTVShowsOptions extends CommonPathParametrs {
+export interface RatedTVShowsOptions extends CommonParametrs {
   sortBy?: SortOrder;
 }
 
-export interface RatedTVEpisodesOptions extends CommonPathParametrs {
+export interface RatedTVEpisodesOptions extends CommonParametrs {
   sortBy?: SortOrder;
 }
 
-export interface MovieWatchlistOptions extends CommonPathParametrs {
+export interface MovieWatchlistOptions extends CommonParametrs {
   sortBy?: SortOrder;
 }
 
-export interface TVShowWatchlistOptions extends CommonPathParametrs {
+export interface TVShowWatchlistOptions extends CommonParametrs {
   sortBy?: SortOrder;
 }
 
-export interface AddToWatchlistOptions extends CommonPathParametrs {
+export interface AddToWatchlistOptions extends CommonParametrs {
   sessionID?: string;
   mediaType: MediaType;
   mediaID: number;
