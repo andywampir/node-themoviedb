@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { Image } from './common';
 
 // Options
 export interface CollectionConstructorOptions {
@@ -55,14 +56,8 @@ interface CollectionImages {
   posters: CollectionImage<string>[];
 }
 
-interface CollectionImage<ISOType> {
-  aspect_ratio: number;
-  file_path: string;
-  height: number;
+interface CollectionImage<ISOType> extends Image {
   iso_639_1: ISOType;
-  vote_average: number;
-  vote_count: number;
-  width: number;
 }
 
 interface CollectionTranslations {

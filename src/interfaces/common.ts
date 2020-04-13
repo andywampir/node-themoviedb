@@ -63,3 +63,12 @@ export interface TVShow {
 export interface TVShowWithRating extends TVShow {
   rating: number;
 }
+
+export interface Image {
+  aspect_ratio: number;
+  file_path: string;
+  height: number;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
