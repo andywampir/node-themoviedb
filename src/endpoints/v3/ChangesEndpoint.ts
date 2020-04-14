@@ -5,7 +5,7 @@ import rqst from '../../utils/requests';
 import {
   ChangesReturnType, ChangesMovieOptions,
   ChangesPersonOptions, ChangesTVOptions,
-} from '../../interfaces/changes';
+} from '../../interfaces/v3/changes';
 
 export default class ChangesEndpoint extends Executor<ChangesReturnType> {
   private readonly apiKey: string;

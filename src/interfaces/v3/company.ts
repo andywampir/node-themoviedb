@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Image } from './common';
+import { Image } from '../common';
 
 // Return types
 export interface CompanyReturnType {

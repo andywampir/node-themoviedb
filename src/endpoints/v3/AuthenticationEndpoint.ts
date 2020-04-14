@@ -4,7 +4,7 @@ import rqst from '../../utils/requests';
 
 import {
   AuthenticationReturnType, AuthenticationValidateTokenOptions,
-} from '../../interfaces/authentication';
+} from '../../interfaces/v3/authentication';
 
 export default class AuthenticationEndpoint extends Executor<AuthenticationReturnType> {
   private readonly apiKey: string;

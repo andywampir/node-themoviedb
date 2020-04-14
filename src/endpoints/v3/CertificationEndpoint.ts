@@ -2,7 +2,7 @@
 import Executor from '../../utils/Executor';
 import rqst from '../../utils/requests';
 
-import { CerificationReturnType } from '../../interfaces/certification';
+import { CerificationReturnType } from '../../interfaces/v3/certification';
 
 export default class CertificationEndpoint extends Executor<CerificationReturnType> {
   private readonly apiKey: string;

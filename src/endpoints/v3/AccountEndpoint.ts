@@ -9,7 +9,7 @@ import {
   RatedTVShowsOptions, RatedTVEpisodesOptions,
   MovieWatchlistOptions, TVShowWatchlistOptions,
   AddToWatchlistOptions, AccountConstructorOptions,
-} from '../../interfaces/account';
+} from '../../interfaces/v3/account';
 import { RequiredParameterError } from '../../errors';
 
 export default class AccountEndpoint extends Executor<AccountReturnType> {

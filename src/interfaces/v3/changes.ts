@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { ResultsWithPage } from './common';
+import { ResultsWithPage } from '../common';
 
 // Options
 interface CommonParameters {

@@ -4,7 +4,7 @@ import {
   TVShow, ResponseWithCode,
   MovieWithRating, SortOrder,
   MediaType, TVShowWithRating,
-} from './common';
+} from '../common';
 
 // Options
 interface CommonParametrs {

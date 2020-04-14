@@ -6,7 +6,7 @@ import {
   CollectionDetailsOptions, CollectionImagesOptions,
   CollectionReturnType, CollectionTranslationsOptions,
   CollectionConstructorOptions,
-} from '../../interfaces/collection';
+} from '../../interfaces/v3/collection';
 import { RequiredParameterError } from '../../errors';
 
 export default class CollectionEndpoint extends Executor<CollectionReturnType> {

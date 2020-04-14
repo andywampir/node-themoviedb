@@ -4,7 +4,7 @@ import MovieDB from '../src';
 import {
   AuthenticationValidateToken, AuthenticationNewToken,
   AuthenticationNewSession,
-} from '../src/interfaces/authentication';
+} from '../src/interfaces/v3/authentication';
 
 const TMDB_LOGIN = process.env.TMDB_LOGIN as string;
 const TMDB_PASSWORD = process.env.TMDB_PASSWORD as string;
