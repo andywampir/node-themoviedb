@@ -3,7 +3,7 @@ import {
   PeopleCredit, Image,
   ResultsWithPage, TVShowWithMediaType,
   MovieWithMediaType, ImageWithISO639,
-  Person,
+  Person, ExternalIDs,
 } from '../common';
 
 // Options
@@ -187,15 +187,8 @@ interface PeopleCombinedCreditCrew extends PeopleCredit {
   original_title: string;
 }
 
-interface PeopleExternalIDs {
+interface PeopleExternalIDs extends ExternalIDs {
   id: number;
-  imdb_id: string | null;
-  facebook_id: string | null;
-  freebase_mid: string | null;
-  freebase_id: string | null;
-  tvrage_id: number | null;
-  twitter_id: string | null;
-  instagram_id: string | null;
 }
 
 interface PeopleImages {

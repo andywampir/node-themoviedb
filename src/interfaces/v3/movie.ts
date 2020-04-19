@@ -3,6 +3,8 @@ import {
   ImageWithISO639, Movie,
   ResultsWithPage, Review,
   ResponseWithCode, MovieExtended,
+  CrewCredit, CastCredit,
+  MovieVideo, ExternalIDs,
 } from '../common';
 
 // Options
@@ -73,7 +75,7 @@ export interface MovieRateOptions extends CommonParameters {
   value: number;
 }
 
-export interface MovieDeleteRateOptions extends CommonParameters {
+export interface MovieDeleteRatingOptions extends CommonParameters {
   sessionID?: string;
   guestSessionID?: string;
 }
@@ -124,7 +126,7 @@ export interface MovieReturnType {
   reviews?: MovieReviews[];
   lists?: MovieLists[];
   rate?: MovieRate[];
-  deleteRate?: MovieDeleteRate[];
+  deleteRating?: MovieDeleteRating[];
   latest?: MovieLatest[];
   nowPlaying?: MovieNowPlaying[];
   popular?: MoviePopular[];
@@ -182,32 +184,11 @@ interface MovieChanges {
 
 interface MovieCredits {
   id: number;
-  case: {
-    cast_id: number;
-    character: string;
-    credit_id: string;
-    gender: number | null;
-    id: number;
-    name: string;
-    order: number;
-    profile_path: string | null;
-  }[];
-  crew: {
-    credit_id: string;
-    department: string;
-    gender: number | null;
-    id: number;
-    job: string;
-    name: string;
-    profile_path: string | null;
-  }[];
+  cast: CastCredit & { cast_id: number }[];
+  crew: CrewCredit[];
 }
 
-interface MovieExternalIDs {
-  imdb_id: string | null;
-  facebook_id: string | null;
-  instagram_id: string | null;
-  twitter_id: string | null;
+interface MovieExternalIDs extends Omit<ExternalIDs, 'freebase_mid' | 'freebase_id' | 'tvdb_id' | 'tvrage_id'> {
   id: number;
 }
 
@@ -241,22 +222,7 @@ interface MovieReleaseDates {
 
 interface MovieVideos {
   id: number;
-  results: {
-    id: string;
-    iso_639_1: string;
-    iso_3166_1: string;
-    key: string;
-    name: string;
-    site: string;
-    size: 360 | 480 | 720 | 1080;
-    type:
-    | 'Trailer'
-    | 'Teaser'
-    | 'Clip'
-    | 'Featurette'
-    | 'Behind the Scenes'
-    | 'Bloopers';
-  }[];
+  results: MovieVideo[];
 }
 
 interface MovieTranslations {
@@ -297,7 +263,7 @@ interface MovieList {
 }
 
 interface MovieRate extends ResponseWithCode {}
-interface MovieDeleteRate extends ResponseWithCode {}
+interface MovieDeleteRating extends ResponseWithCode {}
 interface MovieLatest extends MovieExtended {}
 
 interface MovieNowPlaying extends ResultsWithPage<Movie> {

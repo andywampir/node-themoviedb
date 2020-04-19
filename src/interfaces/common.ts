@@ -40,7 +40,7 @@ export interface Movie {
   vote_average: number;
 }
 
-export interface MovieExtended extends Movie {
+export interface MovieExtended extends Omit<Movie, 'genre_ids'> {
   belongs_to_collection: {
     id: number;
     name: string;
@@ -104,6 +104,66 @@ export interface TVShow {
   original_name: string;
 }
 
+export interface TVShowExtended extends Omit<TVShow, 'genre_ids'> {
+  created_by: {
+    id: number;
+    credit_id: string;
+    name: string;
+    gender: number;
+    profile_path: string;
+  }[];
+  episode_run_time: number[];
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  homepage: string;
+  in_production: boolean;
+  languages: string[];
+  last_air_date: string;
+  last_episode_to_air: EpisodeToAir;
+  next_episode_to_air: EpisodeToAir | null;
+  networks: {
+    name: string;
+    id: number;
+    logo_path: string;
+    origin_country: string;
+  }[];
+  number_of_episodes: number;
+  number_of_seasons: number;
+  production_companies: {
+    id: number;
+    logo_path: string | null;
+    name: string;
+    origin_country: string;
+  }[];
+  seasons: {
+    air_date: string;
+    episode_count: number;
+    id: number;
+    name: string;
+    overview: string;
+    poster_path: string;
+    season_number: number;
+  }[];
+  status: string; // TODO Define statuses
+  type: string; // TODO Define types
+}
+
+interface EpisodeToAir {
+  air_date: string;
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+  production_code: string;
+  season_number: number;
+  show_id: number;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
+}
+
 export interface TVShowWithRating extends TVShow {
   rating: number;
 }
@@ -155,4 +215,79 @@ export interface PeopleCredit {
   vote_count: number;
   vote_average: number;
   genre_ids: number[];
+}
+
+interface Credit {
+  id: number;
+  name: string;
+  gender: number | null;
+  credit_id: string;
+  profile_path: string | null;
+}
+
+export interface CastCredit extends Credit {
+  character: string;
+  order: number;
+}
+
+export interface CrewCredit extends Credit {
+  department: string;
+  job: string;
+}
+
+interface Video {
+  id: string;
+  iso_3166_1: string;
+  iso_639_1: string;
+  key: string;
+  name: string;
+  site: string;
+  size: 360 | 480 | 720 | 1080;
+}
+
+export interface MovieVideo extends Video {
+  type:
+  | 'Trailer'
+  | 'Teaser'
+  | 'Clip'
+  | 'Featurette'
+  | 'Behind the Scenes'
+  | 'Bloopers';
+}
+
+export interface TVShowVideo extends Video {
+  type:
+  | 'Trailer'
+  | 'Teaser'
+  | 'Clip'
+  | 'Featurette'
+  | 'Behind the Scenes'
+  | 'Bloopers'
+  | 'Opening Credits';
+}
+
+export interface TVEpisode {
+  air_date: string;
+  crew: CrewCredit[];
+  episode_number: number;
+  guest_stars: CastCredit[];
+  name: string;
+  overview: string;
+  id: number;
+  production_code: string | null;
+  season_number: number;
+  still_path: string | null;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface ExternalIDs {
+  imdb_id: string | null;
+  freebase_mid: string | null;
+  freebase_id: string | null;
+  tvdb_id: number | null;
+  tvrage_id: number | null;
+  facebook_id: string | null;
+  instagram_id: string | null;
+  twitter_id: string | null;
 }
