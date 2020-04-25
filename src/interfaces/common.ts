@@ -150,13 +150,13 @@ export interface TVShowExtended extends Omit<TVShow, 'genre_ids'> {
   type: string; // TODO Define types
 }
 
-interface EpisodeToAir {
+export interface EpisodeToAir {
   air_date: string;
   episode_number: number;
   id: number;
   name: string;
   overview: string;
-  production_code: string;
+  production_code: string | null;
   season_number: number;
   show_id: number;
   still_path: string;
