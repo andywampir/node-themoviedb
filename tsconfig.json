@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "es2017",
+    "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
@@ -9,8 +9,7 @@
     ],
     "baseUrl": ".",
     "esModuleInterop": true,
-    "outDir": "dist",
-    "tsBuildInfoFile": ".tsbuildinfo"
+    "outDir": "dist"
   },
   "exclude": [
     "node_modules/**/*",
