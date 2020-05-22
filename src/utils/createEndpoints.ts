@@ -1,3 +1,10 @@
+/* eslint-disable @typescript-eslint/no-dynamic-delete */
+/* eslint-disable dot-notation */
+/* eslint-disable camelcase */
+import { URLSearchParams } from 'url';
+
+import { Response } from 'got';
+
 import {
   CreatedRequestOptions,
   RequestType,
@@ -5,27 +12,37 @@ import {
 } from './interfaces';
 import parseEndpoint from './parseEndpoint';
 import normalizeQuery from './normalizeQuery';
-import { request } from './requests';
+import request from './requests';
 import catchHTTPErrors from './catchHTTPErrors';
 import DataController from '../DataController';
-import { URLSearchParams } from 'url';
 
-const createEndpoint = (type: RequestType, endpoint: string) => {
+interface Endpoint {
+  data: unknown;
+  headers: unknown;
+}
+
+type Request = (options: CreatedRequestOptions) => Promise<Endpoint>;
+
+const createEndpoint = (type: RequestType, endpoint: string): Request => {
   const data = DataController.getInstance();
 
-  return async ({ body, pathParameters, query }: CreatedRequestOptions) => {
-    if (pathParameters) {
-      endpoint = parseEndpoint(endpoint, pathParameters);
-    }
+  return async (options: CreatedRequestOptions): Promise<Endpoint> => {
+    const {
+      body,
+      pathParameters,
+      query,
+    } = options;
+    let parsedEndpoint: string = null;
+    let response: Response<string> = null;
+
+    if (pathParameters)
+      parsedEndpoint = parseEndpoint(endpoint, pathParameters);
 
     if (query) {
-      if (query['api_key']) {
+      if (query['api_key'])
         delete query['api_key'];
-      }
-
-      if (query['language']) {
+      if (query['language'])
         delete query['language'];
-      }
     }
 
     const readyQuery = new URLSearchParams({
@@ -42,49 +59,31 @@ const createEndpoint = (type: RequestType, endpoint: string) => {
     try {
       switch (type) {
         case 'GET': {
-          const response = await request(endpoint, { query: readyQuery });
-
-          return {
-            data: response.body,
-            headers: response.headers,
-            rateLimit: {
-              limit: parseInt(response.headers['x-ratelimit-limit'] as string, 10),
-              remaining: parseInt(response.headers['x-ratelimit-remaining'] as string, 10),
-              reset: parseInt(response.headers['x-ratelimit-reset'] as string, 10),
-            },
-          };
+          response = await request(parsedEndpoint, { searchParams: readyQuery });
+          break;
         }
 
         case 'POST': {
-          const response = await request.post(endpoint, { query: readyQuery, body });
-
-          return {
-            data: response.body,
-            headers: response.headers,
-            rateLimit: {
-              limit: parseInt(response.headers['x-ratelimit-limit'] as string, 10),
-              remaining: parseInt(response.headers['x-ratelimit-remaining'] as string, 10),
-              reset: parseInt(response.headers['x-ratelimit-reset'] as string, 10),
-            },
-          };
+          response = await request.post(endpoint, {
+            searchParams: readyQuery,
+            json: body,
+          });
+          break;
         }
 
         case 'DELETE': {
-          const response = await request.delete(endpoint, { query: readyQuery, body });
-
-          return {
-            data: response.body,
-            headers: response.headers,
-            rateLimit: {
-              limit: parseInt(response.headers['x-ratelimit-limit'] as string, 10),
-              remaining: parseInt(response.headers['x-ratelimit-remaining'] as string, 10),
-              reset: parseInt(response.headers['x-ratelimit-reset'] as string, 10),
-            },
-          };
+          response = await request.delete(endpoint, {
+            searchParams: readyQuery,
+            json: body,
+          });
+          break;
         }
-
-        default: break;
       }
+
+      return {
+        data: JSON.parse(response.body),
+        headers: response.headers,
+      };
     } catch (error) {
       catchHTTPErrors(error);
       throw error;
@@ -92,8 +91,8 @@ const createEndpoint = (type: RequestType, endpoint: string) => {
   };
 };
 
-export default (endpoints: RequestOption[]) => {
-  const root = {};
+export default (endpoints: RequestOption[]): { [key: string]: Request } => {
+  const root: { [key: string]: Request } = {};
 
   endpoints.forEach(endpoint => {
     root[endpoint.name] = createEndpoint(endpoint.type, endpoint.endpoint);

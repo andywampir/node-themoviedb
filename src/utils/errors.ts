@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 class BaseError extends Error {
   public code: number;
   public errorCode: number;

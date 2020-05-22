@@ -175,13 +175,11 @@ const episodeEndpoints: RequestOption[] = [
     name: 'getVideos',
   },
 ];
-const groupEndpoints: RequestOption[] = [
-  {
-    type: 'GET',
-    endpoint: `${endpointBaseURL}/episode_group/{id}`,
-    name: 'getDetails',
-  },
-];
+const groupEndpoints: RequestOption[] = [ {
+  type: 'GET',
+  endpoint: `${endpointBaseURL}/episode_group/{id}`,
+  name: 'getDetails',
+} ];
 
 const tv = {
   ...createEndpoints(rootEndpoints),

@@ -2852,11 +2852,6 @@ declare namespace MovieDB {
   type Response<T> = Promise<{
     data: T;
     headers: IncomingHttpHeaders;
-    rateLimit: {
-      limit: number,
-      remaining: number,
-      reset: number,
-    };
   }>;
 
   interface ConstructorOptions {
