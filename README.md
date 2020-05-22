@@ -40,11 +40,6 @@ const mdb = new MovieDB(/* Your API Key */, options);
       {
         data: Object. Parsed json data of response
         headers: Object. Headers of response
-        rateLimit: {
-          limit: Number. Total limit for requests
-          remaining: Number. How much request remaining
-          reset: Number. Time to refresh rate limit
-        }
       }
     */
   } catch (error) {
