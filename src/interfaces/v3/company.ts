@@ -1,6 +1,12 @@
 /* eslint-disable camelcase */
 import { Image } from '../common';
 
+// Options
+export interface CompanyConstructorOptions {
+  apiKey: string;
+  companyID?: number;
+}
+
 // Return types
 export interface CompanyReturnType {
   details?: CompanyDetails[];
