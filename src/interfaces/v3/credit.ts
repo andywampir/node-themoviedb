@@ -1,11 +1,17 @@
 /* eslint-disable camelcase */
 
-// Return Types
-export interface CreditsReturnType {
-  details: CreditsDetails[];
+// Options
+export interface CreditConstructorOptions {
+  apiKey: string;
+  creditID?: string;
 }
 
-interface CreditsDetails {
+// Return Types
+export interface CreditReturnType {
+  details: CreditDetails[];
+}
+
+interface CreditDetails {
   credit_type: string;
   department: string;
   job: string;
