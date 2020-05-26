@@ -1,16 +1,16 @@
 /* eslint-disable camelcase */
 
 // Return types
-export interface CerificationReturnType {
-  movie?: CertificationMovie[];
-  tv?: CertificationTv[];
+export interface CerificationsReturnType {
+  movie?: CertificationsMovie[];
+  tv?: CertificationsTv[];
 }
 
-interface CertificationMovie {
+interface CertificationsMovie {
   certifications: Certifications;
 }
 
-interface CertificationTv extends CertificationMovie {}
+interface CertificationsTv extends CertificationsMovie {}
 
 interface Certification {
   certification: string;

@@ -1,8 +1,8 @@
 import AccountEndpoint from './endpoints/v3/AccountEndpoint';
 import AuthentificationEndpoint from './endpoints/v3/AuthenticationEndpoint';
-import CertificationEndpoint from './endpoints/v3/CertificationEndpoint';
+import CertificationsEndpoint from './endpoints/v3/CertificationsEndpoint';
 import ChangesEndpoint from './endpoints/v3/ChangesEndpoint';
-import CollectionEndpoint from './endpoints/v3/CollectionEndpoint';
+import CollectionsEndpoint from './endpoints/v3/CollectionsEndpoint';
 
 import { RequiredParameterError } from './errors';
 
@@ -66,16 +66,16 @@ export default class MovieDB {
     return new AuthentificationEndpoint(this.apiKey);
   }
 
-  public certification(): CertificationEndpoint {
-    return new CertificationEndpoint(this.apiKey);
+  public certifications(): CertificationsEndpoint {
+    return new CertificationsEndpoint(this.apiKey);
   }
 
   public changes(): ChangesEndpoint {
     return new ChangesEndpoint(this.apiKey);
   }
 
-  public collection(options?: CollectionEndpointOptions): CollectionEndpoint {
-    return new CollectionEndpoint({
+  public collections(options?: CollectionEndpointOptions): CollectionsEndpoint {
+    return new CollectionsEndpoint({
       apiKey: this.apiKey,
       language: options?.language ?? this.language,
       collectionID: options?.collectionID,

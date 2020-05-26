@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
 
 // Return Types
-export interface ReviewReturnType {
-  get?: ReviewGet[];
+export interface ReviewsReturnType {
+  get?: ReviewsGet[];
 }
 
-interface ReviewGet {
+interface ReviewsGet {
   id: string;
   author: string;
   content: string;

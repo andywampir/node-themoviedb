@@ -2,19 +2,19 @@
 import { Image } from '../common';
 
 // Options
-export interface CompanyConstructorOptions {
+export interface CompaniesConstructorOptions {
   apiKey: string;
   companyID?: number;
 }
 
 // Return types
-export interface CompanyReturnType {
-  details?: CompanyDetails[];
-  alternativeNames?: CompanyAlternativeNames[];
-  images?: CompanyImages[];
+export interface CompaniesReturnType {
+  details?: CompaniesDetails[];
+  alternativeNames?: CompaniesAlternativeNames[];
+  images?: CompaniesImages[];
 }
 
-interface CompanyDetails {
+interface CompaniesDetails {
   description: string;
   headquarters: string;
   homepage: string;
@@ -22,10 +22,10 @@ interface CompanyDetails {
   logo_path: string;
   name: string;
   origin_country: string;
-  parent_company: CompanyDetails;
+  parent_company: CompaniesDetails;
 }
 
-interface CompanyAlternativeNames {
+interface CompaniesAlternativeNames {
   id: number;
   results: {
     name: string;
@@ -33,12 +33,12 @@ interface CompanyAlternativeNames {
   }[];
 }
 
-interface CompanyImages {
+interface CompaniesImages {
   id: number;
-  logos: CompanyLogo[];
+  logos: CompaniesLogo[];
 }
 
-interface CompanyLogo extends Image {
+interface CompaniesLogo extends Image {
   id: string;
   file_type: '.svg' | '.png';
 }

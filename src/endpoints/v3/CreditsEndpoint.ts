@@ -3,22 +3,22 @@ import Executor from '../../utils/Executor';
 import rqst from '../../utils/requests';
 
 import {
-  CreditReturnType, CreditConstructorOptions,
-} from '../../interfaces/v3/credit';
+  CreditsReturnType, CreditsConstructorOptions,
+} from '../../interfaces/v3/credits';
 import { RequiredParameterError } from '../../errors';
 
-export default class CreditEndpoint extends Executor<CreditReturnType> {
+export default class CreditsEndpoint extends Executor<CreditsReturnType> {
   private readonly apiKey: string;
   private readonly creditID?: string;
 
-  public constructor(options: CreditConstructorOptions) {
+  public constructor(options: CreditsConstructorOptions) {
     super(rqst);
 
     this.apiKey = options.apiKey;
     this.creditID = options.creditID;
   }
 
-  public details(creditID?: string): CreditEndpoint {
+  public details(creditID?: string): CreditsEndpoint {
     if (!creditID || !this.creditID)
       throw new RequiredParameterError('creditID');
 

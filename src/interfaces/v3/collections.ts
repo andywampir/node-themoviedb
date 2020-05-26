@@ -2,7 +2,7 @@
 import { Image } from '../common';
 
 // Options
-export interface CollectionConstructorOptions {
+export interface CollectionsConstructorOptions {
   apiKey: string;
   language: string;
   collectionID?: number;
@@ -13,27 +13,27 @@ interface CommonParameters {
   language?: string;
 }
 
-export interface CollectionDetailsOptions extends CommonParameters {}
-export interface CollectionImagesOptions extends CommonParameters {}
-export interface CollectionTranslationsOptions extends CommonParameters {}
+export interface CollectionsDetailsOptions extends CommonParameters {}
+export interface CollectionsImagesOptions extends CommonParameters {}
+export interface CollectionsTranslationsOptions extends CommonParameters {}
 
 // Return types
-export interface CollectionReturnType {
-  details?: CollectionDetails[];
-  images?: CollectionImages[];
-  translations?: CollectionTranslations[];
+export interface CollectionsReturnType {
+  details?: CollectionsDetails[];
+  images?: CollectionsImages[];
+  translations?: CollectionsTranslations[];
 }
 
-interface CollectionDetails {
+interface CollectionsDetails {
   id: number;
   name: string;
   overview: string;
   poster_path: null;
   backdrop_path: string;
-  parts: CollectionDetailsPart[];
+  parts: CollectionsDetailsPart[];
 }
 
-interface CollectionDetailsPart {
+interface CollectionsDetailsPart {
   adult: boolean;
   backdrop_path: null;
   genre_ids: number[];
@@ -50,22 +50,22 @@ interface CollectionDetailsPart {
   vote_count: number;
 }
 
-interface CollectionImages {
+interface CollectionsImages {
   id: number;
-  backdrops: CollectionImage<null>[];
-  posters: CollectionImage<string>[];
+  backdrops: CollectionsImage<null>[];
+  posters: CollectionsImage<string>[];
 }
 
-interface CollectionImage<ISOType> extends Image {
+interface CollectionsImage<ISOType> extends Image {
   iso_639_1: ISOType;
 }
 
-interface CollectionTranslations {
+interface CollectionsTranslations {
   id: number;
-  translations: CollectionTranslation[];
+  translations: CollectionsTranslation[];
 }
 
-interface CollectionTranslation {
+interface CollectionsTranslation {
   iso_3166_1: string;
   iso_639_1: string;
   name: string;

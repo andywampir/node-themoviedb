@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 
 // Return Types
-export interface NetworkReturnType {
-  details?: NetworkDetails[];
-  alternativeNames?: NetworkAlternativeNames[];
-  images?: NetworkImages[];
+export interface NetworksReturnType {
+  details?: NetworksDetails[];
+  alternativeNames?: NetworksAlternativeNames[];
+  images?: NetworksImages[];
 }
 
-interface NetworkDetails {
+interface NetworksDetails {
   headquarters: string;
   homepage: string;
   id: number;
@@ -15,7 +15,7 @@ interface NetworkDetails {
   origin_country: string;
 }
 
-interface NetworkAlternativeNames {
+interface NetworksAlternativeNames {
   id: number;
   results: {
     name: string;
@@ -23,7 +23,7 @@ interface NetworkAlternativeNames {
   }[];
 }
 
-interface NetworkImages {
+interface NetworksImages {
   id: number;
   logos: {
     aspect_ratio: number;

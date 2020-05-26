@@ -21,7 +21,7 @@ test('errors', async t => {
 
   await t.throwsAsync(
     mdb
-      .certification()
+      .certifications()
       .tv()
       .execute(),
     { instanceOf: NotEnoughPermissionError },
@@ -30,7 +30,7 @@ test('errors', async t => {
 
 test('movie certifications', async t => {
   const { mdb } = t.context;
-  const certification = mdb.certification();
+  const certification = mdb.certifications();
 
   await t.notThrowsAsync(
     certification
@@ -48,7 +48,7 @@ test('movie certifications', async t => {
 
 test('tv certifications', async t => {
   const { mdb } = t.context;
-  const certification = mdb.certification();
+  const certification = mdb.certifications();
 
   await t.notThrowsAsync(
     certification

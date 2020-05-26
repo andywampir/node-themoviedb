@@ -11,51 +11,51 @@ interface CommonParameters {
   seasonNumber?: number;
 }
 
-export interface TVSeasonDetailsOptions extends CommonParameters {
+export interface TVSeasonsDetailsOptions extends CommonParameters {
   language?: string;
   appendToResponse?: string;
 }
 
-export interface TVSeasonChangesOptions extends Omit<CommonParameters, 'tvID'> {
+export interface TVSeasonsChangesOptions extends Omit<CommonParameters, 'tvID'> {
   startDate?: string;
   endDate?: string;
   page?: string;
 }
 
-export interface TVSeasonAccountStatesOptions extends CommonParameters {
+export interface TVSeasonsAccountStatesOptions extends CommonParameters {
   language?: string;
   guestSessionID?: string;
   sessinID?: string;
 }
 
-export interface TVSeasonCreditsOptions extends CommonParameters {
+export interface TVSeasonsCreditsOptions extends CommonParameters {
   language?: string;
 }
 
-export interface TVSeasonExternalIDsOptions extends CommonParameters {
+export interface TVSeasonsExternalIDsOptions extends CommonParameters {
   language?: string;
 }
 
-export interface TVSeasonImagesOptions extends CommonParameters {
+export interface TVSeasonsImagesOptions extends CommonParameters {
   language?: string;
 }
 
-export interface TVSeasonVideosOptions extends CommonParameters {
+export interface TVSeasonsVideosOptions extends CommonParameters {
   language?: string;
 }
 
 // Return Types
-export interface TVSeasonReturnType {
-  details?: TVSeasonDetails[];
-  changes?: TVSeasonChanges[];
-  accountStates?: TVSeasonAccountStates[];
-  credits?: TVSeasonCredits[];
-  externalIDs?: TVSeasonExternalIDs[];
-  images?: TVSeasonImages[];
-  videos?: TVSeasonVideos[];
+export interface TVSeasonsReturnType {
+  details?: TVSeasonsDetails[];
+  changes?: TVSeasonsChanges[];
+  accountStates?: TVSeasonsAccountStates[];
+  credits?: TVSeasonsCredits[];
+  externalIDs?: TVSeasonsExternalIDs[];
+  images?: TVSeasonsImages[];
+  videos?: TVSeasonsVideos[];
 }
 
-interface TVSeasonDetails {
+interface TVSeasonsDetails {
   _id: string;
   air_date: string;
   episodes: TVEpisode[];
@@ -64,13 +64,13 @@ interface TVSeasonDetails {
   id: number;
   poster_path: string | null;
   season_number: number;
-  credits?: Omit<TVSeasonCredits, 'id'>;
-  external_ids?: Omit<TVSeasonExternalIDs, 'id'>;
-  images?: Omit<TVSeasonImages, 'id'>;
-  videos?: Omit<TVSeasonVideos, 'id'>;
+  credits?: Omit<TVSeasonsCredits, 'id'>;
+  external_ids?: Omit<TVSeasonsExternalIDs, 'id'>;
+  images?: Omit<TVSeasonsImages, 'id'>;
+  videos?: Omit<TVSeasonsVideos, 'id'>;
 }
 
-interface TVSeasonChanges {
+interface TVSeasonsChanges {
   changes: {
     key: string;
     items: {
@@ -87,7 +87,7 @@ interface TVSeasonChanges {
   }[];
 }
 
-interface TVSeasonAccountStates {
+interface TVSeasonsAccountStates {
   id: number;
   results: {
     id: number;
@@ -98,22 +98,22 @@ interface TVSeasonAccountStates {
   }[];
 }
 
-interface TVSeasonCredits {
+interface TVSeasonsCredits {
   id: number;
   crew: CrewCredit[];
   cast: CastCredit[];
 }
 
-interface TVSeasonExternalIDs extends Omit<ExternalIDs, 'facebook_id' | 'instagram_id' | 'twitter_id' | 'imdb_id'> {
+interface TVSeasonsExternalIDs extends Omit<ExternalIDs, 'facebook_id' | 'instagram_id' | 'twitter_id' | 'imdb_id'> {
   id: number;
 }
 
-interface TVSeasonImages {
+interface TVSeasonsImages {
   id: number;
   posters: ImageWithISO639[];
 }
 
-interface TVSeasonVideos {
+interface TVSeasonsVideos {
   id: number;
   results: TVShowVideo[];
 }

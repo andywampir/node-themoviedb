@@ -3,22 +3,22 @@ import Executor from '../../utils/Executor';
 import rqst from '../../utils/requests';
 
 import {
-  CompanyReturnType, CompanyConstructorOptions,
-} from '../../interfaces/v3/company';
+  CompaniesReturnType, CompaniesConstructorOptions,
+} from '../../interfaces/v3/companies';
 import { RequiredParameterError } from '../../errors';
 
-export default class CompanyEndpoint extends Executor<CompanyReturnType> {
+export default class CompaniesEndpoint extends Executor<CompaniesReturnType> {
   private readonly apiKey: string;
   private readonly companyID?: number;
 
-  public constructor(options: CompanyConstructorOptions) {
+  public constructor(options: CompaniesConstructorOptions) {
     super(rqst);
 
     this.apiKey = options.apiKey;
     this.companyID = options.companyID;
   }
 
-  public details(companyID?: number): CompanyEndpoint {
+  public details(companyID?: number): CompaniesEndpoint {
     if (!companyID || !this.companyID)
       throw new RequiredParameterError('companyID');
 
@@ -33,7 +33,7 @@ export default class CompanyEndpoint extends Executor<CompanyReturnType> {
     return this;
   }
 
-  public alternativeNames(companyID?: number): CompanyEndpoint {
+  public alternativeNames(companyID?: number): CompaniesEndpoint {
     if (!companyID || !this.companyID)
       throw new RequiredParameterError('companyID');
 
@@ -48,7 +48,7 @@ export default class CompanyEndpoint extends Executor<CompanyReturnType> {
     return this;
   }
 
-  public images(companyID?: number): CompanyEndpoint {
+  public images(companyID?: number): CompaniesEndpoint {
     if (!companyID || !this.companyID)
       throw new RequiredParameterError('companyID');
 

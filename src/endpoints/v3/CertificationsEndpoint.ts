@@ -2,9 +2,9 @@
 import Executor from '../../utils/Executor';
 import rqst from '../../utils/requests';
 
-import { CerificationReturnType } from '../../interfaces/v3/certification';
+import { CerificationsReturnType } from '../../interfaces/v3/certifications';
 
-export default class CertificationEndpoint extends Executor<CerificationReturnType> {
+export default class CertificationsEndpoint extends Executor<CerificationsReturnType> {
   private readonly apiKey: string;
 
   public constructor(apiKey: string) {
@@ -13,7 +13,7 @@ export default class CertificationEndpoint extends Executor<CerificationReturnTy
     this.apiKey = apiKey;
   }
 
-  public movie(): CertificationEndpoint {
+  public movie(): CertificationsEndpoint {
     this.addToExecutionList(
       'movie',
       {
@@ -25,7 +25,7 @@ export default class CertificationEndpoint extends Executor<CerificationReturnTy
     return this;
   }
 
-  public tv(): CertificationEndpoint {
+  public tv(): CertificationsEndpoint {
     this.addToExecutionList(
       'tv',
       {

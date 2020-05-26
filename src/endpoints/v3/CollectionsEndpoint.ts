@@ -3,18 +3,18 @@ import Executor from '../../utils/Executor';
 import rqst from '../../utils/requests';
 
 import {
-  CollectionDetailsOptions, CollectionImagesOptions,
-  CollectionReturnType, CollectionTranslationsOptions,
-  CollectionConstructorOptions,
-} from '../../interfaces/v3/collection';
+  CollectionsDetailsOptions, CollectionsImagesOptions,
+  CollectionsReturnType, CollectionsTranslationsOptions,
+  CollectionsConstructorOptions,
+} from '../../interfaces/v3/collections';
 import { RequiredParameterError } from '../../errors';
 
-export default class CollectionEndpoint extends Executor<CollectionReturnType> {
+export default class CollectionsEndpoint extends Executor<CollectionsReturnType> {
   private readonly apiKey: string;
   private readonly language: string;
   private readonly collectionID?: number;
 
-  public constructor(options: CollectionConstructorOptions) {
+  public constructor(options: CollectionsConstructorOptions) {
     super(rqst);
 
     this.apiKey = options.apiKey;
@@ -22,7 +22,7 @@ export default class CollectionEndpoint extends Executor<CollectionReturnType> {
     this.collectionID = options.collectionID;
   }
 
-  public details(options?: CollectionDetailsOptions): CollectionEndpoint {
+  public details(options?: CollectionsDetailsOptions): CollectionsEndpoint {
     if (!options?.collectionID && !this.collectionID)
       throw new RequiredParameterError('collectionID');
 
@@ -40,7 +40,7 @@ export default class CollectionEndpoint extends Executor<CollectionReturnType> {
     return this;
   }
 
-  public images(options?: CollectionImagesOptions): CollectionEndpoint {
+  public images(options?: CollectionsImagesOptions): CollectionsEndpoint {
     if (!options?.collectionID && !this.collectionID)
       throw new RequiredParameterError('collectionID');
 
@@ -58,7 +58,7 @@ export default class CollectionEndpoint extends Executor<CollectionReturnType> {
     return this;
   }
 
-  public translations(options?: CollectionTranslationsOptions): CollectionEndpoint {
+  public translations(options?: CollectionsTranslationsOptions): CollectionsEndpoint {
     if (!options?.collectionID && !this.collectionID)
       throw new RequiredParameterError('collectionID');
 

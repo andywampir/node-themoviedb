@@ -30,14 +30,14 @@ test('errors', async t => {
 
   await t.throwsAsync(
     mdb
-      .collection()
+      .collections()
       .details({ collectionID: 1 })
       .execute(),
     { instanceOf: NotEnoughPermissionError },
   );
   let requiredCollectionIDError = t.throws<RequiredParameterError>(
     () => mdb
-      .collection()
+      .collections()
       .details(),
     { instanceOf: RequiredParameterError },
   );
@@ -45,14 +45,14 @@ test('errors', async t => {
   t.is(requiredCollectionIDError.parameter, 'collectionID');
   requiredCollectionIDError = t.throws(
     () => mdb
-      .collection()
+      .collections()
       .images(),
     { instanceOf: RequiredParameterError },
   );
   t.is(requiredCollectionIDError.parameter, 'collectionID');
   requiredCollectionIDError = t.throws(
     () => mdb
-      .collection()
+      .collections()
       .translations(),
     { instanceOf: RequiredParameterError },
   );
@@ -61,7 +61,7 @@ test('errors', async t => {
 
 test('details', async t => {
   const { mdb } = t.context;
-  const collection = mdb.collection({
+  const collection = mdb.collections({
     collectionID: COLLECTION_ID,
     language: 'ru-RU',
   });
@@ -73,7 +73,7 @@ test('details', async t => {
   );
   t.notThrows(
     () => mdb
-      .collection()
+      .collections()
       .details({
         collectionID: COLLECTION_ID,
         language: 'ru-RU',
@@ -91,7 +91,7 @@ test('details', async t => {
 
 test('images', async t => {
   const { mdb } = t.context;
-  const collection = mdb.collection({
+  const collection = mdb.collections({
     collectionID: COLLECTION_ID,
     language: 'ru-RU',
   });
@@ -103,7 +103,7 @@ test('images', async t => {
   );
   t.notThrows(
     () => mdb
-      .collection()
+      .collections()
       .images({
         collectionID: COLLECTION_ID,
         language: 'ru-RU',
@@ -121,7 +121,7 @@ test('images', async t => {
 
 test('translations', async t => {
   const { mdb } = t.context;
-  const collection = mdb.collection({
+  const collection = mdb.collections({
     collectionID: COLLECTION_ID,
     language: 'ru-RU',
   });
@@ -133,7 +133,7 @@ test('translations', async t => {
   );
   t.notThrows(
     () => mdb
-      .collection()
+      .collections()
       .translations({
         collectionID: COLLECTION_ID,
         language: 'ru-RU',
