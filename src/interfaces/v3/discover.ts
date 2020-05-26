@@ -5,6 +5,11 @@ import {
 } from '../common';
 
 // Options
+export interface DiscoverConstructorOptions {
+  apiKey: string;
+  language: string;
+}
+
 type CommonSortBy =
 | 'popularity.asc'
 | 'popularity.desc'

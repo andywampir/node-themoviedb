@@ -5,6 +5,11 @@ import {
 } from '../common';
 
 // Options
+export interface FindConstructorOptions {
+  apiKey: string;
+  language: string;
+}
+
 export interface FindByIDOptions {
   externalID: string;
   externalSource:
