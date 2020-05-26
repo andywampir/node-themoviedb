@@ -82,7 +82,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           session_id: options?.sessionID ?? this.sessionID as string,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? '',
+          sort_by: options?.sortBy ?? null,
         },
       },
     );
@@ -105,7 +105,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           session_id: options?.sessionID ?? this.sessionID as string,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? '',
+          sort_by: options?.sortBy ?? null,
         },
       },
     );
@@ -154,7 +154,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           session_id: options?.sessionID ?? this.sessionID as string,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? '',
+          sort_by: options?.sortBy ?? null,
         },
       },
     );
@@ -177,7 +177,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           session_id: options?.sessionID ?? this.sessionID as string,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? '',
+          sort_by: options?.sortBy ?? null,
         },
       },
     );
@@ -200,7 +200,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           session_id: options?.sessionID ?? this.sessionID as string,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? '',
+          sort_by: options?.sortBy ?? null,
         },
       },
     );
@@ -223,7 +223,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           session_id: options?.sessionID ?? this.sessionID as string,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? '',
+          sort_by: options?.sortBy ?? null,
         },
       },
     );
@@ -246,7 +246,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           session_id: options?.sessionID ?? this.sessionID as string,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? '',
+          sort_by: options?.sortBy ?? null,
         },
       },
     );

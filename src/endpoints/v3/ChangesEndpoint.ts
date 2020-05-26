@@ -23,8 +23,8 @@ export default class ChangesEndpoint extends Executor<ChangesReturnType> {
         uri: 'movie/changes',
         searchParams: {
           api_key: this.apiKey,
-          end_date: options?.endDate ?? '',
-          start_date: options?.startDate ?? '',
+          end_date: options?.endDate ?? null,
+          start_date: options?.startDate ?? null,
           page: options?.page ?? 1,
         },
       },
@@ -40,8 +40,8 @@ export default class ChangesEndpoint extends Executor<ChangesReturnType> {
         uri: 'tv/changes',
         searchParams: {
           api_key: this.apiKey,
-          end_date: options?.endDate ?? '',
-          start_date: options?.startDate ?? '',
+          end_date: options?.endDate ?? null,
+          start_date: options?.startDate ?? null,
           page: options?.page ?? 1,
         },
       },
@@ -57,8 +57,8 @@ export default class ChangesEndpoint extends Executor<ChangesReturnType> {
         uri: 'person/changes',
         searchParams: {
           api_key: this.apiKey,
-          end_date: options?.endDate ?? '',
-          start_date: options?.startDate ?? '',
+          end_date: options?.endDate ?? null,
+          start_date: options?.startDate ?? null,
           page: options?.page ?? 1,
         },
       },
