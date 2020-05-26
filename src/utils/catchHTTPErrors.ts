@@ -37,12 +37,6 @@ export default (error: Error): void => {
         throw new errors.RequestTimeout();
       }
 
-      case 429: {
-        const retryAfter = parseInt((error as HTTPError).response.headers['retry-after']);
-
-        throw new errors.TooManyRequests(retryAfter);
-      }
-
       default: break;
     }
   }

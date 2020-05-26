@@ -2843,6 +2843,9 @@ declare namespace MovieDB {
       errorCode: 408;
     }
 
+    /**
+     * @deprecated Because limits does not exists anymore in API
+     */
     interface TooManyRequests extends Error {
       code: number;
       errorCode: 429;

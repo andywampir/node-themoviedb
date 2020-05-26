@@ -64,7 +64,6 @@ const args = {
 const response = await mdb.tv.getVideos(args);
 // Or nested methods
 // const response = await mdb.tv.episode.rateTVEpisode(args);
-console.log(response.rateLimit.limit) // 40
 ```
 
 # API
@@ -293,7 +292,7 @@ Throws when request timed out
 - code - Number. Usually equals to `0`
 - errorCode - Number. Equals to `408`
 
-## TooManyRequests
+## TooManyRequests (deprecated)
 
 Throws when expired rate limit
 
