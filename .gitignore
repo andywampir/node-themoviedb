@@ -58,3 +58,4 @@ dist
 .tsbuildinfo
 yarn.lock
 .env
+pnpm-lock.yaml
