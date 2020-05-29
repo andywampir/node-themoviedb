@@ -63,7 +63,7 @@
   "ava": {
     "files": [
       "test/*",
-      "!test/utils.ts"
+      "!test/helper.ts"
     ],
     "require": [
       "ts-node/register",

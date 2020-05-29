@@ -11,6 +11,7 @@ import {
 import {
   ResponseError, SearchParametrs,
 } from '../interfaces/common';
+import normalizeSearchParams from './normalizeSearchParams';
 
 interface ExecutionItem<TKeys> {
   key: keyof TKeys;
@@ -46,7 +47,7 @@ export default class Executor<ReturnType> {
         this.httpClient[item.value.method ?? 'get'](
           item.value.uri,
           {
-            searchParams: item.value.searchParams,
+            searchParams: normalizeSearchParams(item.value.searchParams),
             json: item.value.json,
           },
         ).json(),

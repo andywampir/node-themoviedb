@@ -7,7 +7,7 @@ import MovieDB from '../src';
 import { NotEnoughPermissionError } from '../src/errors';
 import { AuthenticationDeleteSessionFailure } from '../src/interfaces/v3/authentication';
 // eslint-disable-next-line ava/no-import-test-files
-import * as testUtils from './utils';
+import * as testUtils from './helper';
 
 interface Context {
   mdb: MovieDB;

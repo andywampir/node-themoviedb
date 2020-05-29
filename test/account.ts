@@ -7,7 +7,7 @@ import {
   NotEnoughPermissionError, RequiredParameterError,
 } from '../src/errors';
 // eslint-disable-next-line ava/no-import-test-files
-import * as testUtils from './utils';
+import * as testUtils from './helper';
 
 interface Context {
   sessionID: string;
