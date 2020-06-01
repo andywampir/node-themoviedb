@@ -34,7 +34,7 @@ const mdb = new MovieDB(/* Your API Key */, options);
         movie_id: 384018,
       },
     };
-    const movie = await mdb.movies.getDetails(args);
+    const movie = await mdb.movie.getDetails(args);
     console.log(movie);
     /*
       {
