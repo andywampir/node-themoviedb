@@ -1,3 +1,7 @@
+### 0.2.3
+  - fix(utils): destructure undefined options #4
+  - fix(endpoints): remove slash in start of endpoints
+
 ### 0.2.2
   - fix(docs): typo
 
