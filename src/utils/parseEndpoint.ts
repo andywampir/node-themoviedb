@@ -1,7 +1,7 @@
 export default (endpoint: string, params: object): string => {
   const regExp = /{(.+?)}/;
   let parsedEndpoint = endpoint;
-  let match: RegExpExecArray = null;
+  let match: RegExpExecArray | null = null;
 
   // eslint-disable-next-line no-cond-assign
   while (match = regExp.exec(parsedEndpoint))
