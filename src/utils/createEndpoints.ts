@@ -26,55 +26,50 @@ type Request = (options: CreatedRequestOptions) => Promise<Endpoint>;
 const createEndpoint = (type: RequestType, endpoint: string): Request => {
   const data = DataController.getInstance();
 
-  return async (options: CreatedRequestOptions): Promise<Endpoint> => {
-    const {
-      body,
-      pathParameters,
-      query,
-    } = options;
-    let parsedEndpoint: string = null;
-    let response: Response<string> = null;
-
-    if (pathParameters)
-      parsedEndpoint = parseEndpoint(endpoint, pathParameters);
-
-    if (query) {
-      if (query['api_key'])
-        delete query['api_key'];
-      if (query['language'])
-        delete query['language'];
-    }
-
+  return async (options?: CreatedRequestOptions): Promise<Endpoint> => {
     const readyQuery = new URLSearchParams({
       api_key: data.get('apiKey'),
       language: data.get('language'),
     });
+    let parsedEndpoint: string | null = null;
+    let response: Response<string> | null = null;
 
-    if (query) {
-      normalizeQuery(query).forEach(entry => {
-        readyQuery.append(entry[0], entry[1]);
+    if (options?.pathParameters)
+      parsedEndpoint = parseEndpoint(endpoint, options.pathParameters);
+
+    if (options?.query) {
+      const { query } = options;
+
+      if (query['api_key'])
+        delete query['api_key'];
+      if (query['language'])
+        delete query['language'];
+
+      // eslint-disable-next-line array-bracket-newline
+      normalizeQuery(query).forEach(([ key, value ]) => {
+        readyQuery?.append(key, value);
       });
     }
 
     try {
       switch (type) {
         case 'GET': {
-          response = await request(parsedEndpoint, { searchParams: readyQuery });
+          response = await request(parsedEndpoint ?? endpoint, { searchParams: readyQuery ?? '' });
           break;
         }
 
         case 'POST': {
           response = await request.post(endpoint, {
-            searchParams: readyQuery,
-            json: body,
+            searchParams: readyQuery ?? '',
+            json: options?.body,
           });
           break;
         }
 
         case 'DELETE': {
           response = await request.delete(endpoint, {
-            searchParams: readyQuery,
-            json: body,
+            searchParams: readyQuery ?? '',
+            json: options?.body,
           });
           break;
         }
