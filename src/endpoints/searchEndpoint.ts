@@ -1,7 +1,7 @@
 import { RequestOption } from '../utils/interfaces';
 import createEndpoints from '../utils/createEndpoints';
 
-const endpointBaseURL = '/search';
+const endpointBaseURL = 'search';
 const endpoints: RequestOption[] = [
   {
     type: 'GET',
