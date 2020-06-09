@@ -59,3 +59,4 @@ dist
 yarn.lock
 .env
 pnpm-lock.yaml
+package-lock.json
