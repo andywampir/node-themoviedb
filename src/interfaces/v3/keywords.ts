@@ -8,6 +8,12 @@ interface CommonParameters {
   keywordID?: number;
 }
 
+export interface KeywordsConstructorOptions {
+  apiKey: string;
+  language: string;
+  keywordID?: number;
+}
+
 export interface KeywordsDetailsOptions extends CommonParameters {}
 export interface KeywordsMoviesOptions extends CommonParameters {
   language?: string;

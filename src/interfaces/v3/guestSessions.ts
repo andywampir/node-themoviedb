@@ -13,6 +13,12 @@ interface CommonParameters {
   | 'created_at.desc';
 }
 
+export interface GuestSessionsConstructorOptions {
+  apiKey: string;
+  language: string;
+  guestSessionID?: string;
+}
+
 export interface GuestSessionsRatedMoviesOptions extends CommonParameters {}
 export interface GuestSessionsRatedTVShowsOptions extends CommonParameters {}
 export interface GuestSessionsRatedTVEpisodesOptions extends CommonParameters {}
