@@ -3,7 +3,14 @@ import { Movie } from '../common';
 
 // Options
 interface CommonParameters {
-  listID?: string | number;
+  listID?: number;
+}
+
+export interface ListsConstructorOptions {
+  apiKey: string;
+  language: string;
+  sessionID?: string;
+  listID?: number;
 }
 
 export interface ListsDetailsOptions extends CommonParameters {
@@ -16,9 +23,9 @@ export interface ListsItemStatusOptions extends CommonParameters {
 
 export interface ListsCreateOptions extends CommonParameters {
   sessionID?: string;
-  name?: string;
-  description?: string;
-  language?: string;
+  name: string;
+  description: string;
+  language: string;
 }
 
 export interface ListsAddMovieOptions extends CommonParameters {
@@ -36,7 +43,7 @@ export interface ListsClearOptions extends CommonParameters {
   confirm: boolean;
 }
 
-export interface ListsRemoveOptions extends CommonParameters {
+export interface ListsDeleteOptions extends CommonParameters {
   sessionID?: string;
 }
 
