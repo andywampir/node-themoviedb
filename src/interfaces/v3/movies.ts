@@ -12,6 +12,12 @@ interface CommonParameters {
   movieID?: number;
 }
 
+export interface MoviesConstructorOptions {
+  apiKey: string;
+  language: string;
+  movieID?: number;
+}
+
 export interface MoviesDetailsOptions extends CommonParameters {
   language?: string;
   appendToResponse?: string;
