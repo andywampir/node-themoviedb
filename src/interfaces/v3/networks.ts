@@ -1,5 +1,11 @@
 /* eslint-disable camelcase */
 
+// Options
+export interface NetworksConstructorOptions {
+  apiKey: string;
+  networkID?: number;
+}
+
 // Return Types
 export interface NetworksReturnType {
   details?: NetworksDetails[];
