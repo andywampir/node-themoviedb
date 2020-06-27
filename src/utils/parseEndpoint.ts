@@ -7,5 +7,5 @@ export default (endpoint: string, params: object): string => {
   while (match = regExp.exec(parsedEndpoint))
     parsedEndpoint = parsedEndpoint.replace(match[0], params[match[1]]);
 
-  return parsedEndpoint.slice(1);
+  return parsedEndpoint;
 };
