@@ -790,14 +790,14 @@ declare namespace MovieDB {
       }
 
       interface GetDetails extends Common {
-        query: {
-          append_to_response: string,
+        query?: {
+          append_to_response?: string,
         };
       }
 
       interface GetAccountStates extends Common {
         query: {
-          session_id: string,
+          session_id?: string,
           guest_session_id?: string,
         };
       }
@@ -812,7 +812,7 @@ declare namespace MovieDB {
         query?: {
           start_date?: string,
           end_date?: string,
-          page: number | string,
+          page?: number | string,
         };
       }
 
@@ -1184,7 +1184,7 @@ declare namespace MovieDB {
         interface GetAccountStates extends Common {
           query?: {
             guest_session_id?: string,
-            session_id: string,
+            session_id?: string,
           };
         }
 
