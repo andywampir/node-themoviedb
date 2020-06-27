@@ -1,3 +1,7 @@
+### 0.2.4
+ - fix(utils): some requests returns NotFoundError
+ - fix(types): mark some parameters as non required
+
 ### 0.2.3
   - fix(utils): destructure undefined options [#4](https://github.com/andywampir/node-themoviedb/issues/4#issue-632588490)
   - fix(endpoints): remove slash in start of endpoints
