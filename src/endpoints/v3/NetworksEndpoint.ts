@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import type {
   NetworksReturnType, NetworksConstructorOptions,
@@ -12,7 +11,7 @@ export default class NetworksEndpoint extends Executor<NetworksReturnType> {
   private readonly networkID: number | undefined;
 
   public constructor(options: NetworksConstructorOptions) {
-    super(rqst);
+    super(client);
     this.apiKey = options.apiKey;
   }
 

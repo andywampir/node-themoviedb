@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   CollectionsDetailsOptions, CollectionsImagesOptions,
@@ -15,7 +14,7 @@ export default class CollectionsEndpoint extends Executor<CollectionsReturnType>
   private readonly collectionID?: number;
 
   public constructor(options: CollectionsConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language;

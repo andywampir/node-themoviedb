@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   AccountReturnType, CreatedListsOptions,
@@ -19,7 +18,7 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
   private readonly userID?: number;
 
   public constructor(options: AccountConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language as string;

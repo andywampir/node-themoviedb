@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   DiscoverReturnType, DiscoverMovieOptions,
@@ -12,7 +11,7 @@ export default class DiscoverEndpoint extends Executor<DiscoverReturnType> {
   private readonly language: string;
 
   public constructor(options: DiscoverConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language;

@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   CompaniesReturnType, CompaniesConstructorOptions,
@@ -12,7 +11,7 @@ export default class CompaniesEndpoint extends Executor<CompaniesReturnType> {
   private readonly companyID?: number;
 
   public constructor(options: CompaniesConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.companyID = options.companyID;

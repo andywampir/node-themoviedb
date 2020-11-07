@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   MoviesReturnType, MoviesConstructorOptions,
@@ -24,7 +23,7 @@ export default class MoviesEndpoint extends Executor<MoviesReturnType> {
   private readonly movieID?: number;
 
   public constructor(options: MoviesConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language;

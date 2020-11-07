@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   FindByIDOptions, FindReturnType,
@@ -13,7 +12,7 @@ export default class FindEndpoint extends Executor<FindReturnType> {
   private readonly language: string;
 
   public constructor(options: FindConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language;

@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import { ConfigurationReturnType } from '../../interfaces/v3/configuration';
 
@@ -8,7 +7,7 @@ export default class ConfigurationEndpoint extends Executor<ConfigurationReturnT
   private readonly apiKey: string;
 
   public constructor(apiKey: string) {
-    super(rqst);
+    super(client);
 
     this.apiKey = apiKey;
   }

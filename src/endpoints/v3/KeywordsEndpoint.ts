@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   KeywordsReturnType, KeywordsConstructorOptions,
@@ -14,7 +13,7 @@ export default class KeywordsEndpoint extends Executor<KeywordsReturnType> {
   private readonly keywordID?: number;
 
   public constructor(options: KeywordsConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.keywordID = options.keywordID;

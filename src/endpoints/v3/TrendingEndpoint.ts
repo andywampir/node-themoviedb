@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import type {
   TrendingGetOptions, TrendingReturnType,
@@ -11,7 +10,7 @@ export default class TrendingEndpoint extends Executor<TrendingReturnType> {
   private readonly apiKey: string;
 
   public constructor(apiKey: string) {
-    super(rqst);
+    super(client);
     this.apiKey = apiKey;
   }
 

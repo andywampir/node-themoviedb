@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   ListsReturnType, ListsConstructorOptions,
@@ -18,7 +17,7 @@ export default class ListsEndpoint extends Executor<ListsReturnType> {
   private readonly listID?: number;
 
   public constructor(options: ListsConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language;

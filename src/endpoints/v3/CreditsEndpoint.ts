@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   CreditsReturnType, CreditsConstructorOptions,
@@ -12,7 +11,7 @@ export default class CreditsEndpoint extends Executor<CreditsReturnType> {
   private readonly creditID?: string;
 
   public constructor(options: CreditsConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.creditID = options.creditID;

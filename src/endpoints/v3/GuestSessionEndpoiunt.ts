@@ -1,10 +1,10 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   GuestSessionsReturnType, GuestSessionsConstructorOptions,
-  GuestSessionsRatedMoviesOptions, GuestSessionsRatedTVShowsOptions, GuestSessionsRatedTVEpisodesOptions,
+  GuestSessionsRatedMoviesOptions, GuestSessionsRatedTVShowsOptions,
+  GuestSessionsRatedTVEpisodesOptions,
 } from '../../interfaces/v3/guestSessions';
 import { RequiredParameterError } from '../../errors';
 
@@ -14,7 +14,7 @@ export default class GuestSessionEndpoint extends Executor<GuestSessionsReturnTy
   private readonly guestSessionID?: string;
 
   public constructor(options: GuestSessionsConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language;

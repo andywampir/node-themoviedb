@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import Executor from '../../utils/Executor';
-import rqst from '../../utils/requests';
+import client from '../../utils/clients';
 
 import {
   GenresReturnType, GenresConstructorOptions,
@@ -11,7 +10,7 @@ export default class GenresEndpoint extends Executor<GenresReturnType> {
   private readonly language: string;
 
   public constructor(options: GenresConstructorOptions) {
-    super(rqst);
+    super(client);
 
     this.apiKey = options.apiKey;
     this.language = options.language;
