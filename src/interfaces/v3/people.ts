@@ -11,6 +11,11 @@ interface CommonParameters {
   personID?: number;
 }
 
+export interface PeopleConstructorOptions extends CommonParameters {
+  apiKey: string;
+  language: string;
+}
+
 export interface PeopleDetailsOptions extends CommonParameters {
   language?: string;
   appendToResponse?: string;
