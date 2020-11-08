@@ -1,4 +1,4 @@
-export default (endpoint: string, params: object): string => {
+export default (endpoint: string, params: Record<string, string>): string => {
   const regExp = /{(.+?)}/;
   let parsedEndpoint = endpoint;
   let match: RegExpExecArray | null = null;

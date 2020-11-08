@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-dynamic-delete */
 /* eslint-disable dot-notation */
-/* eslint-disable camelcase */
 import { URLSearchParams } from 'url';
 
 import { Response } from 'got';
@@ -35,7 +34,7 @@ const createEndpoint = (type: RequestType, endpoint: string): Request => {
     let response: Response<string> | null = null;
 
     if (options?.pathParameters)
-      parsedEndpoint = parseEndpoint(endpoint, options.pathParameters);
+      parsedEndpoint = parseEndpoint(endpoint, options.pathParameters as Record<string, string>);
 
     if (options?.query) {
       const { query } = options;

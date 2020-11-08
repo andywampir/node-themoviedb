@@ -1,5 +1,4 @@
 /* eslint-disable no-extra-parens */
-/* eslint-disable camelcase */
 import { HTTPError } from 'got';
 
 import * as errors from './errors';

@@ -7,7 +7,7 @@ export interface RequestOption {
 }
 
 export interface CreatedRequestOptions {
-  query?: object;
-  body?: object;
-  pathParameters?: object;
+  query?: Record<string, unknown>;
+  body?: Record<string, unknown>;
+  pathParameters?: Record<string, string | number | boolean | null | undefined>;
 }

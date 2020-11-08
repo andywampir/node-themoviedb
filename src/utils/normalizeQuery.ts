@@ -1,4 +1,4 @@
-export default (query: object): string[][] => {
+export default (query: Record<string, unknown>): string[][] => {
   const normalizedQuery: string[][] = [];
 
   Object.entries(query).forEach(entry => normalizedQuery.push([
