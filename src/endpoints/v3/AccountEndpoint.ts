@@ -1,131 +1,117 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
+import type { Got } from 'got';
 
-import {
-  AccountReturnType, CreatedListsOptions,
-  FavoriteMoviesOptions, FavoriteTVShowsOptions,
-  MarkAsFavoriteOptions, RatedMoviesOptions,
-  RatedTVShowsOptions, RatedTVEpisodesOptions,
-  MovieWatchlistOptions, TVShowWatchlistOptions,
-  AddToWatchlistOptions, AccountConstructorOptions,
-} from '../../interfaces/v3/account';
+import AccountEndpointNS from '../../interfaces/v3/account';
 import { RequiredParameterError } from '../../errors';
 
-export default class AccountEndpoint extends Executor<AccountReturnType> {
+export default class AccountEndpoint implements AccountEndpointNS.Class {
+  private readonly client: Got;
   private readonly apiKey: string;
   private readonly language: string;
   private readonly sessionID?: string;
   private readonly userID?: number;
 
-  public constructor(options: AccountConstructorOptions) {
-    super(client);
-
+  public constructor(options: AccountEndpointNS.Options.Constructor) {
+    this.client = options.client;
     this.apiKey = options.apiKey;
     this.language = options.language as string;
     this.sessionID = options.sessionID;
     this.userID = options.userID;
   }
 
-  public details(sessionID?: string): AccountEndpoint {
-    if (!sessionID && !this.sessionID)
+  public async details(options: AccountEndpointNS.Options.Details): Promise<AccountEndpointNS.Results.Details> {
+    if (!options.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
 
-    this.addToExecutionList(
-      'details',
+    return this.client(
+      'account',
       {
-        uri: 'account',
         searchParams: {
           api_key: this.apiKey,
-          session_id: sessionID ?? this.sessionID as string,
+          session_id: options.sessionID ?? this.sessionID,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public createdLists(options?: CreatedListsOptions): AccountEndpoint {
+  public async createdLists(
+    options?: AccountEndpointNS.Options.CreatedLists,
+  ): Promise<AccountEndpointNS.Results.CreatedLists> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'createdLists',
+    return this.client(
+      `account/${options?.userID ?? this.userID}/lists`,
       {
-        uri: `account/${options?.userID ?? this.userID}/lists`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public favoriteMovies(options?: FavoriteMoviesOptions): AccountEndpoint {
+  public async favoriteMovies(
+    options?: AccountEndpointNS.Options.FavoriteMovies,
+  ): Promise<AccountEndpointNS.Results.FavoriteMovies> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'favoriteMovies',
+    return this.client(
+      `account/${options?.userID ?? this.userID}/favorite/movies`,
       {
-        uri: `account/${options?.userID ?? this.userID}/favorite/movies`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
           sort_by: options?.sortBy ?? null,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public favoriteTVShows(options?: FavoriteTVShowsOptions): AccountEndpoint {
+  public async favoriteTVShows(
+    options?: AccountEndpointNS.Options.FavoriteTVShows,
+  ): Promise<AccountEndpointNS.Results.FavoriteTVShows> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'favoriteTVShows',
+    return this.client(
+      `account/${options?.userID}/favorite/tv`,
       {
-        uri: `account/${options?.userID}/favorite/tv`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
           sort_by: options?.sortBy ?? null,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public markAsFavorite(options: MarkAsFavoriteOptions): AccountEndpoint {
+  public async markAsFavorite(
+    options: AccountEndpointNS.Options.MarkAsFavorite,
+  ): Promise<AccountEndpointNS.Results.MarkAsFavorite> {
     if (!options.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'markAsFavorite',
+    return this.client.post(
+      `account/${options.userID ?? this.userID}/favorite`,
       {
-        uri: `account/${options.userID ?? this.userID}/favorite`,
-        method: 'post',
         searchParams: {
           api_key: this.apiKey,
-          session_id: options.sessionID ?? this.sessionID as string,
+          session_id: options.sessionID ?? this.sessionID,
         },
         json: {
           media_type: options.mediaType,
@@ -133,140 +119,133 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           favorite: options.favorite,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public ratedMovies(options?: RatedMoviesOptions): AccountEndpoint {
+  public async ratedMovies(
+    options?: AccountEndpointNS.Options.RatedMovies,
+  ): Promise<AccountEndpointNS.Results.RatedMovies> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'ratedMovies',
+    return this.client(
+      `account/${options?.userID ?? this.userID}/rated/movies`,
       {
-        uri: `account/${options?.userID ?? this.userID}/rated/movies`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
           sort_by: options?.sortBy ?? null,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public ratedTVShows(options?: RatedTVShowsOptions): AccountEndpoint {
+  public async ratedTVShows(
+    options?: AccountEndpointNS.Options.RatedTVShows,
+  ): Promise<AccountEndpointNS.Results.RatedTVShows> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'ratedTVShows',
+    return this.client(
+      `account/${options?.userID ?? this.userID}/rated/tv`,
       {
-        uri: `account/${options?.userID ?? this.userID}/rated/tv`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
           sort_by: options?.sortBy ?? null,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public ratedTVEpisodes(options?: RatedTVEpisodesOptions): AccountEndpoint {
+  public async ratedTVEpisodes(
+    options?: AccountEndpointNS.Options.RatedTVEpisodes,
+  ): Promise<AccountEndpointNS.Results.RatedTVEpisodes> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'ratedTVEpisodes',
+    return this.client(
+      `account/${options?.userID ?? this.userID}/rated/tv/episodes`,
       {
-        uri: `account/${options?.userID ?? this.userID}/rated/tv/episodes`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
           sort_by: options?.sortBy ?? null,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public movieWatchlist(options?: MovieWatchlistOptions): AccountEndpoint {
+  public async movieWatchlist(
+    options?: AccountEndpointNS.Options.MovieWatchlist,
+  ): Promise<AccountEndpointNS.Results.MovieWatchlist> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'movieWatchlist',
+    return this.client(
+      `account/${options?.userID ?? this.userID}/watchlist/movies`,
       {
-        uri: `account/${options?.userID ?? this.userID}/watchlist/movies`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
           sort_by: options?.sortBy ?? null,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public tvShowWatchlist(options?: TVShowWatchlistOptions): AccountEndpoint {
+  public async tvShowWatchlist(
+    options?: AccountEndpointNS.Options.TVShowWatchlist,
+  ): Promise<AccountEndpointNS.Results.TVShowWatchlist> {
     if (!options?.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'tvShowWatchlist',
+    return this.client(
+      `account/${options?.userID ?? this.userID}/watchlist/tv`,
       {
-        uri: `account/${options?.userID ?? this.userID}/watchlist/tv`,
         searchParams: {
           api_key: this.apiKey,
-          session_id: options?.sessionID ?? this.sessionID as string,
+          session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
           sort_by: options?.sortBy ?? null,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 
-  public addToWatchlist(options: AddToWatchlistOptions): AccountEndpoint {
+  public async addToWatchlist(
+    options: AccountEndpointNS.Options.AddToWatchlist,
+  ): Promise<AccountEndpointNS.Results.AddToWatchlist> {
     if (!options.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
     if (!options.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    this.addToExecutionList(
-      'addToWatchlist',
+    return this.client.post(
+      `account/${options.userID ?? this.userID}/watchlist`,
       {
-        uri: `account/${options.userID ?? this.userID}/watchlist`,
-        method: 'post',
         searchParams: {
           api_key: this.apiKey,
-          session_id: options.sessionID ?? this.sessionID as string,
+          session_id: options.sessionID ?? this.sessionID,
         },
         json: {
           media_type: options.mediaType,
@@ -274,8 +253,6 @@ export default class AccountEndpoint extends Executor<AccountReturnType> {
           watchlist: options.watchlist,
         },
       },
-    );
-
-    return this;
+    ).json();
   }
 }

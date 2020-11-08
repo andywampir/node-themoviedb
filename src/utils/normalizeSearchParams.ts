@@ -1,15 +1,20 @@
+import type { InitHook } from 'got';
+
 import { SearchParametrs } from '../interfaces/common';
 
-export default (searchParams?: SearchParametrs): SearchParametrs => {
+const normalizeSearchParams: InitHook = options => {
+  const { searchParams } = options;
   if (!searchParams)
-    return {};
+    return;
   const normalizedSearchParams: SearchParametrs = {};
 
   Object.keys(searchParams).forEach(key => {
-    if (!searchParams[key])
+    if (!(searchParams as SearchParametrs)[key])
       return;
-    normalizedSearchParams[key] = searchParams[key];
+    normalizedSearchParams[key] = (searchParams as SearchParametrs)[key];
   });
 
-  return normalizedSearchParams;
+  options.searchParams = normalizedSearchParams;
 };
+
+export default normalizeSearchParams;
