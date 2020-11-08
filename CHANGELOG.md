@@ -1,3 +1,11 @@
+### 0.2.5
+ - ⬆️ chore: update deps
+ - 🔧 config(tsconfig): change target to ES5
+ - 🔧 config(eslint): update rules for typescript
+ - 🏷️ types: update types to match new typescript eslint rules
+ - ✨ utils: update user agent version to 0.2.5
+ - 🏷️ types: fix tmdb api configuration interface
+
 ### 0.2.4
  - fix(utils): some requests returns NotFoundError
  - fix(types): mark some parameters as non required
