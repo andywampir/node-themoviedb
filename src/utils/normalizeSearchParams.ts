@@ -9,7 +9,10 @@ const normalizeSearchParams: InitHook = options => {
   const normalizedSearchParams: SearchParametrs = {};
 
   Object.keys(searchParams).forEach(key => {
-    if (!(searchParams as SearchParametrs)[key])
+    if (
+      (searchParams as SearchParametrs)[key] === null
+      || typeof (searchParams as SearchParametrs)[key] === 'undefined'
+    )
       return;
     normalizedSearchParams[key] = (searchParams as SearchParametrs)[key];
   });
