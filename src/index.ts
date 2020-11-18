@@ -1,3 +1,5 @@
+import Client, { IClient } from './utils/Client';
+
 import AccountEndpoint from './endpoints/v3/AccountEndpoint';
 import AuthentificationEndpoint from './endpoints/v3/AuthenticationEndpoint';
 import CertificationsEndpoint from './endpoints/v3/CertificationsEndpoint';
@@ -26,6 +28,8 @@ export default class MovieDB {
   private apiKey: string;
   private language: string;
   private sessionID?: string;
+  private readonly clientV3: IClient;
+  private readonly clientV4: IClient;
 
   public constructor(options: MovieDBConstructorOptions) {
     if (!options.apiKey)
@@ -33,6 +37,8 @@ export default class MovieDB {
 
     this.apiKey = options.apiKey;
     this.language = options.language ?? 'en-US';
+    this.clientV3 = new Client(3);
+    this.clientV4 = new Client(4);
   }
 
   public setApiKey(apiKey: string): void {
@@ -59,6 +65,7 @@ export default class MovieDB {
       sessionID: options?.sessionID ?? this.sessionID,
       language: options?.language ?? this.language,
       userID: options?.userID,
+      client: this.clientV3,
     });
   }
 

@@ -1,10 +1,10 @@
-import type { Got } from 'got';
-
 import AccountEndpointNS from '../../interfaces/v3/account';
 import { RequiredParameterError } from '../../errors';
 
+import type { IClient } from '../../utils/Client';
+
 export default class AccountEndpoint implements AccountEndpointNS.Class {
-  private readonly client: Got;
+  private readonly client: IClient;
   private readonly apiKey: string;
   private readonly language: string;
   private readonly sessionID?: string;
@@ -22,7 +22,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options.sessionID && !this.sessionID)
       throw new RequiredParameterError('sessionID');
 
-    return this.client(
+    return this.client.get(
       'account',
       {
         searchParams: {
@@ -30,7 +30,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options.sessionID ?? this.sessionID,
         },
       },
-    ).json();
+    );
   }
 
   public async createdLists(
@@ -41,7 +41,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID ?? this.userID}/lists`,
       {
         searchParams: {
@@ -51,7 +51,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           page: options?.page ?? 1,
         },
       },
-    ).json();
+    );
   }
 
   public async favoriteMovies(
@@ -62,7 +62,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID ?? this.userID}/favorite/movies`,
       {
         searchParams: {
@@ -70,10 +70,10 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? null,
+          sort_by: options?.sortBy,
         },
       },
-    ).json();
+    );
   }
 
   public async favoriteTVShows(
@@ -84,7 +84,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID}/favorite/tv`,
       {
         searchParams: {
@@ -92,10 +92,10 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? null,
+          sort_by: options?.sortBy,
         },
       },
-    ).json();
+    );
   }
 
   public async markAsFavorite(
@@ -119,7 +119,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           favorite: options.favorite,
         },
       },
-    ).json();
+    );
   }
 
   public async ratedMovies(
@@ -130,7 +130,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID ?? this.userID}/rated/movies`,
       {
         searchParams: {
@@ -138,10 +138,10 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? null,
+          sort_by: options?.sortBy,
         },
       },
-    ).json();
+    );
   }
 
   public async ratedTVShows(
@@ -152,7 +152,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID ?? this.userID}/rated/tv`,
       {
         searchParams: {
@@ -160,10 +160,10 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? null,
+          sort_by: options?.sortBy,
         },
       },
-    ).json();
+    );
   }
 
   public async ratedTVEpisodes(
@@ -174,7 +174,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID ?? this.userID}/rated/tv/episodes`,
       {
         searchParams: {
@@ -182,10 +182,10 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? null,
+          sort_by: options?.sortBy,
         },
       },
-    ).json();
+    );
   }
 
   public async movieWatchlist(
@@ -196,7 +196,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID ?? this.userID}/watchlist/movies`,
       {
         searchParams: {
@@ -204,10 +204,10 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? null,
+          sort_by: options?.sortBy,
         },
       },
-    ).json();
+    );
   }
 
   public async tvShowWatchlist(
@@ -218,7 +218,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
     if (!options?.userID && !this.userID)
       throw new RequiredParameterError('userID');
 
-    return this.client(
+    return this.client.get(
       `account/${options?.userID ?? this.userID}/watchlist/tv`,
       {
         searchParams: {
@@ -226,10 +226,10 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           session_id: options?.sessionID ?? this.sessionID,
           language: options?.language ?? this.language,
           page: options?.page ?? 1,
-          sort_by: options?.sortBy ?? null,
+          sort_by: options?.sortBy,
         },
       },
-    ).json();
+    );
   }
 
   public async addToWatchlist(
@@ -253,6 +253,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
           watchlist: options.watchlist,
         },
       },
-    ).json();
+    );
   }
 }

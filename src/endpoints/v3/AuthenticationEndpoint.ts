@@ -1,5 +1,6 @@
 import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
+
+import type { IClient } from '../../utils/Client';
 
 import {
   AuthenticationReturnType, AuthenticationValidateTokenOptions,
@@ -7,6 +8,7 @@ import {
 
 export default class AuthenticationEndpoint extends Executor<AuthenticationReturnType> {
   private readonly apiKey: string;
+  private readonly client: IClient;
 
   public constructor(apiKey: string) {
     super(client);

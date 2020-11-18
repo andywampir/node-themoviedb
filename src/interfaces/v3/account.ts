@@ -1,5 +1,4 @@
-import type { Got } from 'got';
-
+import { IClient } from '../../utils/Client';
 import {
   ResultsWithPage, Movie,
   TVShow, ResponseWithCode,
@@ -31,7 +30,7 @@ namespace AccountEndpointNS {
     }
 
     export interface Constructor {
-      client: Got;
+      client: IClient;
       apiKey: string;
       language: string;
       userID?: number;
