@@ -1,9 +1,12 @@
-export default class NotFoundError extends Error {
-  public code: number;
+import BaseHTTPError from './BaseHTTPError';
 
+export default class NotFoundError extends BaseHTTPError {
   public constructor(code: number) {
-    super('The resource you request could not be found');
-
-    this.code = code;
+    super({
+      statusCode: code,
+      httpCode: 404,
+      message: 'The resource you request could not be found',
+      shortMessage: 'Not Found',
+    });
   }
 }
