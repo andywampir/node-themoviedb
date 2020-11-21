@@ -1,65 +1,48 @@
-import Executor from '../../utils/Executor';
-
 import type { IClient } from '../../utils/Client';
 
-import {
-  AuthenticationReturnType, AuthenticationValidateTokenOptions,
-} from '../../interfaces/v3/authentication';
+import AuthenticationEndpointNS from '../../interfaces/v3/authentication';
 
-export default class AuthenticationEndpoint extends Executor<AuthenticationReturnType> {
+export default class AuthenticationEndpoint implements AuthenticationEndpointNS.Class {
   private readonly apiKey: string;
   private readonly client: IClient;
 
-  public constructor(apiKey: string) {
-    super(client);
-
-    this.apiKey = apiKey;
+  public constructor(options: AuthenticationEndpointNS.Options.Constructor) {
+    this.apiKey = options.apiKey;
+    this.client = options.client;
   }
 
-  public newGuestSession(): AuthenticationEndpoint {
-    this.addToExecutionList(
-      'newGuestSession',
+  public async newGuestSession(): Promise<AuthenticationEndpointNS.Results.NewGuestSession> {
+    return this.client.get(
+      'authentication/guest_session/new',
+      { searchParams: { api_key: this.apiKey } },
+    );
+  }
+
+  public async newToken(): Promise<AuthenticationEndpointNS.Results.NewToken> {
+    return this.client.get(
+      'authentication/token/new',
+      { searchParams: { api_key: this.apiKey } },
+    );
+  }
+
+  public async newSession(
+    options: AuthenticationEndpointNS.Options.NewSession,
+  ): Promise<AuthenticationEndpointNS.Results.NewSession> {
+    return this.client.post(
+      'authentication/session/new',
       {
-        uri: 'authentication/guest_session/new',
         searchParams: { api_key: this.apiKey },
+        json: { request_token: options.requestToken },
       },
     );
-
-    return this;
   }
 
-  public newToken(): AuthenticationEndpoint {
-    this.addToExecutionList(
-      'newToken',
+  public async validateToken(
+    options: AuthenticationEndpointNS.Options.ValidateToken,
+  ): Promise<AuthenticationEndpointNS.Results.ValidateToken> {
+    return this.client.post(
+      'authentication/token/validate_with_login',
       {
-        uri: 'authentication/token/new',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
-
-  public newSession(requestToken: string): AuthenticationEndpoint {
-    this.addToExecutionList(
-      'newSession',
-      {
-        uri: 'authentication/session/new',
-        method: 'post',
-        searchParams: { api_key: this.apiKey },
-        json: { request_token: requestToken },
-      },
-    );
-
-    return this;
-  }
-
-  public validateToken(options: AuthenticationValidateTokenOptions): AuthenticationEndpoint {
-    this.addToExecutionList(
-      'validateToken',
-      {
-        uri: 'authentication/token/validate_with_login',
-        method: 'post',
         searchParams: { api_key: this.apiKey },
         json: {
           username: options.username,
@@ -68,35 +51,29 @@ export default class AuthenticationEndpoint extends Executor<AuthenticationRetur
         },
       },
     );
-
-    return this;
   }
 
-  public convertToken(accessToken: string): AuthenticationEndpoint {
-    this.addToExecutionList(
-      'convertToken',
+  public async convertToken(
+    options: AuthenticationEndpointNS.Options.ConvertToken,
+  ): Promise<AuthenticationEndpointNS.Results.ConvertToken> {
+    return this.client.post(
+      'authentication/session/convert/4',
       {
-        uri: 'authentication/session/convert/4',
-        method: 'post',
         searchParams: { api_key: this.apiKey },
-        json: { access_token: accessToken },
+        json: { access_token: options.accessToken },
       },
     );
-
-    return this;
   }
 
-  public deleteSession(sessionID: string): AuthenticationEndpoint {
-    this.addToExecutionList(
-      'deleteSession',
+  public async deleteSession(
+    options: AuthenticationEndpointNS.Options.DeleteSession,
+  ): Promise<AuthenticationEndpointNS.Results.DeleteSession> {
+    return this.client.delete(
+      'authentication/session',
       {
-        uri: 'authentication/session',
-        method: 'delete',
         searchParams: { api_key: this.apiKey },
-        json: { session_id: sessionID },
+        json: { session_id: options.sessionID },
       },
     );
-
-    return this;
   }
 }
