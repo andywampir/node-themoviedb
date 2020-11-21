@@ -15,7 +15,7 @@ import type {
 export interface IClient {
   get<T>(url: string, options?: GetOptions): Promise<T>;
   post<T>(url: string, options?: PostOptions): Promise<T>;
-  delete(url: string, options?: DeleteOptions): Promise<void>;
+  delete<T>(url: string, options?: DeleteOptions): Promise<T>;
 }
 
 interface GetOptions {
@@ -26,7 +26,7 @@ interface PostOptions extends GetOptions {
   json?: Record<string, string | number | boolean>;
 }
 
-interface DeleteOptions extends GetOptions {}
+interface DeleteOptions extends PostOptions {}
 
 export default class Client implements IClient {
   private readonly agent: Got;
@@ -85,9 +85,11 @@ export default class Client implements IClient {
     }
   }
 
-  public async delete(uri: string, options?: DeleteOptions): Promise<void> {
+  public async delete<T>(uri: string, options?: DeleteOptions): Promise<T> {
     try {
-      await this.agent.delete(uri, options);
+      const response = await this.agent.delete(uri, options).json<T>();
+
+      return response;
     } catch (error) {
       throw Client.handleError(error);
     }
