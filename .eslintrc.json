@@ -339,7 +339,8 @@
       {
         "selector": "default",
         "format": [
-          "camelCase"
+          "camelCase",
+          "PascalCase"
         ]
       },
       {
@@ -372,7 +373,8 @@
         "selector": "property",
         "format": [
           "camelCase",
-          "snake_case"
+          "snake_case",
+          "UPPER_CASE"
         ],
         "trailingUnderscore": "allow"
       }
