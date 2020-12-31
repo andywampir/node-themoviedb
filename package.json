@@ -1,6 +1,6 @@
 {
   "name": "node-themoviedb",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A Node.JS wrapper for The Movie DB API.",
   "author": "Andy Wampir <wampirchikkkk@yandex.ru>",
   "license": "MIT",
