@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import { IncomingHttpHeaders } from 'http2';
 
 declare namespace MovieDB {
@@ -57,25 +58,25 @@ declare namespace MovieDB {
     }
 
     interface Image {
-      aspect_ratio: number,
-      file_path: string,
-      height: number,
-      iso_639_1: null,
-      vote_average: number,
-      vote_count: number,
-      width: number,
+      aspect_ratio: number;
+      file_path: string;
+      height: number;
+      iso_639_1: null;
+      vote_average: number;
+      vote_count: number;
+      width: number;
     }
 
     interface Translation {
-      iso_639_1: string,
-      iso_3166_1: string,
-      name: string,
-      english_name: string,
+      iso_639_1: string;
+      iso_3166_1: string;
+      name: string;
+      english_name: string;
       data: {
-        title: string,
-        overview: string,
-        homepage: string,
-      },
+        title: string;
+        overview: string;
+        homepage: string;
+      };
     }
 
     interface AccountStates {
@@ -83,41 +84,41 @@ declare namespace MovieDB {
       favorite: boolean;
       watchlist: boolean;
       rated: {
-        value: number,
+        value: number;
       } | boolean;
     }
 
     interface AlternativeTitles {
       id: number;
       titles: {
-        iso_3166_1: string,
-        title: string,
-        type: string,
+        iso_3166_1: string;
+        title: string;
+        type: string;
       }[];
     }
 
     interface ChangesTVShow {
       changes: {
-        key: string,
+        key: string;
         items: {
-          id: string,
-          action: string,
-          time: string,
-        }[],
+          id: string;
+          action: string;
+          time: string;
+        }[];
       }[];
     }
 
     interface ChangesMovie {
       changes: {
-        key: string,
+        key: string;
         items: {
-          id: string,
-          action: string,
-          time: string,
-          iso_639_1: string,
-          value: string,
-          original_value: string,
-        }[],
+          id: string;
+          action: string;
+          time: string;
+          iso_639_1: string;
+          value: string;
+          original_value: string;
+        }[];
       }[];
     }
 
@@ -156,24 +157,24 @@ declare namespace MovieDB {
     interface Videos {
       id: number;
       results: {
-        id: string,
-        iso_639_1: string,
-        iso_3166_1: string,
-        key: string,
-        name: string,
-        site: string,
+        id: string;
+        iso_639_1: string;
+        iso_3166_1: string;
+        key: string;
+        name: string;
+        site: string;
         size:
         | 360
         | 480
         | 720
-        | 1080,
+        | 1080;
         type:
         | 'Trailer'
         | 'Teaser'
         | 'Clip'
         | 'Featurette'
         | 'Behind the Scenes'
-        | 'Bloopers',
+        | 'Bloopers';
       }[];
     }
 
@@ -183,10 +184,10 @@ declare namespace MovieDB {
       total_pages: number;
       total_results: number;
       results: {
-        id: string,
-        author: string,
-        content: string,
-        url: string,
+        id: string;
+        author: string;
+        content: string;
+        url: string;
       }[];
     }
 
@@ -237,8 +238,12 @@ declare namespace MovieDB {
       createGuestSession(): Response<Responses.Authentication.CreateGuestSession>;
       createRequestToken(): Response<Responses.Authentication.CreateRequestToken>;
       createSession(args: Arguments.Authentication.CreateSession): Response<Responses.Authentication.CreateSession>;
-      createSessionWithLogin(args: Arguments.Authentication.CreateSessionWithLogin): Response<Responses.Authentication.CreateSessionWithLogin>;
-      createSessionFromAccessToken(args: Arguments.Authentication.CreateSessionFromAccessToken): Response<Responses.Authentication.CreateSessionFromAccessToken>;
+      createSessionWithLogin(
+        args: Arguments.Authentication.CreateSessionWithLogin,
+      ): Response<Responses.Authentication.CreateSessionWithLogin>;
+      createSessionFromAccessToken(
+        args: Arguments.Authentication.CreateSessionFromAccessToken,
+      ): Response<Responses.Authentication.CreateSessionFromAccessToken>;
       deleteSession(args: Arguments.Authentication.DeleteSession): Response<Responses.Authentication.DeleteSession>;
     }
 
@@ -373,38 +378,14 @@ declare namespace MovieDB {
     }
 
     interface TV {
-      getDetails(args: Arguments.TV.GetDetails): Response<Responses.TV.GetDetails>;
-      getAccountStates(args: Arguments.TV.GetAccountStates): Response<Responses.TV.GetAccountStates>;
-      getAlternativeTitles(args: Arguments.TV.GetAlternativeTitles): Response<Responses.TV.GetAlternativeTitles>;
-      getChanges(args: Arguments.TV.GetChanges): Response<Responses.TV.GetChanges>;
-      getContentRatings(args: Arguments.TV.GetContentRatings): Response<Responses.TV.GetContentRatings>;
-      getCredits(args: Arguments.TV.GetCredits): Response<Responses.TV.GetCredits>;
-      getEpisodeGroups(args: Arguments.TV.GetEpisodeGroups): Response<Responses.TV.GetEpisodeGroups>;
-      getExternalIDs(args: Arguments.TV.GetExternalIDs): Response<Responses.TV.GetExternalIDs>;
-      getImages(args: Arguments.TV.GetImages): Response<Responses.TV.GetImages>;
-      getKeywords(args: Arguments.TV.GetKeywords): Response<Responses.TV.GetKeywords>;
-      getRecommendations(args: Arguments.TV.GetRecommendations): Response<Responses.TV.GetRecommendations>;
-      getReviews(args: Arguments.TV.GetReviews): Response<Responses.TV.GetReviews>;
-      getScreenedTheatrically(args: Arguments.TV.GetScreenedTheatrically): Response<Responses.TV.GetScreenedTheatrically>;
-      getSimilarTVShows(args: Arguments.TV.GetSimilarTVShows): Response<Responses.TV.GetSimilarTVShows>;
-      getTranslations(args: Arguments.TV.GetTranslations): Response<Responses.TV.GetTranslations>;
-      getVideos(args: Arguments.TV.GetVideos): Response<Responses.TV.GetVideos>;
-      rateTVShow(args: Arguments.TV.RateTVShow): Response<Responses.TV.RateTVShow>;
-      deleteRating(args: Arguments.TV.DeleteRating): Response<Responses.TV.DeleteRating>;
-      getLatest(): Response<Responses.TV.GetLatest>;
-      getAiringToday(args: Arguments.TV.GetAiringToday): Response<Responses.TV.GetAiringToday>;
-      getOnAir(args: Arguments.TV.GetOnAir): Response<Responses.TV.GetOnAir>;
-      getPopular(args: Arguments.TV.GetPopular): Response<Responses.TV.GetPopular>;
-      getTopRated(args: Arguments.TV.GetTopRated): Response<Responses.TV.GetTopRated>;
-      getChangeList(args: Arguments.TV.GetChangeList): Response<Responses.TV.GetChangeList>;
       season: {
-        getDetails(args: Arguments.TV.Season.GetDetails): Response<Responses.TV.Season.GetDetails>,
-        getChanges(args: Arguments.TV.Season.GetChanges): Response<Responses.TV.Season.GetChanges>,
-        getAccountStates(args: Arguments.TV.Season.GetAccountStates): Response<Responses.TV.Season.GetAccountStates>,
-        getCredits(args: Arguments.TV.Season.GetCredits): Response<Responses.TV.Season.GetCredits>,
-        getExternalIDs(args: Arguments.TV.Season.GetExternalIDs): Response<Responses.TV.Season.GetExternalIDs>,
-        getImages(args: Arguments.TV.Season.GetImages): Response<Responses.TV.Season.GetImages>,
-        getVideos(args: Arguments.TV.Season.GetVideos): Response<Responses.TV.Season.GetVideos>,
+        getDetails(args: Arguments.TV.Season.GetDetails): Response<Responses.TV.Season.GetDetails>;
+        getChanges(args: Arguments.TV.Season.GetChanges): Response<Responses.TV.Season.GetChanges>;
+        getAccountStates(args: Arguments.TV.Season.GetAccountStates): Response<Responses.TV.Season.GetAccountStates>;
+        getCredits(args: Arguments.TV.Season.GetCredits): Response<Responses.TV.Season.GetCredits>;
+        getExternalIDs(args: Arguments.TV.Season.GetExternalIDs): Response<Responses.TV.Season.GetExternalIDs>;
+        getImages(args: Arguments.TV.Season.GetImages): Response<Responses.TV.Season.GetImages>;
+        getVideos(args: Arguments.TV.Season.GetVideos): Response<Responses.TV.Season.GetVideos>;
       };
       episode: {
         getDetails(args: Arguments.TV.Episode.GetDetails): Response<Responses.TV.Episode.GetDetails>;
@@ -421,6 +402,32 @@ declare namespace MovieDB {
       group: {
         getDetails(args: Arguments.TV.Group.GetDetails): Response<Responses.TV.Group.GetDetails>;
       };
+      getDetails(args: Arguments.TV.GetDetails): Response<Responses.TV.GetDetails>;
+      getAccountStates(args: Arguments.TV.GetAccountStates): Response<Responses.TV.GetAccountStates>;
+      getAlternativeTitles(args: Arguments.TV.GetAlternativeTitles): Response<Responses.TV.GetAlternativeTitles>;
+      getChanges(args: Arguments.TV.GetChanges): Response<Responses.TV.GetChanges>;
+      getContentRatings(args: Arguments.TV.GetContentRatings): Response<Responses.TV.GetContentRatings>;
+      getCredits(args: Arguments.TV.GetCredits): Response<Responses.TV.GetCredits>;
+      getEpisodeGroups(args: Arguments.TV.GetEpisodeGroups): Response<Responses.TV.GetEpisodeGroups>;
+      getExternalIDs(args: Arguments.TV.GetExternalIDs): Response<Responses.TV.GetExternalIDs>;
+      getImages(args: Arguments.TV.GetImages): Response<Responses.TV.GetImages>;
+      getKeywords(args: Arguments.TV.GetKeywords): Response<Responses.TV.GetKeywords>;
+      getRecommendations(args: Arguments.TV.GetRecommendations): Response<Responses.TV.GetRecommendations>;
+      getReviews(args: Arguments.TV.GetReviews): Response<Responses.TV.GetReviews>;
+      getScreenedTheatrically(
+        args: Arguments.TV.GetScreenedTheatrically,
+      ): Response<Responses.TV.GetScreenedTheatrically>;
+      getSimilarTVShows(args: Arguments.TV.GetSimilarTVShows): Response<Responses.TV.GetSimilarTVShows>;
+      getTranslations(args: Arguments.TV.GetTranslations): Response<Responses.TV.GetTranslations>;
+      getVideos(args: Arguments.TV.GetVideos): Response<Responses.TV.GetVideos>;
+      rateTVShow(args: Arguments.TV.RateTVShow): Response<Responses.TV.RateTVShow>;
+      deleteRating(args: Arguments.TV.DeleteRating): Response<Responses.TV.DeleteRating>;
+      getLatest(): Response<Responses.TV.GetLatest>;
+      getAiringToday(args: Arguments.TV.GetAiringToday): Response<Responses.TV.GetAiringToday>;
+      getOnAir(args: Arguments.TV.GetOnAir): Response<Responses.TV.GetOnAir>;
+      getPopular(args: Arguments.TV.GetPopular): Response<Responses.TV.GetPopular>;
+      getTopRated(args: Arguments.TV.GetTopRated): Response<Responses.TV.GetTopRated>;
+      getChangeList(args: Arguments.TV.GetChangeList): Response<Responses.TV.GetChangeList>;
     }
   }
 
@@ -428,116 +435,116 @@ declare namespace MovieDB {
     namespace Account {
       interface GetCreatedList {
         query: {
-          session_id: string,
-          page?: number | string,
+          session_id: string;
+          page?: number | string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface GetFavoriteMovies {
         query: {
-          session_id: string,
-          sort_by?: 'created_at.asc' | 'created_at.desc',
-          page?: number | string,
+          session_id: string;
+          sort_by?: 'created_at.asc' | 'created_at.desc';
+          page?: number | string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface GetFavoriteTVShows {
         query: {
-          session_id: number | string,
-          sort_by?: 'created_at.asc' | 'created_at.desc',
-          page?: number | string,
+          session_id: number | string;
+          sort_by?: 'created_at.asc' | 'created_at.desc';
+          page?: number | string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface MarkAsFavorite {
         query: {
-          session_id: string,
+          session_id: string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
         body: {
-          media_type: 'movie' | 'tv',
-          media_id: number,
-          favorite: boolean,
+          media_type: 'movie' | 'tv';
+          media_id: number;
+          favorite: boolean;
         };
       }
 
       interface GetRatedMovies {
         query: {
-          session_id: string,
-          sort_by?: 'created_at.asc' | 'created_at.desc',
-          page?: number | string,
+          session_id: string;
+          sort_by?: 'created_at.asc' | 'created_at.desc';
+          page?: number | string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface GetRatedTVShows {
         query: {
-          session_id: string,
-          sort_by?: 'created_at.asc' | 'created_at.desc',
-          page?: number,
+          session_id: string;
+          sort_by?: 'created_at.asc' | 'created_at.desc';
+          page?: number;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface GetRatedTVEpisodes {
         query: {
-          session_id: string,
-          sort_by?: 'created_at.asc' | 'created_at.desc',
-          page?: number | string,
+          session_id: string;
+          sort_by?: 'created_at.asc' | 'created_at.desc';
+          page?: number | string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface GetMovieWatchlist {
         query: {
-          session_id: string,
+          session_id: string;
           sort_by?: 'created_at.asc' | 'created_at.desc';
-          page?: number | string,
+          page?: number | string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface GetTVShowWatchlist {
         query: {
-          session_id: string,
-          sort_by?: 'created_at.asc' | 'created_at.desc',
-          page?: number | string,
+          session_id: string;
+          sort_by?: 'created_at.asc' | 'created_at.desc';
+          page?: number | string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
       }
 
       interface AddToWatchlist {
         query: {
-          session_id: string,
+          session_id: string;
         };
         pathParameters: {
-          account_id: number | string,
+          account_id: number | string;
         };
         body: {
-          media_type: 'movie' | 'tv',
-          media_id: number,
-          watchlist: boolean,
+          media_type: 'movie' | 'tv';
+          media_id: number;
+          watchlist: boolean;
         };
       }
     }
@@ -545,27 +552,27 @@ declare namespace MovieDB {
     namespace Authentication {
       interface CreateSession {
         body: {
-          request_token: string,
+          request_token: string;
         };
       }
 
       interface CreateSessionWithLogin {
         body: {
-          username: string,
-          password: string,
-          request_token: string,
+          username: string;
+          password: string;
+          request_token: string;
         };
       }
 
       interface CreateSessionFromAccessToken {
         body: {
-          access_token: string,
+          access_token: string;
         };
       }
 
       interface DeleteSession {
         body: {
-          session_id: string,
+          session_id: string;
         };
       }
     }
@@ -573,19 +580,19 @@ declare namespace MovieDB {
     namespace Collection {
       interface GetDetails {
         pathParameters: {
-          collection_id: number | string,
+          collection_id: number | string;
         };
       }
 
       interface GetImages {
         pathParameters: {
-          collection_id: number | string,
+          collection_id: number | string;
         };
       }
 
       interface GetTranslations {
         pathParameters: {
-          collection_id: number | string,
+          collection_id: number | string;
         };
       }
     }
@@ -593,7 +600,7 @@ declare namespace MovieDB {
     namespace Company {
       interface Common {
         pathParamaters: {
-          company_id: number | string,
+          company_id: number | string;
         };
       }
     }
@@ -601,7 +608,7 @@ declare namespace MovieDB {
     namespace Credit {
       interface GetDetails {
         pathParameters: {
-          credit_id: string,
+          credit_id: string;
         };
       }
     }
@@ -609,7 +616,7 @@ declare namespace MovieDB {
     namespace Discover {
       interface Movie {
         query?: {
-          region?: string,
+          region?: string;
           sort_by?:
           | 'popularity.asc' | 'popularity.desc'
           | 'release_date.asc' | 'release_date.desc'
@@ -617,63 +624,63 @@ declare namespace MovieDB {
           | 'primary_release_date.asc' | 'primary_release_date.desc'
           | 'original_title.asc' | 'original_title.desc'
           | 'vote_average.asc' | 'vote_average.desc'
-          | 'vote_count.asc' | 'vote_count.desc',
-          certification_country?: string,
-          certification?: string,
-          'certification.let'?: string,
-          include_adult?: boolean,
-          include_video?: boolean,
-          page?: number | string,
-          primary_release_year?: number | string,
-          'primary_release_date.lte'?: string,
-          'primary_release_date.gte'?: string,
-          'release_date.gte'?: string,
-          'release_date.lte'?: string,
-          'vote_count.gte'?: number | string,
-          'vote_count.lte'?: number | string,
-          'vote_average.gte'?: number | string,
-          'vote_average.lte'?: number | string,
-          with_cast?: string,
-          with_crew?: string,
-          with_companies?: string,
-          with_genres?: string,
-          with_keywords?: string,
-          with_people?: string,
-          year?: number | string,
-          without_genres?: string,
-          'with_runtime.gte'?: number | string,
-          'with_runtime.lte'?: number | string,
-          with_release_type?: string,
-          with_original_language?: string,
-          without_keywords?: string,
+          | 'vote_count.asc' | 'vote_count.desc';
+          certification_country?: string;
+          certification?: string;
+          'certification.let'?: string;
+          include_adult?: boolean;
+          include_video?: boolean;
+          page?: number | string;
+          primary_release_year?: number | string;
+          'primary_release_date.lte'?: string;
+          'primary_release_date.gte'?: string;
+          'release_date.gte'?: string;
+          'release_date.lte'?: string;
+          'vote_count.gte'?: number | string;
+          'vote_count.lte'?: number | string;
+          'vote_average.gte'?: number | string;
+          'vote_average.lte'?: number | string;
+          with_cast?: string;
+          with_crew?: string;
+          with_companies?: string;
+          with_genres?: string;
+          with_keywords?: string;
+          with_people?: string;
+          year?: number | string;
+          without_genres?: string;
+          'with_runtime.gte'?: number | string;
+          'with_runtime.lte'?: number | string;
+          with_release_type?: string;
+          with_original_language?: string;
+          without_keywords?: string;
         };
       }
 
       interface TV {
         query?: {
-          'vote_average.gte'?: number | string,
-          'vote_average.lte'?: number | string,
-          with_genres?: string,
-          without_genres?: string,
-          'with_runtime.gte'?: number | string,
-          'with_runtime.lte'?: number | string,
-          with_original_language?: string,
-          without_keywords?: string,
-          with_companies?: string,
+          'vote_average.gte'?: number | string;
+          'vote_average.lte'?: number | string;
+          with_genres?: string;
+          without_genres?: string;
+          'with_runtime.gte'?: number | string;
+          'with_runtime.lte'?: number | string;
+          with_original_language?: string;
+          without_keywords?: string;
+          with_companies?: string;
           sort_by?:
           | 'vote_average.asc' | 'vote_average.desc'
           | 'first_air_date.asc' | 'first_air_date.desc'
-          | 'popularity.asc' | 'popularity.desc',
-          'air_date.gte'?: string,
-          'air_date.lte'?: string,
-          'first_air_date.gte'?: string,
-          'first_air_date.lte'?: string,
-          first_air_date_year?: number | string,
-          page?: number | string,
-          timezone?: string,
-          with_networks?: string,
-          include_null_first_air_dates?: boolean,
-          screened_theatrically?: boolean,
+          | 'popularity.asc' | 'popularity.desc';
+          'air_date.gte'?: string;
+          'air_date.lte'?: string;
+          'first_air_date.gte'?: string;
+          'first_air_date.lte'?: string;
+          first_air_date_year?: number | string;
+          page?: number | string;
+          timezone?: string;
+          with_networks?: string;
+          include_null_first_air_dates?: boolean;
+          screened_theatrically?: boolean;
         };
       }
     }
@@ -689,10 +696,10 @@ declare namespace MovieDB {
           | 'tvrage_id'
           | 'facebook_id'
           | 'twitter_id'
-          | 'instagram_id',
+          | 'instagram_id';
         };
         pathParameters: {
-          external_id: string,
+          external_id: string;
         };
       }
     }
@@ -700,10 +707,10 @@ declare namespace MovieDB {
     namespace GuestSession {
       interface Common {
         query?: {
-          sort_by?: 'created_at.asc' | 'created_at.desc',
+          sort_by?: 'created_at.asc' | 'created_at.desc';
         };
         pathParameters: {
-          guest_session_id: string,
+          guest_session_id: string;
         };
       }
     }
@@ -711,13 +718,13 @@ declare namespace MovieDB {
     namespace Keyword {
       interface GetDetails {
         pathParameters: {
-          keyword_id: number | string,
+          keyword_id: number | string;
         };
       }
 
       interface GetMovies extends GetDetails {
         query?: {
-          include_adult?: boolean,
+          include_adult?: boolean;
         };
       }
     }
@@ -725,7 +732,7 @@ declare namespace MovieDB {
     namespace List {
       interface Common {
         pathParameters: {
-          list_id: number | string,
+          list_id: number | string;
         };
       }
 
@@ -733,30 +740,30 @@ declare namespace MovieDB {
 
       interface CheckItemStatus extends Common {
         query: {
-          movie_id: number,
+          movie_id: number;
         };
       }
 
       interface CreateList {
         query: {
-          session_id: string,
+          session_id: string;
         };
         body: {
-          name?: string,
-          description?: string,
-          language?: string,
+          name?: string;
+          description?: string;
+          language?: string;
         };
       }
 
       interface AddMovie {
         query: {
-          session_id: string,
+          session_id: string;
         };
         pathParameters: {
-          list_id: number | string,
+          list_id: number | string;
         };
         body: {
-          media_id: number,
+          media_id: number;
         };
       }
 
@@ -764,20 +771,20 @@ declare namespace MovieDB {
 
       interface ClearList {
         query: {
-          session_id: string,
-          confirm: boolean,
+          session_id: string;
+          confirm: boolean;
         };
         pathParameters: {
-          list_id: number | string,
+          list_id: number | string;
         };
       }
 
       interface DeleteList {
         query: {
-          session_id: string,
+          session_id: string;
         };
         pathParameters: {
-          list_id: number | string,
+          list_id: number | string;
         };
       }
     }
@@ -785,34 +792,34 @@ declare namespace MovieDB {
     namespace Movie {
       interface Common {
         pathParameters: {
-          movie_id: number | string,
+          movie_id: number | string;
         };
       }
 
       interface GetDetails extends Common {
         query?: {
-          append_to_response?: string,
+          append_to_response?: string;
         };
       }
 
       interface GetAccountStates extends Common {
         query: {
-          session_id?: string,
-          guest_session_id?: string,
+          session_id?: string;
+          guest_session_id?: string;
         };
       }
 
       interface GetAlternativeTitles extends Common {
         query?: {
-          country?: string,
+          country?: string;
         };
       }
 
       interface GetChanges extends Common {
         query?: {
-          start_date?: string,
-          end_date?: string,
-          page?: number | string,
+          start_date?: string;
+          end_date?: string;
+          page?: number | string;
         };
       }
 
@@ -822,7 +829,7 @@ declare namespace MovieDB {
 
       interface GetImages extends Common {
         query?: {
-          include_image_language?: string,
+          include_image_language?: string;
         };
       }
 
@@ -836,49 +843,49 @@ declare namespace MovieDB {
 
       interface GetRecommendations extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
       interface GetSimilarMovies extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
       interface GetReviews extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
       interface GetLists extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
       interface RateMovie extends Common {
         query?: {
-          guest_session_id?: string,
-          session_id?: string,
+          guest_session_id?: string;
+          session_id?: string;
         };
         body: {
-          value: number,
+          value: number;
         };
       }
 
       interface DeleteRating extends Common {
         query?: {
-          guest_session_id?: string,
-          session_id?: string,
+          guest_session_id?: string;
+          session_id?: string;
         };
       }
 
       interface GetNowPlaying {
         query?: {
-          page?: number | string,
-          region?: string,
+          page?: number | string;
+          region?: string;
         };
       }
 
@@ -890,9 +897,9 @@ declare namespace MovieDB {
 
       interface GetChangeList {
         query?: {
-          end_date?: string,
-          start_date?: string,
-          page?: number | string,
+          end_date?: string;
+          start_date?: string;
+          page?: number | string;
         };
       }
     }
@@ -900,7 +907,7 @@ declare namespace MovieDB {
     namespace Network {
       interface Common {
         pathParameters: {
-          network_id: number | string,
+          network_id: number | string;
         };
       }
 
@@ -918,10 +925,10 @@ declare namespace MovieDB {
           | 'all'
           | 'movie'
           | 'tv'
-          | 'person',
+          | 'person';
           time_window:
           | 'day'
-          | 'week',
+          | 'week';
         };
       }
     }
@@ -929,22 +936,22 @@ declare namespace MovieDB {
     namespace Person {
       interface Common {
         pathParameters: {
-          person_id: number,
+          person_id: number;
         };
       }
 
       interface GetDetails extends Common {
         query?: {
-          language?: string,
-          append_to_response?: string,
+          language?: string;
+          append_to_response?: string;
         };
       }
 
       interface GetChanges extends Common {
         query?: {
-          end_date?: string,
-          start_date?: string,
-          page?: number | string,
+          end_date?: string;
+          start_date?: string;
+          page?: number | string;
         };
       }
 
@@ -960,7 +967,7 @@ declare namespace MovieDB {
 
       interface GetTaggedImages extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
@@ -968,15 +975,15 @@ declare namespace MovieDB {
 
       interface GetPopular {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
       interface GetChangeList {
         query?: {
-          end_date?: string,
-          start_date?: string,
-          page?: number | string,
+          end_date?: string;
+          start_date?: string;
+          page?: number | string;
         };
       }
     }
@@ -984,7 +991,7 @@ declare namespace MovieDB {
     namespace Review {
       interface GetDetails {
         pathParameters: {
-          review_id: string,
+          review_id: string;
         };
       }
     }
@@ -992,59 +999,59 @@ declare namespace MovieDB {
     namespace Search {
       interface Companies {
         query: {
-          query: string,
-          page?: number | string,
+          query: string;
+          page?: number | string;
         };
       }
 
       interface Collections {
         query: {
-          query: string,
-          page?: number | string,
+          query: string;
+          page?: number | string;
         };
       }
 
       interface Keywords {
         query: {
-          query: string,
-          page?: number | string,
+          query: string;
+          page?: number | string;
         };
       }
 
       interface Movies {
         query: {
-          query: string,
-          page?: number | string,
-          include_adult?: boolean,
-          region?: string,
-          year?: number,
-          primary_release_year?: number
+          query: string;
+          page?: number | string;
+          include_adult?: boolean;
+          region?: string;
+          year?: number;
+          primary_release_year?: number;
         };
       }
 
       interface Multi {
         query: {
-          query: string,
-          page?: number | string,
-          include_adult?: boolean,
-          region?: string,
+          query: string;
+          page?: number | string;
+          include_adult?: boolean;
+          region?: string;
         };
       }
 
       interface People {
         query: {
-          query: string,
-          page?: number | string,
-          include_adult?: boolean,
-          region?: string,
+          query: string;
+          page?: number | string;
+          include_adult?: boolean;
+          region?: string;
         };
       }
 
       interface TVShows {
         query: {
-          query: string,
-          page?: number | string,
-          first_air_date?: number | string,
+          query: string;
+          page?: number | string;
+          first_air_date?: number | string;
         };
       }
     }
@@ -1052,34 +1059,34 @@ declare namespace MovieDB {
     namespace TV {
       interface Common {
         pathParameters: {
-          tv_id: number | string,
+          tv_id: number | string;
         };
       }
 
       interface GetDetails extends Common {
         query?: {
-          append_to_response?: string,
+          append_to_response?: string;
         };
       }
 
       interface GetAccountStates extends Common {
         query?: {
-          guest_session_id?: string,
-          session_id?: string,
+          guest_session_id?: string;
+          session_id?: string;
         };
       }
 
       interface GetAlternativeTitles extends Common {
         query?: {
-          country?: string,
+          country?: string;
         };
       }
 
       interface GetChanges extends Common {
         query?: {
-          start_date?: string,
-          end_date?: string,
-          page?: number | string,
+          start_date?: string;
+          end_date?: string;
+          page?: number | string;
         };
       }
 
@@ -1097,13 +1104,13 @@ declare namespace MovieDB {
 
       interface GetRecommendations extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
       interface GetReviews extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
@@ -1111,7 +1118,7 @@ declare namespace MovieDB {
 
       interface GetSimilarTVShows extends Common {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
@@ -1121,24 +1128,24 @@ declare namespace MovieDB {
 
       interface RateTVShow extends Common {
         query?: {
-          guest_session_id?: string,
-          session_id?: string,
+          guest_session_id?: string;
+          session_id?: string;
         };
         body: {
-          value: number,
+          value: number;
         };
       }
 
       interface DeleteRating extends Common {
         query?: {
-          guest_session_id?: string,
-          session_id?: string,
+          guest_session_id?: string;
+          session_id?: string;
         };
       }
 
       interface GetAiringToday {
         query?: {
-          page?: number | string,
+          page?: number | string;
         };
       }
 
@@ -1150,41 +1157,41 @@ declare namespace MovieDB {
 
       interface GetChangeList {
         query?: {
-          start_date?: string,
-          end_date?: string,
-          page?: number | string,
+          start_date?: string;
+          end_date?: string;
+          page?: number | string;
         };
       }
 
       namespace Season {
         interface Common {
           pathParameters: {
-            tv_id: number | string,
-            season_number: number | string,
+            tv_id: number | string;
+            season_number: number | string;
           };
         }
 
         interface GetDetails extends Common {
           query?: {
-            append_to_response?: string,
+            append_to_response?: string;
           };
         }
 
         interface GetChanges {
           pathParameters: {
-            season_id: number | string,
+            season_id: number | string;
           };
           query?: {
-            start_date?: string,
-            end_date?: string,
-            page?: number | string,
+            start_date?: string;
+            end_date?: string;
+            page?: number | string;
           };
         }
 
         interface GetAccountStates extends Common {
           query?: {
-            guest_session_id?: string,
-            session_id?: string,
+            guest_session_id?: string;
+            session_id?: string;
           };
         }
 
@@ -1206,26 +1213,26 @@ declare namespace MovieDB {
 
         interface GetDetails extends Common {
           query?: {
-            append_to_response?: string,
+            append_to_response?: string;
           };
         }
 
         interface GetChanges {
           pathParameters: {
-            episode_id: number | string,
+            episode_id: number | string;
           };
           query?: {
-            start_date?: string,
-            end_date?: string,
-            page?: number | string,
+            start_date?: string;
+            end_date?: string;
+            page?: number | string;
           };
         }
 
         interface GetAccountStates extends Common {
           query?: {
-            guest_session_id?: string,
-            session_id?: string,
-          }
+            guest_session_id?: string;
+            session_id?: string;
+          };
         }
 
         interface GetCredits extends Common {}
@@ -1238,18 +1245,18 @@ declare namespace MovieDB {
 
         interface RateTVEpisode extends Common {
           query?: {
-            guest_session_id?: string,
-            session_id?: string,
+            guest_session_id?: string;
+            session_id?: string;
           };
           body: {
-            value: number,
+            value: number;
           };
         }
 
         interface DeleteRating extends Common {
           query?: {
-            guest_session_id?: string,
-            session_id?: string,
+            guest_session_id?: string;
+            session_id?: string;
           };
         }
 
@@ -1259,7 +1266,7 @@ declare namespace MovieDB {
       namespace Group {
         interface GetDetails {
           pathParameters: {
-            id: string,
+            id: string;
           };
         }
       }
@@ -1277,8 +1284,8 @@ declare namespace MovieDB {
       interface GetDetails {
         avatar: {
           gravatar: {
-            hash: string,
-          },
+            hash: string;
+          };
         };
         id: number;
         iso_639_1: string;
@@ -1290,14 +1297,14 @@ declare namespace MovieDB {
 
       interface GetCreatedList extends ResponseWithPage {
         results: {
-          description: string,
-          favorite_count: number,
-          id: number,
-          item_count: number,
-          iso_639_1: string,
-          list_type: string,
-          name: string,
-          poster_path: null,
+          description: string;
+          favorite_count: number;
+          id: number;
+          item_count: number;
+          iso_639_1: string;
+          list_type: string;
+          name: string;
+          poster_path: null;
         }[];
       }
 
@@ -1321,18 +1328,18 @@ declare namespace MovieDB {
 
       interface GetRatedTVEpisodes extends ResponseWithPage {
         results: {
-          air_date: string,
-          episode_number: number,
-          id: number,
-          name: string,
-          overview: string,
-          production_code: string | null,
-          season_number: number,
-          show_id: number,
-          still_path: string | null,
-          vote_average: number,
-          vote_count: number,
-          rating: number,
+          air_date: string;
+          episode_number: number;
+          id: number;
+          name: string;
+          overview: string;
+          production_code: string | null;
+          season_number: number;
+          show_id: number;
+          still_path: string | null;
+          vote_average: number;
+          vote_count: number;
+          rating: number;
         }[];
       }
 
@@ -1390,30 +1397,30 @@ declare namespace MovieDB {
 
       interface GetMovieCertifications {
         certifications: {
-          US: Certification,
-          CA: Certification,
-          DE: Certification,
-          GB: Certification,
-          AU: Certification,
-          BR: Certification,
-          FR: Certification,
-          NZ: Certification,
-          IN: Certification,
+          US: Certification;
+          CA: Certification;
+          DE: Certification;
+          GB: Certification;
+          AU: Certification;
+          BR: Certification;
+          FR: Certification;
+          NZ: Certification;
+          IN: Certification;
         };
       }
 
       interface GetTVCertifications {
         sertifications: {
-          US: Certification,
-          CA: Certification,
-          AU: Certification,
-          FR: Certification,
-          RU: Certification,
-          DE: Certification,
-          TH: Certification,
-          KR: Certification,
-          GB: Certification,
-          BR: Certification,
+          US: Certification;
+          CA: Certification;
+          AU: Certification;
+          FR: Certification;
+          RU: Certification;
+          DE: Certification;
+          TH: Certification;
+          KR: Certification;
+          GB: Certification;
+          BR: Certification;
         };
       }
     }
@@ -1426,18 +1433,18 @@ declare namespace MovieDB {
         poster_path: null;
         backdrop_path: string;
         parts: {
-          adult: boolean,
-          backdrop_path: null,
-          original_language: string,
-          original_title: string,
-          overview: string,
-          release_date: string,
-          poster_path: string,
-          popularity: number,
-          title: string,
-          video: boolean,
-          vote_average: number,
-          vote_count: number,
+          adult: boolean;
+          backdrop_path: null;
+          original_language: string;
+          original_title: string;
+          overview: string;
+          release_date: string;
+          poster_path: string;
+          popularity: number;
+          title: string;
+          video: boolean;
+          vote_average: number;
+          vote_count: number;
         }[];
       }
 
@@ -1470,22 +1477,22 @@ declare namespace MovieDB {
       interface GetAlternativeNames {
         id: number;
         results: {
-          name: string,
-          type: string,
+          name: string;
+          type: string;
         }[];
       }
 
       interface GetImages {
         id: number;
         logos: {
-          aspect_ration: number,
-          file_path: string,
-          height: number,
-          id: number,
-          file_type: '.svg' | '.png',
-          vote_average: number,
-          vote_count: number,
-          width: number,
+          aspect_ration: number;
+          file_path: string;
+          height: number;
+          id: number;
+          file_type: '.svg' | '.png';
+          vote_average: number;
+          vote_count: number;
+          width: number;
         }[];
       }
     }
@@ -1493,13 +1500,13 @@ declare namespace MovieDB {
     namespace Configuration {
       interface GetAPIConfiguration {
         images: {
-          base_url: string,
-          secure_base_url: string,
-          backdrop_sizes: string[],
-          logo_sizes: string[],
-          poster_sizes: string[],
-          profile_sizes: string[],
-          still_sizes: string,
+          base_url: string;
+          secure_base_url: string;
+          backdrop_sizes: string[];
+          logo_sizes: string[];
+          poster_sizes: string[];
+          profile_sizes: string[];
+          still_sizes: string;
         };
         change_keys: string[];
       }
@@ -1535,79 +1542,79 @@ declare namespace MovieDB {
         job: string;
         id: string;
         person: {
-          adult: boolean,
-          gender: number,
-          name: string,
-          id: number,
+          adult: boolean;
+          gender: number;
+          name: string;
+          id: number;
           known_for: {
-            original_name: string,
-            id: number,
-            name: string,
-            vote_count: number,
-            vote_average: number,
-            first_air_date: string,
-            poster_path: string | null,
-            genre_ids: number[],
-            original_language: string,
-            backdrop_path: string | null,
-            overview: string,
-            origin_country: string[],
-            popularity: number,
-            media_type: 'movie' | 'tv',
-          }[],
-          known_for_department: string,
-          profile_path: string,
-          popularity: number,
+            original_name: string;
+            id: number;
+            name: string;
+            vote_count: number;
+            vote_average: number;
+            first_air_date: string;
+            poster_path: string | null;
+            genre_ids: number[];
+            original_language: string;
+            backdrop_path: string | null;
+            overview: string;
+            origin_country: string[];
+            popularity: number;
+            media_type: 'movie' | 'tv';
+          }[];
+          known_for_department: string;
+          profile_path: string;
+          popularity: number;
         };
       }
 
       interface GetDetailsForTV extends GetDetailsCommon {
         media: {
-          id: number,
-          original_language: string,
-          overview: string,
-          backdrop_path: string | null,
-          poster_path: string | null,
-          vote_count: number,
-          vote_average: number,
-          popularity: number,
-          original_name: string,
-          name: string,
-          first_air_date: string,
-          genre_ids: number[],
-          origin_country: string[],
-          episodes: object[], // TODO
+          id: number;
+          original_language: string;
+          overview: string;
+          backdrop_path: string | null;
+          poster_path: string | null;
+          vote_count: number;
+          vote_average: number;
+          popularity: number;
+          original_name: string;
+          name: string;
+          first_air_date: string;
+          genre_ids: number[];
+          origin_country: string[];
+          episodes: Record<string, unknown>[]; // TODO
           seasons: {
-            air_date: string,
-            episode_count: number,
-            id: number,
-            name: string,
-            overview: string,
-            poster_path: string | null,
-            season_number: number,
-            show_id: number,
-          }[],
+            air_date: string;
+            episode_count: number;
+            id: number;
+            name: string;
+            overview: string;
+            poster_path: string | null;
+            season_number: number;
+            show_id: number;
+          }[];
         };
         media_type: 'tv';
       }
 
       interface GetDetailsForMovie extends GetDetailsCommon {
         media: {
-          id: number,
-          original_language: string,
-          overview: string,
-          backdrop_path: string | null,
-          poster_path: string | null,
-          vote_count: number,
-          vote_average: number,
-          popularity: number,
-          adult: boolean,
-          genre_ids: number[],
-          original_title: string,
-          release_date: string,
-          title: string,
-          video: boolean,
-          character: string,
+          id: number;
+          original_language: string;
+          overview: string;
+          backdrop_path: string | null;
+          poster_path: string | null;
+          vote_count: number;
+          vote_average: number;
+          popularity: number;
+          adult: boolean;
+          genre_ids: number[];
+          original_title: string;
+          release_date: string;
+          title: string;
+          video: boolean;
+          character: string;
         };
         media_type: 'movie';
       }
@@ -1628,12 +1635,13 @@ declare namespace MovieDB {
       | ByExternalIDMovie
       | ByExternalIDTV
       | ByExternalIDTVEpisode
-      | ByExternalIDPerson
+      | ByExternalIDPerson;
 
       interface ByExternalIDTV {
         tv_results: Objects.TVShow[];
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-empty-interface
       interface ByExternalIDTVSeason {} // TODO
 
       interface ByExternalIDMovie {
@@ -1642,30 +1650,30 @@ declare namespace MovieDB {
 
       interface ByExternalIDTVEpisode {
         tv_episode_results: {
-          air_date: string,
-          episode_number: number,
-          id: number,
-          name: string,
-          overview: string,
-          production_code: string | null,
-          season_number: number,
-          show_id: number,
-          still_path: string | null,
-          vote_average: number,
-          vote_count: number,
+          air_date: string;
+          episode_number: number;
+          id: number;
+          name: string;
+          overview: string;
+          production_code: string | null;
+          season_number: number;
+          show_id: number;
+          still_path: string | null;
+          vote_average: number;
+          vote_count: number;
         }[];
       }
 
       interface ByExternalIDPerson {
         person_results: {
-          adult: boolean,
-          gender: number,
-          name: string,
-          id: number,
-          known_for: Objects.MovieWithMediaType[] | Objects.TVShowWithMediaType[],
-          known_for_department: string,
-          profile_path: string | null,
-          popularity: number,
+          adult: boolean;
+          gender: number;
+          name: string;
+          id: number;
+          known_for: Objects.MovieWithMediaType[] | Objects.TVShowWithMediaType[];
+          known_for_department: string;
+          profile_path: string | null;
+          popularity: number;
         }[];
       }
     }
@@ -1673,8 +1681,8 @@ declare namespace MovieDB {
     namespace Genre {
       interface Common {
         genres: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
       }
     }
@@ -1690,26 +1698,26 @@ declare namespace MovieDB {
 
       interface GetRatedTVEpisodes extends ResponseWithPage {
         results: {
-          air_date: string,
-          episode_number: number,
-          id: number,
-          name: string,
-          overview: string,
-          production_code: string | null,
-          season_number: number,
-          show_id: number,
-          still_path: string | null,
-          vote_average: number,
-          vote_count: number,
-          rating: number,
+          air_date: string;
+          episode_number: number;
+          id: number;
+          name: string;
+          overview: string;
+          production_code: string | null;
+          season_number: number;
+          show_id: number;
+          still_path: string | null;
+          vote_average: number;
+          vote_count: number;
+          rating: number;
         }[];
       }
     }
 
     namespace Keyword {
       interface GetDetails {
-        id: number,
-        name: string,
+        id: number;
+        name: string;
       }
 
       interface GetMovies extends ResponseWithPage {
@@ -1732,8 +1740,8 @@ declare namespace MovieDB {
       }
 
       interface CheckItemStatus {
-        id: string,
-        item_present: boolean,
+        id: string;
+        item_present: boolean;
       }
 
       interface CreateList extends Objects.Status {
@@ -1752,28 +1760,28 @@ declare namespace MovieDB {
 
     namespace Movie {
       interface Image {
-        aspect_ratio: number,
-        file_path: string,
-        height: number,
-        iso_639_1: string | null,
-        vote_average: number,
-        vote_count: number,
-        width: number,
+        aspect_ratio: number;
+        file_path: string;
+        height: number;
+        iso_639_1: string | null;
+        vote_average: number;
+        vote_count: number;
+        width: number;
       }
 
       interface GetDetails {
         adult: boolean;
         backdrop_path: string | null;
         belongs_to_collection: {
-          id: number,
-          name: string,
-          poster_path: string | null,
-          backdrop_path: string | null,
+          id: number;
+          name: string;
+          poster_path: string | null;
+          backdrop_path: string | null;
         } | null;
         budget: number;
         genres: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
         homepage: string | null;
         id: number;
@@ -1784,21 +1792,21 @@ declare namespace MovieDB {
         popularity: number;
         poster_path: string | null;
         production_companies: {
-          name: string,
-          id: number,
-          logo_path: string | null,
-          origin_country: string,
+          name: string;
+          id: number;
+          logo_path: string | null;
+          origin_country: string;
         }[];
         production_countries: {
-          iso_3166_1: string,
-          name: string,
+          iso_3166_1: string;
+          name: string;
         }[];
         release_date: string;
         revenue: string;
         runtime: number | null;
         spoken_language: {
-          iso_639_1: string,
-          name: string,
+          iso_639_1: string;
+          name: string;
         }[];
         status:
         | 'Rumored'
@@ -1823,23 +1831,23 @@ declare namespace MovieDB {
       interface GetCredits {
         id: number;
         cast: {
-          cast_id: number,
-          character: string,
-          credit_id: string,
-          gender: number | null,
-          id: number,
-          name: string,
-          order: number,
-          profile_path: string | null,
+          cast_id: number;
+          character: string;
+          credit_id: string;
+          gender: number | null;
+          id: number;
+          name: string;
+          order: number;
+          profile_path: string | null;
         }[];
         crew: {
-          credit_id: string,
-          department: string,
-          gender: number | null,
-          id: number,
-          job: string,
-          name: string,
-          profile_path: string | null,
+          credit_id: string;
+          department: string;
+          gender: number | null;
+          id: number;
+          job: string;
+          name: string;
+          profile_path: string | null;
         }[];
       }
 
@@ -1854,22 +1862,22 @@ declare namespace MovieDB {
       interface GetKeywords {
         id: number;
         keywords: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
       }
 
       interface GetReleaseDates {
         id: number;
         results: {
-          iso_3166_1: string,
+          iso_3166_1: string;
           release_dates: {
-            certification: string,
-            iso_639_1: string,
-            release_date: string,
-            type: number,
-            note: string,
-          }[],
+            certification: string;
+            iso_639_1: string;
+            release_date: string;
+            type: number;
+            note: string;
+          }[];
         }[];
       }
 
@@ -1878,15 +1886,15 @@ declare namespace MovieDB {
       interface GetTranslations {
         id: number;
         translations: {
-          iso_639_1: string,
-          iso_3166_1: string,
-          name: string,
-          english_name: string,
+          iso_639_1: string;
+          iso_3166_1: string;
+          name: string;
+          english_name: string;
           data: {
-            title: string,
-            overview: string,
-            homepage: string,
-          },
+            title: string;
+            overview: string;
+            homepage: string;
+          };
         }[];
       }
 
@@ -1903,14 +1911,14 @@ declare namespace MovieDB {
       interface GetLists extends ResponseWithPage {
         id: number;
         results: {
-          description: string,
-          favorite_count: number,
-          id: number,
-          item_count: number,
-          iso_639_1: string,
-          list_type: string,
-          name: string,
-          poster_path: string | null,
+          description: string;
+          favorite_count: number;
+          id: number;
+          item_count: number;
+          iso_639_1: string;
+          list_type: string;
+          name: string;
+          poster_path: string | null;
         }[];
       }
 
@@ -1924,8 +1932,8 @@ declare namespace MovieDB {
         belongs_to_collection: null;
         budget: number;
         genre_ids: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
         homepage: string;
         id: number;
@@ -1935,11 +1943,14 @@ declare namespace MovieDB {
         overview: string;
         popularity: number;
         poster_path: string | null;
+        // eslint-disable-next-line @typescript-eslint/ban-types
         production_companies: {}[];
+        // eslint-disable-next-line @typescript-eslint/ban-types
         production_countries: {}[];
         release_date: string;
         revenue: number;
         runtime: number;
+        // eslint-disable-next-line @typescript-eslint/ban-types
         spoken_languages: {}[];
         status: string;
         tagline: string;
@@ -1952,8 +1963,8 @@ declare namespace MovieDB {
       interface GetNowPlaying extends ResponseWithPage {
         results: Objects.Movie[];
         dates: {
-          maximum: string,
-          minimum: string,
+          maximum: string;
+          minimum: string;
         };
       }
 
@@ -1967,8 +1978,8 @@ declare namespace MovieDB {
 
       interface GetChangeList extends ResponseWithPage {
         results: {
-          id: number,
-          adult: boolean | null,
+          id: number;
+          adult: boolean | null;
         }[];
       }
     }
@@ -1985,24 +1996,24 @@ declare namespace MovieDB {
       interface GetAlternativeNames {
         id: number;
         results: {
-          name: string,
-          type: string,
+          name: string;
+          type: string;
         }[];
       }
 
       interface GetImages {
         id: number;
         logos: {
-          aspect_ratio: number,
-          file_path: string,
-          height: number,
-          id: string,
+          aspect_ratio: number;
+          file_path: string;
+          height: number;
+          id: string;
           file_type:
           | '.svg'
-          | '.png',
-          vote_average: number,
-          vote_count: number,
-          width: number,
+          | '.png';
+          vote_average: number;
+          vote_count: number;
+          width: number;
         }[];
       }
     }
@@ -2032,153 +2043,153 @@ declare namespace MovieDB {
 
       interface GetChanges {
         changes: {
-          key: string,
+          key: string;
           items: {
-            id: string,
-            action: string,
-            time: string,
+            id: string;
+            action: string;
+            time: string;
             original_value: {
               profile: {
-                file_path: string,
-              },
-            },
-          }[],
+                file_path: string;
+              };
+            };
+          }[];
         }[];
       }
 
       interface GetMovieCredits {
         cast: {
-          character: string,
-          credit_id: string,
-          release_date: string,
-          vote_count: number,
-          video: boolean,
-          adult: boolean,
-          vote_average: number,
-          title: string,
-          genre_ids: number[],
-          original_language: string,
-          original_title: string,
-          popularity: number,
-          id: number,
-          backdrop_path: string | null,
-          overview: string,
-          poster_path: string | null,
+          character: string;
+          credit_id: string;
+          release_date: string;
+          vote_count: number;
+          video: boolean;
+          adult: boolean;
+          vote_average: number;
+          title: string;
+          genre_ids: number[];
+          original_language: string;
+          original_title: string;
+          popularity: number;
+          id: number;
+          backdrop_path: string | null;
+          overview: string;
+          poster_path: string | null;
         }[];
         crew: {
-          id: number,
-          department: string,
-          original_language: string,
-          original_title: string,
-          job: string,
-          overview: string,
-          vote_count: number,
-          video: boolean,
-          poster_path: string | null,
-          backdrop_path: string | null,
-          title: string,
-          popularity: number,
-          genre_ids: number[],
-          vote_average: number,
-          adult: boolean,
-          release_date: string,
-          credit_id: string,
+          id: number;
+          department: string;
+          original_language: string;
+          original_title: string;
+          job: string;
+          overview: string;
+          vote_count: number;
+          video: boolean;
+          poster_path: string | null;
+          backdrop_path: string | null;
+          title: string;
+          popularity: number;
+          genre_ids: number[];
+          vote_average: number;
+          adult: boolean;
+          release_date: string;
+          credit_id: string;
         }[];
         id: number;
       }
 
       interface GetTVCredits {
         cast: {
-          credit_id: string,
-          original_name: string,
-          id: number,
-          genre_ids: number[],
-          character: string,
-          name: string,
-          poster_path: string | null,
-          vote_count: number,
-          vote_average: number,
-          popularity: number,
-          episode_count: number,
-          original_language: string,
-          first_air_date: string,
-          backdrop_path: string | null,
-          overview: string,
-          origin_country: string[],
+          credit_id: string;
+          original_name: string;
+          id: number;
+          genre_ids: number[];
+          character: string;
+          name: string;
+          poster_path: string | null;
+          vote_count: number;
+          vote_average: number;
+          popularity: number;
+          episode_count: number;
+          original_language: string;
+          first_air_date: string;
+          backdrop_path: string | null;
+          overview: string;
+          origin_country: string[];
         }[];
         crew: {
-          id: number,
-          department: string,
-          original_language: string,
-          episode_count: number,
-          job: string,
-          overview: string,
-          origin_country: string[],
-          original_name: string,
-          genre_ids: number[],
-          name: string,
-          first_air_date: string,
-          backrop_path: string | null,
-          popularity: number,
-          vote_count: number,
-          vote_average: number,
-          poster_path: string | null,
-          credit_id: string,
+          id: number;
+          department: string;
+          original_language: string;
+          episode_count: number;
+          job: string;
+          overview: string;
+          origin_country: string[];
+          original_name: string;
+          genre_ids: number[];
+          name: string;
+          first_air_date: string;
+          backrop_path: string | null;
+          popularity: number;
+          vote_count: number;
+          vote_average: number;
+          poster_path: string | null;
+          credit_id: string;
         }[];
         id: number;
       }
 
       interface GetCombinedCredits {
         cast: {
-          id: number,
-          original_language: string,
-          episode_count: number,
-          overview: string,
-          origin_country: string[],
-          original_name: string,
-          genre_ids: number[],
-          name: string,
-          media_type: string,
-          poster_path: string | null,
-          first_air_date: string,
-          vote_average: number,
-          vote_count: number,
-          character: string,
-          backdrop_path: string | null,
-          popularity: number,
-          credit_id: string,
-          original_title: string,
-          video: boolean,
-          release_date: string,
-          title: string,
-          adult: boolean,
+          id: number;
+          original_language: string;
+          episode_count: number;
+          overview: string;
+          origin_country: string[];
+          original_name: string;
+          genre_ids: number[];
+          name: string;
+          media_type: string;
+          poster_path: string | null;
+          first_air_date: string;
+          vote_average: number;
+          vote_count: number;
+          character: string;
+          backdrop_path: string | null;
+          popularity: number;
+          credit_id: string;
+          original_title: string;
+          video: boolean;
+          release_date: string;
+          title: string;
+          adult: boolean;
         }[];
         crew: {
-          id: number,
-          department: string,
-          original_language: string,
-          episode_count: number,
-          job: string,
-          overview: string,
-          origin_country: string[],
-          original_name: string,
-          vote_count: number,
-          name: string,
-          media_type: string,
-          popularity: number,
-          credit_id: string,
-          backdrop_path: string | null,
-          first_air_date: string,
-          vote_average: number,
-          genre_ids: number[],
-          poster_path: string | null,
-          original_title: string,
-          video: boolean,
-          title: string,
-          adult: boolean,
-          release_date: string,
+          id: number;
+          department: string;
+          original_language: string;
+          episode_count: number;
+          job: string;
+          overview: string;
+          origin_country: string[];
+          original_name: string;
+          vote_count: number;
+          name: string;
+          media_type: string;
+          popularity: number;
+          credit_id: string;
+          backdrop_path: string | null;
+          first_air_date: string;
+          vote_average: number;
+          genre_ids: number[];
+          poster_path: string | null;
+          original_title: string;
+          video: boolean;
+          title: string;
+          adult: boolean;
+          release_date: string;
         }[];
-        id: number,
+        id: number;
       }
 
       interface GetExternalIDs {
@@ -2200,35 +2211,35 @@ declare namespace MovieDB {
       interface GetTaggedImages extends ResponseWithPage {
         id: number;
         results: {
-          aspect_ratio: number,
-          file_path: string,
-          height: number,
-          id: string,
-          iso_639_1: string | null,
-          vote_average: number,
-          vote_count: number,
-          width: number,
-          media: Objects.Movie | Objects.TVShow,
-          media_type: 'tv' | 'movie',
+          aspect_ratio: number;
+          file_path: string;
+          height: number;
+          id: string;
+          iso_639_1: string | null;
+          vote_average: number;
+          vote_count: number;
+          width: number;
+          media: Objects.Movie | Objects.TVShow;
+          media_type: 'tv' | 'movie';
         }[];
       }
 
       interface GetTranslations {
         id: number;
         translations: {
-          iso_639_1: string,
-          iso_3166_1: string,
-          name: string,
+          iso_639_1: string;
+          iso_3166_1: string;
+          name: string;
           data: {
-            biography: string,
-          },
-          english_name: string,
+            biography: string;
+          };
+          english_name: string;
         }[];
       }
 
       interface GetLatest {
         adult: boolean;
-        also_known_as: object;
+        also_known_as: Record<string, unknown>;
         biography: string | null;
         birthday: string | null;
         deathday: string | null;
@@ -2244,19 +2255,19 @@ declare namespace MovieDB {
 
       interface GetPopular extends ResponseWithPage {
         results: {
-          profile_path: string,
-          adult: boolean,
-          id: number,
-          known_for: (Objects.MovieWithMediaType | Objects.TVShowWithMediaType)[],
-          name: string,
-          popularity: number,
+          profile_path: string;
+          adult: boolean;
+          id: number;
+          known_for: (Objects.MovieWithMediaType | Objects.TVShowWithMediaType)[];
+          name: string;
+          popularity: number;
         }[];
       }
 
       interface GetChangeList extends ResponseWithPage {
         results: {
-          id: number,
-          adult: boolean | null,
+          id: number;
+          adult: boolean | null;
         }[];
       }
     }
@@ -2277,24 +2288,24 @@ declare namespace MovieDB {
     namespace Search {
       interface Companies extends ResponseWithPage {
         results: {
-          id: number,
-          logo_path: string | null,
-          name: string,
+          id: number;
+          logo_path: string | null;
+          name: string;
         }[];
       }
 
       interface Collections extends ResponseWithPage {
         results: {
-          id: number,
-          backdrop_path: string | null,
-          name: string,
+          id: number;
+          backdrop_path: string | null;
+          name: string;
         }[];
       }
 
       interface Keywords extends ResponseWithPage {
         results: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
       }
 
@@ -2323,17 +2334,17 @@ declare namespace MovieDB {
       interface GetDetails {
         backdrop_path: string | null;
         created_by: {
-          id: number,
-          credit_id: string,
-          name: string,
-          gender: 0 | 1 | 2,
-          profile_path: string,
+          id: number;
+          credit_id: string;
+          name: string;
+          gender: 0 | 1 | 2;
+          profile_path: string;
         }[];
         episode_run_time: number[];
         first_air_date: string;
         genres: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
         homepage: string;
         id: number;
@@ -2344,10 +2355,10 @@ declare namespace MovieDB {
         name: string;
         next_episode_to_air: Objects.Episode | null;
         networks: {
-          name: string,
-          id: number,
-          logo_path: string,
-          origin_country: string,
+          name: string;
+          id: number;
+          logo_path: string;
+          origin_country: string;
         }[];
         number_of_episodes: number;
         number_of_seasons: number;
@@ -2358,19 +2369,19 @@ declare namespace MovieDB {
         popularity: number;
         poster_path: string | null;
         production_companies: {
-          id: number,
-          logo_path: string | null,
-          name: string,
-          origin_country: string,
+          id: number;
+          logo_path: string | null;
+          name: string;
+          origin_country: string;
         }[];
         seasons: {
-          air_date: string,
-          episode_count: number,
-          id: number,
-          name: string,
-          overview: string,
-          poster_path: string | null,
-          season_number: number,
+          air_date: string;
+          episode_count: number;
+          id: number;
+          name: string;
+          overview: string;
+          poster_path: string | null;
+          season_number: number;
         }[];
         status: string;
         type: string;
@@ -2384,59 +2395,59 @@ declare namespace MovieDB {
 
       interface GetChanges {
         changes: {
-          key: string,
+          key: string;
           items: {
-            id: string,
-            action: string,
-            time: string,
-          }[],
+            id: string;
+            action: string;
+            time: string;
+          }[];
         }[];
       }
 
       interface GetContentRatings {
         results: {
-          iso_3166_1: string,
-          rating: string,
+          iso_3166_1: string;
+          rating: string;
         }[];
         id: number;
       }
 
       interface GetCredits {
         cast: {
-          character: string,
-          credit_id: string,
-          gender: 0 | 1 | 2 | null,
-          id: number,
-          name: string,
-          order: number,
-          profile_path: string | null,
+          character: string;
+          credit_id: string;
+          gender: 0 | 1 | 2 | null;
+          id: number;
+          name: string;
+          order: number;
+          profile_path: string | null;
         }[];
         crew: {
-          credit_id: string,
-          department: string,
-          gender: 0 | 1 | 2 | null,
-          id: number,
-          job: string,
-          name: string,
-          profile_path: string | null,
+          credit_id: string;
+          department: string;
+          gender: 0 | 1 | 2 | null;
+          id: number;
+          job: string;
+          name: string;
+          profile_path: string | null;
         }[];
         id: number;
       }
 
       interface GetEpisodeGroups {
         results: {
-          description: string,
-          episode_count: number,
-          group_count: number,
-          id: string,
-          name: string,
+          description: string;
+          episode_count: number;
+          group_count: number;
+          id: string;
+          name: string;
           network: {
-            id: number,
-            logo_path: string,
-            name: string,
-            origin_country: string,
-          } | null,
-          type: string,
+            id: number;
+            logo_path: string;
+            name: string;
+            origin_country: string;
+          } | null;
+          type: string;
         }[];
         id: number;
       }
@@ -2452,8 +2463,8 @@ declare namespace MovieDB {
       interface GetKeywords {
         id: number;
         results: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
       }
 
@@ -2466,28 +2477,28 @@ declare namespace MovieDB {
       interface GetScreenedTheatrically {
         id: number;
         results: {
-          id: number,
-          episode_number: number,
-          season_number: number,
+          id: number;
+          episode_number: number;
+          season_number: number;
         }[];
       }
 
       interface GetSimilarTVShows extends ResponseWithPage {
-        resulst: Objects.TVShow[];
+        results: Objects.TVShow[];
       }
 
       interface GetTranslations {
         id: number;
         translations: {
-          iso_639_1: string,
-          iso_3166_1: string,
-          name: string,
-          english_name: string,
+          iso_639_1: string;
+          iso_3166_1: string;
+          name: string;
+          english_name: string;
           data: {
-            name: string,
-            overview: string,
-            homepage: string,
-          },
+            name: string;
+            overview: string;
+            homepage: string;
+          };
         }[];
       }
 
@@ -2500,17 +2511,17 @@ declare namespace MovieDB {
       interface GetLatest {
         backdrop_path: string | null;
         created_by: {
-          id: number,
-          credit_id: string,
-          name: string,
-          gender: 0 | 1 | 2,
-          profile_path: string,
+          id: number;
+          credit_id: string;
+          name: string;
+          gender: 0 | 1 | 2;
+          profile_path: string;
         };
         episode_run_time: number[];
         first_air_date: string;
         genres: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
         homepage: string;
         id: number;
@@ -2519,8 +2530,8 @@ declare namespace MovieDB {
         last_air_date: string;
         name: string;
         networs: {
-          id: number,
-          name: string,
+          id: number;
+          name: string;
         }[];
         number_of_episodes: number;
         number_of_seasons: number;
@@ -2530,13 +2541,13 @@ declare namespace MovieDB {
         overview: string | null;
         popularity: number;
         poster_path: string | null;
-        production_companies: object[]; // TODO
+        production_companies: Record<string, unknown>[]; // TODO
         seasons: {
-          air_date: string,
-          episode_count: number,
-          id: number,
-          poster_path: string | null,
-          season_number: number,
+          air_date: string;
+          episode_count: number;
+          id: number;
+          poster_path: string | null;
+          season_number: number;
         }[];
         status: string;
         type: string;
@@ -2556,43 +2567,44 @@ declare namespace MovieDB {
 
       interface GetChangeList extends ResponseWithPage {
         results: {
-          id: number,
-          adult: boolean | null,
+          id: number;
+          adult: boolean | null;
         }[];
       }
 
       namespace Season {
         interface GetDetails {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           _id: string;
           air_date: string;
           episodes: {
-            air_date: string,
+            air_date: string;
             crew: {
-              id: number,
-              credit_id: string,
-              name: string,
-              department: string,
-              job: string,
-              profile_path: string | null,
-            }[],
-            episode_number: number,
+              id: number;
+              credit_id: string;
+              name: string;
+              department: string;
+              job: string;
+              profile_path: string | null;
+            }[];
+            episode_number: number;
             guest_stars: {
-              id: number,
-              name: string,
-              credit_id: string,
-              character: string,
-              order: number,
-              gender: 0 | 1 | 2,
-              profile_path: string | null,
-            }[],
-            name: string,
-            overview: string,
-            id: number,
-            production_code: string | null,
-            season_number: number,
-            still_path: string | null,
-            vote_average: number,
-            vote_count: number,
+              id: number;
+              name: string;
+              credit_id: string;
+              character: string;
+              order: number;
+              gender: 0 | 1 | 2;
+              profile_path: string | null;
+            }[];
+            name: string;
+            overview: string;
+            id: number;
+            production_code: string | null;
+            season_number: number;
+            still_path: string | null;
+            vote_average: number;
+            vote_count: number;
           }[];
           name: string;
           overview: string;
@@ -2603,50 +2615,50 @@ declare namespace MovieDB {
 
         interface GetChanges {
           changes: {
-            key: string,
+            key: string;
             items: {
-              id: string,
-              action: string,
-              time: string,
+              id: string;
+              action: string;
+              time: string;
               value: {
-                episode_id: number,
-                episode_season: number,
-              } |  string,
-              iso_639_1: string,
-              original_value: string,
-            }[],
+                episode_id: number;
+                episode_season: number;
+              } | string;
+              iso_639_1: string;
+              original_value: string;
+            }[];
           }[];
         }
 
         interface GetAccountStates {
           id: number;
           results: {
-            id: number,
-            episode_number: number,
+            id: number;
+            episode_number: number;
             rated: {
-              value: number,
-            } | boolean,
+              value: number;
+            } | boolean;
           }[];
         }
 
         interface GetCredits {
           cast: {
-            character: string,
-            credit_id: string,
-            gender: 0 | 1 | 2 | null,
-            id: number,
-            name: string,
-            order: number,
-            profile_path: string | null,
+            character: string;
+            credit_id: string;
+            gender: 0 | 1 | 2 | null;
+            id: number;
+            name: string;
+            order: number;
+            profile_path: string | null;
           }[];
           crew: {
-            credit_id: string,
-            department: string,
-            gender: 0 | 1 | 2 | null,
-            id: number,
-            job: string,
-            name: string,
-            profile_path: string | null,
+            credit_id: string;
+            department: string;
+            gender: 0 | 1 | 2 | null;
+            id: number;
+            job: string;
+            name: string;
+            profile_path: string | null;
           }[];
           id: number;
         }
@@ -2671,21 +2683,21 @@ declare namespace MovieDB {
         interface GetDetails {
           air_date: string;
           crew: {
-            id: number,
-            credit_id: string,
-            name: string,
-            department: string,
-            job: string,
-            profile_path: string | null,
+            id: number;
+            credit_id: string;
+            name: string;
+            department: string;
+            job: string;
+            profile_path: string | null;
           }[];
           episode_number: number;
           guest_stars: {
-            id: number,
-            name: string,
-            credit_id: string,
-            character: string,
-            order: number,
-            profile_path: string | null,
+            id: number;
+            name: string;
+            credit_id: string;
+            character: string;
+            order: number;
+            profile_path: string | null;
           }[];
           name: string;
           overview: string;
@@ -2699,52 +2711,52 @@ declare namespace MovieDB {
 
         interface GetChanges {
           changes: {
-            key: string,
+            key: string;
             items: {
-              id: string,
-              action: string,
-              time: string,
-              value: string,
-              iso_639_1: string,
-            }[],
+              id: string;
+              action: string;
+              time: string;
+              value: string;
+              iso_639_1: string;
+            }[];
           }[];
         }
 
         interface GetAccountStates {
           id: number;
           rated: {
-            value: number,
+            value: number;
           } | boolean;
         }
 
         interface GetCredits {
           id: number;
           cast: {
-            character: string,
-            credit_id: string,
-            gender: 0 | 1 | 2,
-            id: number,
-            name: string,
-            order: number,
-            profile_path: string | null,
+            character: string;
+            credit_id: string;
+            gender: 0 | 1 | 2;
+            id: number;
+            name: string;
+            order: number;
+            profile_path: string | null;
           }[];
           crew: {
-            id: number,
-            credit_id: string,
-            name: string,
-            department: string,
-            job: string,
-            gender: 0 | 1 | 2,
-            profile_path: string | null,
+            id: number;
+            credit_id: string;
+            name: string;
+            department: string;
+            job: string;
+            gender: 0 | 1 | 2;
+            profile_path: string | null;
           }[];
           guest_stars: {
-            id: number,
-            name: string,
-            credit_id: string,
-            character: string,
-            order: number,
-            gender: 0 | 1 | 2,
-            profile_path: string | null,
+            id: number;
+            name: string;
+            credit_id: string;
+            character: string;
+            order: number;
+            gender: 0 | 1 | 2;
+            profile_path: string | null;
           }[];
         }
 
@@ -2765,14 +2777,14 @@ declare namespace MovieDB {
         interface GetTranslations {
           id: number;
           translations: {
-            iso_3166_1: string,
-            iso_639_1: string,
-            name: string,
-            english_name: string,
+            iso_3166_1: string;
+            iso_639_1: string;
+            name: string;
+            english_name: string;
             data: {
-              name: string,
-              overview: string,
-            }
+              name: string;
+              overview: string;
+            };
           }[];
         }
 
@@ -2789,32 +2801,32 @@ declare namespace MovieDB {
           episode_count: number;
           group_count: number;
           groups: {
-            id: string,
-            name: string,
-            order: number,
+            id: string;
+            name: string;
+            order: number;
             episodes: {
-              air_date: string,
-              episode_number: number,
-              id: number,
-              name: string,
-              overview: string,
-              production_code: null,
-              season_number: number,
-              show_id: number,
-              still_path: string | null,
-              vote_average: number,
-              vote_count: number,
-              order: number,
-            }[],
-            locked: boolean,
+              air_date: string;
+              episode_number: number;
+              id: number;
+              name: string;
+              overview: string;
+              production_code: null;
+              season_number: number;
+              show_id: number;
+              still_path: string | null;
+              vote_average: number;
+              vote_count: number;
+              order: number;
+            }[];
+            locked: boolean;
           }[];
           id: string;
           name: string;
           network: {
-            id: number,
-            logo_path: string | null,
-            name: string,
-            origin_country: string,
+            id: number;
+            logo_path: string | null;
+            name: string;
+            origin_country: string;
           };
           type: number;
         }
@@ -2863,30 +2875,30 @@ declare namespace MovieDB {
 }
 
 declare class MovieDB {
-  account: MovieDB.Endpoints.Account;
-  authentication: MovieDB.Endpoints.Authentication;
-  certification: MovieDB.Endpoints.Certification;
-  collection: MovieDB.Endpoints.Collection;
-  company: MovieDB.Endpoints.Company;
-  configuration: MovieDB.Endpoints.Configuration;
-  credit: MovieDB.Endpoints.Credit;
-  discover: MovieDB.Endpoints.Discover;
-  find: MovieDB.Endpoints.Find;
-  genre: MovieDB.Endpoints.Genre;
-  guestSession: MovieDB.Endpoints.GuestSession;
-  keyword: MovieDB.Endpoints.Keyword;
-  list: MovieDB.Endpoints.List;
-  movie: MovieDB.Endpoints.Movie;
-  network: MovieDB.Endpoints.Network;
-  trending: MovieDB.Endpoints.Trending;
-  person: MovieDB.Endpoints.Person;
-  review: MovieDB.Endpoints.Review;
-  search: MovieDB.Endpoints.Search;
-  tv: MovieDB.Endpoints.TV;
+  public account: MovieDB.Endpoints.Account;
+  public authentication: MovieDB.Endpoints.Authentication;
+  public certification: MovieDB.Endpoints.Certification;
+  public collection: MovieDB.Endpoints.Collection;
+  public company: MovieDB.Endpoints.Company;
+  public configuration: MovieDB.Endpoints.Configuration;
+  public credit: MovieDB.Endpoints.Credit;
+  public discover: MovieDB.Endpoints.Discover;
+  public find: MovieDB.Endpoints.Find;
+  public genre: MovieDB.Endpoints.Genre;
+  public guestSession: MovieDB.Endpoints.GuestSession;
+  public keyword: MovieDB.Endpoints.Keyword;
+  public list: MovieDB.Endpoints.List;
+  public movie: MovieDB.Endpoints.Movie;
+  public network: MovieDB.Endpoints.Network;
+  public trending: MovieDB.Endpoints.Trending;
+  public person: MovieDB.Endpoints.Person;
+  public review: MovieDB.Endpoints.Review;
+  public search: MovieDB.Endpoints.Search;
+  public tv: MovieDB.Endpoints.TV;
 
-  constructor(apiKey: string, options?: MovieDB.ConstructorOptions);
-  setApiKey(apiKey: string): void;
-  setLanguage(language: string): void;
+  public constructor(apiKey: string, options?: MovieDB.ConstructorOptions);
+  public setApiKey(apiKey: string): void;
+  public setLanguage(language: string): void;
 }
 
 export = MovieDB;
