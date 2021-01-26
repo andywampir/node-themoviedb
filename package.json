@@ -7,8 +7,8 @@
   "main": "dist/index.js",
   "devDependencies": {
     "@types/node": "^14.14.6",
-    "@typescript-eslint/eslint-plugin": "^4.11.1",
-    "@typescript-eslint/parser": "^4.11.1",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
     "del-cli": "^3.0.1",
     "eslint": "^7",
     "np": "^7.2.0",
@@ -21,7 +21,8 @@
     "build": "del-cli dist && tsc",
     "test": "echo \"No test specified\"",
     "release": "yarn build && np",
-    "release:preview": "np --preview"
+    "release:preview": "np --preview",
+    "prepublish": "eslint --ext .ts ./src/**"
   },
   "files": [
     "dist",
