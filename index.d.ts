@@ -1206,9 +1206,11 @@ declare namespace MovieDB {
 
       namespace Episode {
         interface Common {
-          tv_id: number | string;
-          season_number: number | string;
-          episode_number: number | string;
+          pathParameters: {
+            tv_id: number | string;
+            season_number: number | string;
+            episode_number: number | string;
+          };
         }
 
         interface GetDetails extends Common {
