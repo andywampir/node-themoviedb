@@ -1,68 +1,55 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
+import ChangesEndpointNS from '../../interfaces/v3/changes';
 
-import {
-  ChangesReturnType, ChangesMovieOptions,
-  ChangesPersonOptions, ChangesTVOptions,
-} from '../../interfaces/v3/changes';
+import type { IClient } from '../../utils/Client';
 
-export default class ChangesEndpoint extends Executor<ChangesReturnType> {
-  private readonly apiKey: string;
+export default class ChangesEndpoint implements ChangesEndpointNS.Class {
+	private readonly apiKey: string;
+	private readonly client: IClient;
 
-  public constructor(apiKey: string) {
-    super(client);
+	public constructor(options: ChangesEndpointNS.Options.Constructor) {
+		this.apiKey = options.apiKey;
+		this.client = options.client;
+	}
 
-    this.apiKey = apiKey;
-  }
+	public async movie(options?: ChangesEndpointNS.Options.Movie): Promise<ChangesEndpointNS.Results.Movie> {
+		return this.client.get(
+			'movie/changes',
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					end_date: options?.endDate ?? null,
+					start_date: options?.startDate ?? null,
+					page: options?.page ?? 1,
+				},
+			},
+		);
+	}
 
-  public movie(options?: ChangesMovieOptions): ChangesEndpoint {
-    this.addToExecutionList(
-      'movie',
-      {
-        uri: 'movie/changes',
-        searchParams: {
-          api_key: this.apiKey,
-          end_date: options?.endDate ?? null,
-          start_date: options?.startDate ?? null,
-          page: options?.page ?? 1,
-        },
-      },
-    );
+	public async tv(options?: ChangesEndpointNS.Options.TV): Promise<ChangesEndpointNS.Results.TV> {
+		return this.client.get(
+			'tv/changes',
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					end_date: options?.endDate ?? null,
+					start_date: options?.startDate ?? null,
+					page: options?.page ?? 1,
+				},
+			},
+		);
+	}
 
-    return this;
-  }
-
-  public tv(options?: ChangesTVOptions): ChangesEndpoint {
-    this.addToExecutionList(
-      'tv',
-      {
-        uri: 'tv/changes',
-        searchParams: {
-          api_key: this.apiKey,
-          end_date: options?.endDate ?? null,
-          start_date: options?.startDate ?? null,
-          page: options?.page ?? 1,
-        },
-      },
-    );
-
-    return this;
-  }
-
-  public person(options?: ChangesPersonOptions): ChangesEndpoint {
-    this.addToExecutionList(
-      'person',
-      {
-        uri: 'person/changes',
-        searchParams: {
-          api_key: this.apiKey,
-          end_date: options?.endDate ?? null,
-          start_date: options?.startDate ?? null,
-          page: options?.page ?? 1,
-        },
-      },
-    );
-
-    return this;
-  }
+	public async person(options?: ChangesEndpointNS.Options.Person): Promise<ChangesEndpointNS.Results.Person> {
+		return this.client.get(
+			'person/changes',
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					end_date: options?.endDate ?? null,
+					start_date: options?.startDate ?? null,
+					page: options?.page ?? 1,
+				},
+			},
+		);
+	}
 }

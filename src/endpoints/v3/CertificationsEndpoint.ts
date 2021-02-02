@@ -1,38 +1,27 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
+import type { IClient } from '../../utils/Client';
 
-import { CerificationsReturnType } from '../../interfaces/v3/certifications';
+import CertificationsEndpointNS from '../../interfaces/v3/certifications';
 
-export default class CertificationsEndpoint extends Executor<CerificationsReturnType> {
-  private readonly apiKey: string;
+export default class CertificationsEndpoint implements CertificationsEndpointNS.Class {
+	private readonly apiKey: string;
+	private readonly client: IClient;
 
-  public constructor(apiKey: string) {
-    super(client);
+	public constructor(options: CertificationsEndpointNS.Options.Constructor) {
+		this.apiKey = options.apiKey;
+		this.client = options.client;
+	}
 
-    this.apiKey = apiKey;
-  }
+	public async movie(): Promise<CertificationsEndpointNS.Results.Movie> {
+		return this.client.get(
+			'certification/movie/list',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 
-  public movie(): CertificationsEndpoint {
-    this.addToExecutionList(
-      'movie',
-      {
-        uri: 'certification/movie/list',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
-
-  public tv(): CertificationsEndpoint {
-    this.addToExecutionList(
-      'tv',
-      {
-        uri: 'certification/tv/list',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
+	public async tv(): Promise<CertificationsEndpointNS.Results.TV> {
+		return this.client.get(
+			'certification/tv/list',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 }
