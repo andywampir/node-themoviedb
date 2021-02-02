@@ -5,7 +5,7 @@ import UnknownError from './UnknownError';
 import RequiredParameterError from './RequiredParameterError';
 
 export {
-  UnknownHTTPError, UnknownError,
-  RequiredParameterError, NotFoundError,
-  NotEnoughPermissionError,
+	UnknownHTTPError, UnknownError,
+	RequiredParameterError, NotFoundError,
+	NotEnoughPermissionError,
 };

@@ -5,7 +5,7 @@ import MovieDB from '../src';
 import { NotEnoughPermissionError } from '../src/errors';
 
 interface Context {
-  mdb: MovieDB;
+	mdb: MovieDB;
 }
 
 const test = ava as TestInterface<Context>;
@@ -13,53 +13,53 @@ const test = ava as TestInterface<Context>;
 const TMDB_API_KEY = process.env.TMDB_API_KEY as string;
 
 test.before(t => {
-  t.context.mdb = new MovieDB({ apiKey: TMDB_API_KEY });
+	t.context.mdb = new MovieDB({ apiKey: TMDB_API_KEY });
 });
 
 test('errors', async t => {
-  const mdb = new MovieDB({ apiKey: 'fake_api_key' });
+	const mdb = new MovieDB({ apiKey: 'fake_api_key' });
 
-  await t.throwsAsync(
-    mdb
-      .certifications()
-      .tv()
-      .execute(),
-    { instanceOf: NotEnoughPermissionError },
-  );
+	await t.throwsAsync(
+		mdb
+			.certifications()
+			.tv()
+			.execute(),
+		{ instanceOf: NotEnoughPermissionError },
+	);
 });
 
 test('movie certifications', async t => {
-  const { mdb } = t.context;
-  const certification = mdb.certifications();
+	const { mdb } = t.context;
+	const certification = mdb.certifications();
 
-  await t.notThrowsAsync(
-    certification
-      .movie()
-      .execute(),
-  );
+	await t.notThrowsAsync(
+		certification
+			.movie()
+			.execute(),
+	);
 
-  const response = await certification
-    .movie()
-    .execute();
-  const movieCertifications = response?.movie?.[0];
+	const response = await certification
+		.movie()
+		.execute();
+	const movieCertifications = response?.movie?.[0];
 
-  t.truthy(movieCertifications?.certifications);
+	t.truthy(movieCertifications?.certifications);
 });
 
 test('tv certifications', async t => {
-  const { mdb } = t.context;
-  const certification = mdb.certifications();
+	const { mdb } = t.context;
+	const certification = mdb.certifications();
 
-  await t.notThrowsAsync(
-    certification
-      .tv()
-      .execute(),
-  );
+	await t.notThrowsAsync(
+		certification
+			.tv()
+			.execute(),
+	);
 
-  const response = await certification
-    .tv()
-    .execute();
-  const tvCertifications = response?.tv?.[0];
+	const response = await certification
+		.tv()
+		.execute();
+	const tvCertifications = response?.tv?.[0];
 
-  t.truthy(tvCertifications?.certifications);
+	t.truthy(tvCertifications?.certifications);
 });

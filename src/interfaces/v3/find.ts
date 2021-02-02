@@ -1,38 +1,38 @@
 /* eslint-disable camelcase */
 import {
-  Movie, TVShow,
-  Person,
+	Movie, TVShow,
+	Person,
 } from '../common';
 
 // Options
 export interface FindConstructorOptions {
-  apiKey: string;
-  language: string;
+	apiKey: string;
+	language: string;
 }
 
 export interface FindByIDOptions {
-  externalID: string;
-  externalSource:
-  | 'imdb_id'
-  | 'freebase_mid'
-  | 'freebase_id'
-  | 'tvdb_id'
-  | 'tvrage_id'
-  | 'facebook_id'
-  | 'twitter_id'
-  | 'instagram_id';
-  language?: string;
+	externalID: string;
+	externalSource:
+	| 'imdb_id'
+	| 'freebase_mid'
+	| 'freebase_id'
+	| 'tvdb_id'
+	| 'tvrage_id'
+	| 'facebook_id'
+	| 'twitter_id'
+	| 'instagram_id';
+	language?: string;
 }
 
 // Return Types
 export interface FindReturnType {
-  byID?: FindByID[];
+	byID?: FindByID[];
 }
 
 interface FindByID {
-  movie_results: Movie[];
-  person_results: Person[];
-  tv_results: TVShow[];
-  tv_episode_results: unknown[];
-  tv_season_results: unknown[];
+	movie_results: Movie[];
+	person_results: Person[];
+	tv_results: TVShow[];
+	tv_episode_results: unknown[];
+	tv_season_results: unknown[];
 }

@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import {
-  ResultsWithPage, Movie,
-  TVShow,
+	ResultsWithPage, Movie,
+	TVShow,
 } from '../common';
 
 // Options
 export interface DiscoverConstructorOptions {
-  apiKey: string;
-  language: string;
+	apiKey: string;
+	language: string;
 }
 
 type CommonSortBy =
@@ -17,41 +17,41 @@ type CommonSortBy =
 | 'vote_average.desc';
 
 interface CommonParameters<TSortBy> {
-  language?: string;
-  sortBy?: TSortBy;
-  page?: number;
-  voteCountGTE?: number;
-  voteAverageGTE?: number;
-  withGenres?: string;
-  withRuntimeLTE?: number;
-  withRuntimeGTE?: number;
-  withOriginalLanguage?: string;
-  withCompanies?: string;
-  withKeywords?: string;
-  withoutKeywords?: string;
-  withoutGenres?: string;
+	language?: string;
+	sortBy?: TSortBy;
+	page?: number;
+	voteCountGTE?: number;
+	voteAverageGTE?: number;
+	withGenres?: string;
+	withRuntimeLTE?: number;
+	withRuntimeGTE?: number;
+	withOriginalLanguage?: string;
+	withCompanies?: string;
+	withKeywords?: string;
+	withoutKeywords?: string;
+	withoutGenres?: string;
 }
 
 export interface DiscoverMovieOptions extends CommonParameters<DiscoverMovieSortBy> {
-  region?: string;
-  certificationCountry?: string;
-  certification?: string;
-  certificationLTE?: string;
-  certificationGTE?: string;
-  includeAdult?: boolean;
-  includeVideo?: boolean;
-  primaryReleaseYear?: number;
-  primaryReleaseDateLTE?: string;
-  primaryReleaseDateGTE?: string;
-  releaseDateLTE?: string;
-  releaseDateGTE?: string;
-  withReleaseType?: string;
-  year?: number;
-  voteCountLTE?: number;
-  voteAverageLTE?: number;
-  withCast?: string;
-  withCrew?: string;
-  withPeople?: string;
+	region?: string;
+	certificationCountry?: string;
+	certification?: string;
+	certificationLTE?: string;
+	certificationGTE?: string;
+	includeAdult?: boolean;
+	includeVideo?: boolean;
+	primaryReleaseYear?: number;
+	primaryReleaseDateLTE?: string;
+	primaryReleaseDateGTE?: string;
+	releaseDateLTE?: string;
+	releaseDateGTE?: string;
+	withReleaseType?: string;
+	year?: number;
+	voteCountLTE?: number;
+	voteAverageLTE?: number;
+	withCast?: string;
+	withCrew?: string;
+	withPeople?: string;
 }
 
 type DiscoverMovieSortBy =
@@ -68,15 +68,15 @@ type DiscoverMovieSortBy =
 | 'vote_count.desc';
 
 export interface DiscoverTVOptions extends CommonParameters<DiscoverTVSortBy> {
-  airDateLTE?: string;
-  airDateGTE?: string;
-  firstAirDateLTE?: string;
-  firstAirDateGTE?: string;
-  firstAirDateYear?: number;
-  timezone?: string;
-  withNetworks?: string;
-  includeNullFirstAirDates?: boolean;
-  screenedTheatrically?: boolean;
+	airDateLTE?: string;
+	airDateGTE?: string;
+	firstAirDateLTE?: string;
+	firstAirDateGTE?: string;
+	firstAirDateYear?: number;
+	timezone?: string;
+	withNetworks?: string;
+	includeNullFirstAirDates?: boolean;
+	screenedTheatrically?: boolean;
 }
 
 type DiscoverTVSortBy =
@@ -86,8 +86,8 @@ type DiscoverTVSortBy =
 
 // Return Types
 export interface DiscoverReturnType {
-  movie?: DiscoverMovie[];
-  tv?: DiscoverTV[];
+	movie?: DiscoverMovie[];
+	tv?: DiscoverTV[];
 }
 
 interface DiscoverMovie extends ResultsWithPage<Movie> {}

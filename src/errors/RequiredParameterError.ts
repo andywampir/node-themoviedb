@@ -1,9 +1,9 @@
 export default class RequiredParameterError extends Error {
-  public readonly parameter: string;
+	public readonly parameter: string;
 
-  public constructor(parameter: string) {
-    super(`You must specify a parameter: ${parameter}`);
+	public constructor(parameter: string) {
+		super(`You must specify a parameter: ${parameter}`);
 
-    this.parameter = parameter;
-  }
+		this.parameter = parameter;
+	}
 }
