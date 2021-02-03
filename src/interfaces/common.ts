@@ -146,8 +146,8 @@ export interface TVShowExtended extends Omit<TVShow, 'genre_ids'> {
 		poster_path: string;
 		season_number: number;
 	}[];
-	status: string; // TODO Define statuses
-	type: string; // TODO Define types
+	status: string; // TODO: Define statuses
+	type: string; // TODO: Define types
 }
 
 export interface EpisodeToAir {
