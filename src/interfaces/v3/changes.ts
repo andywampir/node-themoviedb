@@ -1,12 +1,12 @@
-import { ResultsWithPage } from '../common';
+import type { ResultsWithPage } from '../common';
 
 import type { IClient } from '../../utils/Client';
 
 namespace ChangesEndpointNS {
 	export interface Class {
-		movie(): Promise<Results.Movie>;
-		tv(): Promise<Results.TV>;
-		person(): Promise<Results.Person>;
+		movie(options?: Options.Movie): Promise<Results.Movie>;
+		tv(options?: Options.TV): Promise<Results.TV>;
+		person(options?: Options.Person): Promise<Results.Person>;
 	}
 
 	export namespace Options {
