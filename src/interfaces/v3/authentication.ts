@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import type { IClient } from '../../utils/Client';
 
 namespace AuthenticationEndpointNS {
