@@ -1,290 +1,286 @@
-/* eslint-disable camelcase */
-import {
+import type { IClient } from '../../utils/Client';
+import type {
 	ImageWithISO639, Movie,
 	ResultsWithPage, Review,
 	ResponseWithCode, MovieExtended,
 	CrewCredit, CastCredit,
-	MovieVideo, ExternalIDs,
+	MovieVideo, ExternalIDs as IExternalIDs,
 } from '../common';
 
-// Options
-interface CommonParameters {
-	movieID?: number;
-}
+namespace MoviesEndpointNS {
+	export interface Class {
+		details(options?: Options.Details): Promise<Results.Details>;
+		accountState(options?: Options.AccountState): Promise<Results.AccountState>;
+		alternativeTitles(options?: Options.AlternativeTitles): Promise<Results.AlternativeTitles>;
+		changes(options?: Options.Changes): Promise<Results.Changes>;
+		credits(options?: Options.Credits): Promise<Results.Credits>;
+		externalIDs(options?: Options.ExternalIDs): Promise<Results.ExternalIDs>;
+		images(options?: Options.Images): Promise<Results.Images>;
+		keywords(options?: Options.Keywords): Promise<Results.Keywords>;
+		releaseDates(options?: Options.ReleaseDates): Promise<Results.ReleaseDates>;
+		videos(options?: Options.Videos): Promise<Results.Videos>;
+		translations(options?: Options.Translations): Promise<Results.Translations>;
+		recommendations(options?: Options.Recommendations): Promise<Results.Recommendations>;
+		similar(options?: Options.Similar): Promise<Results.Similar>;
+		reviews(options?: Options.Reviews): Promise<Results.Reviews>;
+		lists(options?: Options.Lists): Promise<Results.Lists>;
+		rate(options: Options.Rate): Promise<Results.Rate>;
+		deleteRating(options?: Options.DeleteRating): Promise<Results.DeleteRating>;
+		latest(options?: Options.Latest): Promise<Results.Latest>;
+		nowPlaying(options?: Options.NowPlaying): Promise<Results.NowPlaying>;
+		popular(options?: Options.Popular): Promise<Results.Popular>;
+		topRated(options?: Options.TopRated): Promise<Results.TopRated>;
+		upcoming(options?: Options.Upcoming): Promise<Results.Upcoming>;
+	}
 
-export interface MoviesConstructorOptions {
-	apiKey: string;
-	language: string;
-	movieID?: number;
-}
+	export namespace Options {
+		export interface Constructor {
+			apiKey: string;
+			language: string;
+			client: IClient;
+			movieID?: number;
+		}
 
-export interface MoviesDetailsOptions extends CommonParameters {
-	language?: string;
-	appendToResponse?: string;
-}
+		interface Common {
+			movieID?: number;
+		}
 
-export interface MoviesAccountStatesOptions extends CommonParameters {
-	sessionID?: string;
-	guestSessionID?: string;
-}
+		export interface Details extends Common {
+			language?: string;
+			appendToResponse?: string;
+		}
 
-export interface MoviesAlternativeTitlesOptions extends CommonParameters {
-	country?: string;
-}
+		export interface AccountState extends Common {
+			sessionID?: string;
+			guestSessionID?: string;
+		}
 
-export interface MoviesChangesOptions extends CommonParameters {
-	startDate?: string;
-	endDate?: string;
-	page?: number;
-}
+		export interface AlternativeTitles extends Common {
+			country?: string;
+		}
 
-export interface MoviesCreditsOptions extends CommonParameters {}
-export interface MoviesExternalIDsOptions extends CommonParameters {}
+		export interface Changes extends Common {
+			startDate?: string;
+			endDate?: string;
+			page?: number;
+		}
 
-export interface MoviesImagesOptions extends CommonParameters {
-	language?: string;
-	includeImageLanguage?: string;
-}
+		export interface Credits extends Common {}
 
-export interface MoviesKeywordsOptions extends CommonParameters {}
-export interface MoviesReleaseDatesOptions extends CommonParameters {}
+		export interface ExternalIDs extends Common {}
 
-export interface MoviesVideosOptions extends CommonParameters {
-	language?: string;
-}
+		export interface Images extends Common {
+			language?: string;
+			includeImageLanguage?: string;
+		}
 
-export interface MoviesTranslationsOptions extends CommonParameters {}
+		export interface Keywords extends Common {}
 
-export interface MoviesRecommendationsOptions extends CommonParameters {
-	language?: string;
-	page?: number;
-}
+		export interface ReleaseDates extends Common {}
 
-export interface MoviesSimilarOptions extends CommonParameters {
-	language?: string;
-	page?: number;
-}
+		export interface Videos extends Common {
+			language?: string;
+		}
 
-export interface MoviesReviewsOptions extends CommonParameters {
-	language?: string;
-	page?: number;
-}
+		export interface Translations extends Common {}
 
-export interface MoviesListsOptions extends CommonParameters {
-	language?: string;
-	page?: number;
-}
+		export interface Recommendations extends Common, Videos {
+			page?: number;
+		}
 
-export interface MoviesRateOptions extends CommonParameters {
-	sessionID?: string;
-	guestSessionID?: string;
-	value: number;
-}
+		export interface Similar extends Recommendations {}
 
-export interface MoviesDeleteRatingOptions extends CommonParameters {
-	sessionID?: string;
-	guestSessionID?: string;
-}
+		export interface Reviews extends Recommendations {}
 
-export interface MoviesLatestOptions {
-	language?: string;
-}
+		export interface Lists extends Recommendations {}
 
-export interface MoviesNowPlayingOptions {
-	language?: string;
-	page?: number;
-	region?: string;
-}
+		export interface Rate extends Common {
+			sessionID?: string;
+			guestSessionID?: string;
+			value: number;
+		}
 
-export interface MoviesPopularOptions {
-	language?: string;
-	page?: number;
-	region?: string;
-}
+		export interface DeleteRating extends Common {
+			sessionID?: string;
+			guestSessionID?: string;
+		}
 
-export interface MoviesTopRatedOptions {
-	language?: string;
-	page?: number;
-	region?: string;
-}
+		export interface Latest {
+			language?: string;
+		}
 
-export interface MoviesUpcomingOptions {
-	language?: string;
-	page?: number;
-	region?: string;
-}
+		export interface NowPlaying extends Recommendations {
+			region?: string;
+		}
 
-// Return Types
-export interface MoviesReturnType {
-	details?: MoviesDetails[];
-	accountState?: MoviesAccountStates[];
-	alternativeTitles?: MoviesAlternativeTitles[];
-	changes?: MoviesChanges[];
-	credits?: MoviesCredits[];
-	externalIDs?: MoviesExternalIDs[];
-	images?: MoviesImages[];
-	keywords?: MoviesKeywords[];
-	releaseDates?: MoviesReleaseDates[];
-	videos?: MoviesVideos[];
-	translations?: MoviesTranslations[];
-	recommendations?: MoviesRecommendations[];
-	similar?: MoviesSimilar[];
-	reviews?: MoviesReviews[];
-	lists?: MoviesLists[];
-	rate?: MoviesRate[];
-	deleteRating?: MoviesDeleteRating[];
-	latest?: MoviesLatest[];
-	nowPlaying?: MoviesNowPlaying[];
-	popular?: MoviesPopular[];
-	topRated?: MoviesTopRated[];
-	upcoming?: MoviesUpcoming[];
-}
+		export interface Popular extends NowPlaying {}
 
-interface MoviesDetails extends MovieExtended {
-	alternative_titles?: Omit<MoviesAlternativeTitles, 'id'>;
-	changes?: MoviesChanges;
-	credits?: Omit<MoviesCredits, 'id'>;
-	external_ids?: Omit<MoviesExternalIDs, 'id'>;
-	images?: Omit<MoviesImages, 'id'>;
-	keywords?: Omit<MoviesKeywords, 'id'>;
-	release_dates?: Omit<MoviesReleaseDates, 'id'>;
-	videos?: Omit<MoviesVideos, 'id'>;
-	translations?: Omit<MoviesTranslations, 'id'>;
-	recommendations?: MoviesRecommendations;
-	similar?: MoviesSimilar;
-	reviews?: Omit<MoviesReviews, 'id' >;
-	lists?: Omit<MoviesLists, 'id'>;
-}
+		export interface TopRated extends NowPlaying {}
 
-interface MoviesAccountStates {
-	id: number;
-	favorite: boolean;
-	rated: {
-		value: number;
-	} | boolean;
-	watchlist: boolean;
-}
+		export interface Upcoming extends NowPlaying {}
+	}
 
-interface MoviesAlternativeTitles {
-	id: number;
-	titles: {
-		iso_3166_1: string;
-		title: string;
-		type: string;
-	}[];
-}
+	export namespace Results {
+		export type Details = Types.Details;
+		export type AccountState = Types.AccountStates;
+		export type AlternativeTitles = Types.AlternativeTitles;
+		export type Changes = Types.Changes;
+		export type Credits = Types.Credits;
+		export type ExternalIDs = Types.ExternalIDs;
+		export type Images = Types.Images;
+		export type Keywords = Types.Keywords;
+		export type ReleaseDates = Types.ReleaseDates;
+		export type Videos = Types.Videos;
+		export type Translations = Types.Translations;
+		export type Recommendations = ResultsWithPage<Movie>;
+		export type Similar = ResultsWithPage<Movie>;
+		export type Reviews = Types.Reviews;
+		export type Lists = Types.Lists;
+		export type Rate = ResponseWithCode;
+		export type DeleteRating = ResponseWithCode;
+		export type Latest = MovieExtended;
+		export type NowPlaying = Types.NowPlaying;
+		export type Popular = ResultsWithPage<Movie>;
+		export type TopRated = ResultsWithPage<Movie>;
+		export type Upcoming = Types.Upcoming;
+	}
 
-interface MoviesChanges {
-	changes: {
-		key: string;
-		items: {
-			id: string;
-			action: string;
-			time: string;
-			iso_3166_1: string;
-			value: string;
-			original_value: string;
-		}[];
-	}[];
-}
+	namespace Types {
+		export interface Details extends MovieExtended {
+			alternative_titles?: Omit<AlternativeTitles, 'id'>;
+			changes?: Changes;
+			credits?: Omit<Credits, 'id'>;
+			external_ids?: Omit<ExternalIDs, 'id'>;
+			images?: Omit<Images, 'id'>;
+			keywords?: Omit<Keywords, 'id'>;
+			release_dates?: Omit<ReleaseDates, 'id'>;
+			videos?: Omit<Videos, 'id'>;
+			translations?: Omit<Translations, 'id'>;
+			recommendations?: ResultsWithPage<Movie>;
+			similar?: ResultsWithPage<Movie>;
+			reviews?: Omit<Reviews, 'id'>;
+			lists?: Omit<Lists, 'id'>;
+		}
 
-interface MoviesCredits {
-	id: number;
-	cast: CastCredit & { cast_id: number }[];
-	crew: CrewCredit[];
-}
+		export interface AccountStates {
+			id: number;
+			favorite: boolean;
+			rated: {
+				value: number;
+			} | boolean;
+			watchlist: boolean;
+		}
 
-interface MoviesExternalIDs extends Omit<ExternalIDs, 'freebase_mid' | 'freebase_id' | 'tvdb_id' | 'tvrage_id'> {
-	id: number;
-}
+		export interface AlternativeTitles {
+			id: number;
+			titles: {
+				iso_3166_1: string;
+				title: string;
+				type: string;
+			}[];
+		}
 
-interface MoviesImages {
-	id: number;
-	backdrops: ImageWithISO639[];
-	posters: ImageWithISO639[];
-}
+		export interface Changes {
+			changes: {
+				key: string;
+				items: {
+					id: string;
+					action: string;
+					time: string;
+					iso_3166_1: string;
+					value: string;
+					original_value: string;
+				}[];
+			}[];
+		}
 
-interface MoviesKeywords {
-	id: number;
-	keywords: {
-		id: number;
-		name: string;
-	}[];
-}
+		export interface Credits {
+			id: number;
+			cast: CastCredit & { cast_id: number }[];
+			crew: CrewCredit[];
+		}
 
-interface MoviesReleaseDates {
-	id: number;
-	results: {
-		iso_3166_1: string;
-		release_dates: {
-			certification: string;
+		export interface ExternalIDs
+			extends Omit<IExternalIDs, 'freebase_mid' | 'freebase_id' | 'tvdb_id' | 'tvrage_id'> {
+			id: number;
+		}
+
+		export interface Images {
+			id: number;
+			backdrops: ImageWithISO639[];
+			posters: ImageWithISO639[];
+		}
+
+		export interface Keywords {
+			id: number;
+			keywords: {
+				id: number;
+				name: string;
+			}[];
+		}
+
+		export interface ReleaseDates {
+			id: number;
+			results: {
+				iso_3166_1: string;
+				release_dates: {
+					certification: string;
+					iso_639_1: string;
+					release_date: string;
+					type: number;
+					note: string;
+				}[];
+			}[];
+		}
+
+		export interface Videos {
+			id: number;
+			results: MovieVideo[];
+		}
+
+		export interface Translations {
+			id: number;
+			translations: {
+				iso_639_1: string;
+				iso_3166_1: string;
+				name: string;
+				english_name: string;
+				data: {
+					title: string;
+					overview: string;
+					homepage: string;
+				};
+			}[];
+		}
+
+		export interface Reviews extends ResultsWithPage<Review> {
+			id: number;
+		}
+
+		interface List {
+			description: string;
+			favorite_count: number;
+			id: number;
+			item_count: number;
 			iso_639_1: string;
-			release_date: string;
-			type: number;
-			note: string;
-		}[];
-	}[];
+			list_type: string;
+			name: string;
+			poster_path: string | null;
+		}
+
+		export interface Lists extends ResultsWithPage<List> {
+			id: number;
+		}
+
+		export interface NowPlaying extends ResultsWithPage<Movie> {
+			dates: {
+				maximum: string;
+				minimum: string;
+			};
+		}
+
+		export interface Upcoming extends NowPlaying {}
+	}
 }
 
-interface MoviesVideos {
-	id: number;
-	results: MovieVideo[];
-}
-
-interface MoviesTranslations {
-	id: number;
-	translations: {
-		iso_639_1: string;
-		iso_3166_1: string;
-		name: string;
-		english_name: string;
-		data: {
-			title: string;
-			overview: string;
-			homepage: string;
-		};
-	}[];
-}
-
-interface MoviesRecommendations extends ResultsWithPage<Movie> {}
-interface MoviesSimilar extends ResultsWithPage<Movie> {}
-
-interface MoviesReviews extends ResultsWithPage<Review> {
-	id: number;
-}
-
-interface MoviesLists extends ResultsWithPage<MoviesList> {
-	id: number;
-}
-
-interface MoviesList {
-	description: string;
-	favorite_count: number;
-	id: number;
-	item_count: number;
-	iso_639_1: string;
-	list_type: string;
-	name: string;
-	poster_path: string | null;
-}
-
-interface MoviesRate extends ResponseWithCode {}
-interface MoviesDeleteRating extends ResponseWithCode {}
-interface MoviesLatest extends MovieExtended {}
-
-interface MoviesNowPlaying extends ResultsWithPage<Movie> {
-	dates: {
-		maximum: string;
-		minimum: string;
-	};
-}
-
-interface MoviesPopular extends ResultsWithPage<Movie> {}
-interface MoviesTopRated extends ResultsWithPage<Movie> {}
-
-interface MoviesUpcoming extends ResultsWithPage<Movie> {
-	dates: {
-		maximum: string;
-		minimum: string;
-	};
-}
+export default MoviesEndpointNS;
