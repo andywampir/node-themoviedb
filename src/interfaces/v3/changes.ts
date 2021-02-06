@@ -27,9 +27,9 @@ namespace ChangesEndpointNS {
 	}
 
 	export namespace Results {
-		export type Movie = ResultsWithPage<Types.Movie>[];
-		export type TV = ResultsWithPage<Types.TV>[];
-		export type Person = ResultsWithPage<Types.Person>[];
+		export type Movie = ResultsWithPage<Types.Movie>;
+		export type TV = ResultsWithPage<Types.TV>;
+		export type Person = ResultsWithPage<Types.Person>;
 	}
 
 	namespace Types {
