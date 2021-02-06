@@ -22,7 +22,7 @@ namespace ConfigurationEndpointNS {
 		export type Countries = Types.Countries;
 		export type Jobs = Types.Jobs;
 		export type Languages = Types.Languages;
-		export type PrimaryTranslations = string[][];
+		export type PrimaryTranslations = string[];
 		export type Timezones = Types.Timezones;
 	}
 
