@@ -27,9 +27,9 @@ namespace CollectionsEndpointNS {
 	}
 
 	export namespace Results {
-		export type Details = Types.Details[];
-		export type Images = Types.Images[];
-		export type Translations = Types.Translations[];
+		export type Details = Types.Details;
+		export type Images = Types.Images;
+		export type Translations = Types.Translations;
 	}
 
 	namespace Types {
