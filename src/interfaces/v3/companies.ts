@@ -17,9 +17,9 @@ namespace CompaniesEndpointNS {
 	}
 
 	export namespace Results {
-		export type Details = Types.Details[];
-		export type AlternativeNames = Types.AlternativeNames[];
-		export type Images = Types.Images[];
+		export type Details = Types.Details;
+		export type AlternativeNames = Types.AlternativeNames;
+		export type Images = Types.Images;
 	}
 
 	namespace Types {
