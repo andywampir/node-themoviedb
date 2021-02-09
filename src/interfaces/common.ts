@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 // Utilities types
 export interface ResponseError {
 	status_message: string;
