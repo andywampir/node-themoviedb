@@ -1,119 +1,136 @@
-/* eslint-disable camelcase */
-import {
+import type { IClient } from '../../utils/Client';
+import type {
 	TVEpisode, CrewCredit,
-	CastCredit, ExternalIDs,
+	CastCredit, ExternalIDs as IExternalIDs,
 	ImageWithISO639, TVShowVideo,
 } from '../common';
 
-// Options
-interface CommonParameters {
-	tvID?: number;
-	seasonNumber?: number;
-}
+namespace TVSeasonsEndpointNS {
+	export interface Class {
+		details(options?: Options.Details): Promise<Results.Details>;
+		changes(options?: Options.Changes): Promise<Results.Changes>;
+		accountStates(options?: Options.AccountStates): Promise<Results.AccountStates>;
+		credits(options?: Options.Credits): Promise<Results.Credits>;
+		externalIDs(options?: Options.ExternalIDs): Promise<Results.ExternalIDs>;
+		images(options?: Options.Images): Promise<Results.Images>;
+		videos(options?: Options.Videos): Promise<Results.Videos>;
+	}
 
-export interface TVSeasonsDetailsOptions extends CommonParameters {
-	language?: string;
-	appendToResponse?: string;
-}
+	export namespace Options {
+		export interface Constructor {
+			apiKey: string;
+			client: IClient;
+			language: string;
+			tvID?: number;
+			seasonNumber?: number;
+		}
 
-export interface TVSeasonsChangesOptions extends Omit<CommonParameters, 'tvID'> {
-	startDate?: string;
-	endDate?: string;
-	page?: string;
-}
+		interface Common {
+			tvID?: number;
+			seasonNumber?: number;
+			language?: string;
+		}
 
-export interface TVSeasonsAccountStatesOptions extends CommonParameters {
-	language?: string;
-	guestSessionID?: string;
-	sessinID?: string;
-}
+		export interface Details extends Common {
+			appendToResponse?: string;
+		}
 
-export interface TVSeasonsCreditsOptions extends CommonParameters {
-	language?: string;
-}
+		export interface Changes extends Omit<Common, 'tvID' | 'language'> {
+			startDate?: string;
+			endDate?: string;
+			page?: string;
+		}
 
-export interface TVSeasonsExternalIDsOptions extends CommonParameters {
-	language?: string;
-}
+		export interface AccountStates extends Common {
+			guestSessionID?: string;
+			sessinID?: string;
+		}
 
-export interface TVSeasonsImagesOptions extends CommonParameters {
-	language?: string;
-}
+		export interface Credits extends Common {}
 
-export interface TVSeasonsVideosOptions extends CommonParameters {
-	language?: string;
-}
+		export interface ExternalIDs extends Common {}
 
-// Return Types
-export interface TVSeasonsReturnType {
-	details?: TVSeasonsDetails[];
-	changes?: TVSeasonsChanges[];
-	accountStates?: TVSeasonsAccountStates[];
-	credits?: TVSeasonsCredits[];
-	externalIDs?: TVSeasonsExternalIDs[];
-	images?: TVSeasonsImages[];
-	videos?: TVSeasonsVideos[];
-}
+		export interface Images extends Common {}
 
-interface TVSeasonsDetails {
-	_id: string;
-	air_date: string;
-	episodes: TVEpisode[];
-	name: string;
-	overview: string;
-	id: number;
-	poster_path: string | null;
-	season_number: number;
-	credits?: Omit<TVSeasonsCredits, 'id'>;
-	external_ids?: Omit<TVSeasonsExternalIDs, 'id'>;
-	images?: Omit<TVSeasonsImages, 'id'>;
-	videos?: Omit<TVSeasonsVideos, 'id'>;
-}
+		export interface Videos extends Common {}
+	}
 
-interface TVSeasonsChanges {
-	changes: {
-		key: string;
-		items: {
-			id: string;
-			action: string;
-			time: string;
-			value?: {
-				episode_id: number;
+	export namespace Results {
+		export type Details = Types.Details;
+		export type Changes = Types.Changes;
+		export type AccountStates = Types.AccountStates;
+		export type Credits = Types.Credits;
+		export type ExternalIDs = Types.ExternalIDs;
+		export type Images = Types.Images;
+		export type Videos = Types.Videos;
+	}
+
+	namespace Types {
+		export interface Details {
+			// eslint-disable-next-line @typescript-eslint/naming-convention
+			_id: string;
+			air_date: string;
+			episodes: TVEpisode[];
+			name: string;
+			overview: string;
+			id: number;
+			poster_path: string | null;
+			season_number: number;
+			credits?: Omit<Credits, 'id'>;
+			external_ids?: Omit<ExternalIDs, 'id'>;
+			images?: Omit<Images, 'id'>;
+			videos?: Omit<Videos, 'id'>;
+		}
+
+		export interface Changes {
+			changes: {
+				key: string;
+				items: {
+					id: string;
+					action: string;
+					time: string;
+					value?: {
+						episode_id: number;
+						episode_number: number;
+					} | string;
+					iso_639_1: string;
+					original_value?: string;
+				}[];
+			}[];
+		}
+
+		export interface AccountStates {
+			id: number;
+			results: {
+				id: number;
 				episode_number: number;
-			} | string;
-			iso_639_1: string;
-			original_value?: string;
-		}[];
-	}[];
+				rated: {
+					value: number;
+				} | boolean;
+			}[];
+		}
+
+		export interface Credits {
+			id: number;
+			crew: CrewCredit[];
+			cast: CastCredit[];
+		}
+
+		export interface ExternalIDs
+			extends Omit<IExternalIDs, 'facebook_id' | 'instagram_id' | 'twitter_id' | 'imdb_id'> {
+			id: number;
+		}
+
+		export interface Images {
+			id: number;
+			posters: ImageWithISO639[];
+		}
+
+		export interface Videos {
+			id: number;
+			results: TVShowVideo[];
+		}
+	}
 }
 
-interface TVSeasonsAccountStates {
-	id: number;
-	results: {
-		id: number;
-		episode_number: number;
-		rated: {
-			value: number;
-		} | boolean;
-	}[];
-}
-
-interface TVSeasonsCredits {
-	id: number;
-	crew: CrewCredit[];
-	cast: CastCredit[];
-}
-
-interface TVSeasonsExternalIDs extends Omit<ExternalIDs, 'facebook_id' | 'instagram_id' | 'twitter_id' | 'imdb_id'> {
-	id: number;
-}
-
-interface TVSeasonsImages {
-	id: number;
-	posters: ImageWithISO639[];
-}
-
-interface TVSeasonsVideos {
-	id: number;
-	results: TVShowVideo[];
-}
+export default TVSeasonsEndpointNS;
