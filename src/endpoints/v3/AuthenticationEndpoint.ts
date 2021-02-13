@@ -1,6 +1,6 @@
-import type { IClient } from '../../utils/Client';
-
 import AuthenticationEndpointNS from '../../interfaces/v3/authentication';
+
+import type { IClient } from '../../utils/Client';
 
 export default class AuthenticationEndpoint implements AuthenticationEndpointNS.Class {
 	private readonly apiKey: string;

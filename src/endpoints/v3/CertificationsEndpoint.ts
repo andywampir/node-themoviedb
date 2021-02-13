@@ -1,6 +1,6 @@
-import type { IClient } from '../../utils/Client';
-
 import CertificationsEndpointNS from '../../interfaces/v3/certifications';
+
+import type { IClient } from '../../utils/Client';
 
 export default class CertificationsEndpoint implements CertificationsEndpointNS.Class {
 	private readonly apiKey: string;
