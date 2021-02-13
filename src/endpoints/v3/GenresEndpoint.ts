@@ -1,48 +1,39 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
+import GenresEndpointNS from '../../interfaces/v3/genres';
 
-import {
-	GenresReturnType, GenresConstructorOptions,
-} from '../../interfaces/v3/genres';
+import type { IClient } from '../../utils/Client';
 
-export default class GenresEndpoint extends Executor<GenresReturnType> {
+export default class GenresEndpoint implements GenresEndpointNS.Class {
 	private readonly apiKey: string;
 	private readonly language: string;
+	private readonly client: IClient;
 
-	public constructor(options: GenresConstructorOptions) {
-		super(client);
-
+	public constructor(options: GenresEndpointNS.Options.Constructor) {
 		this.apiKey = options.apiKey;
 		this.language = options.language;
+		this.client = options.client;
 	}
 
-	public movie(language?: string): GenresEndpoint {
-		this.addToExecutionList(
-			'movie',
+	public async movie(language?: string): Promise<GenresEndpointNS.Results.Movie> {
+		return this.client.get(
+			'genre/movie/list',
 			{
-				uri: 'genre/movie/list',
 				searchParams: {
 					api_key: this.apiKey,
 					language: language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public tv(language?: string): GenresEndpoint {
-		this.addToExecutionList(
-			'tv',
+	public async tv(language?: string): Promise<GenresEndpointNS.Results.TV> {
+		return this.client.get(
+			'genre/tv/list',
 			{
-				uri: 'genre/tv/list',
 				searchParams: {
 					api_key: this.apiKey,
 					language: language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 }

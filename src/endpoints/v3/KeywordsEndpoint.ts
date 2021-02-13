@@ -1,56 +1,44 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-	KeywordsReturnType, KeywordsConstructorOptions,
-	KeywordsDetailsOptions, KeywordsMoviesOptions,
-} from '../../interfaces/v3/keywords';
+import KeywordsEndpointNS from '../../interfaces/v3/keywords';
 import { RequiredParameterError } from '../../errors';
 
-export default class KeywordsEndpoint extends Executor<KeywordsReturnType> {
+import type { IClient } from '../../utils/Client';
+
+export default class KeywordsEndpoint implements KeywordsEndpointNS.Class {
 	private readonly apiKey: string;
 	private readonly language: string;
+	private readonly client: IClient;
 	private readonly keywordID?: number;
 
-	public constructor(options: KeywordsConstructorOptions) {
-		super(client);
-
+	public constructor(options: KeywordsEndpointNS.Options.Constructor) {
 		this.apiKey = options.apiKey;
 		this.keywordID = options.keywordID;
 		this.language = options.language;
+		this.client = options.client;
 	}
 
-	public details(options?: KeywordsDetailsOptions): KeywordsEndpoint {
+	public async details(options?: KeywordsEndpointNS.Options.Details): Promise<KeywordsEndpointNS.Results.Details> {
 		if (!options?.keywordID && !this.keywordID)
 			throw new RequiredParameterError('keywordID');
 
-		this.addToExecutionList(
-			'details',
-			{
-				uri: `keyword/${options?.keywordID ?? this.keywordID}`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`keyword/${options?.keywordID ?? this.keywordID}`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public movies(options?: KeywordsMoviesOptions): KeywordsEndpoint {
+	public async movies(options?: KeywordsEndpointNS.Options.Movies): Promise<KeywordsEndpointNS.Results.Movies> {
 		if (!options?.keywordID && !this.keywordID)
 			throw new RequiredParameterError('keywordID');
 
-		this.addToExecutionList(
-			'movies',
+		return this.client.get(
+			`keyword/${options?.keywordID ?? this.keywordID}/movies`,
 			{
-				uri: `keyword/${options?.keywordID ?? this.keywordID}/movies`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
-					include_adult: options?.includeAdult ?? null,
+					include_adult: options?.includeAdult,
 				},
 			},
 		);
-
-		return this;
 	}
 }

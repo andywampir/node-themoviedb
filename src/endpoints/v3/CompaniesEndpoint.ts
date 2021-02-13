@@ -1,64 +1,46 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-	CompaniesReturnType, CompaniesConstructorOptions,
-} from '../../interfaces/v3/companies';
+import CompaniesEndpointNS from '../../interfaces/v3/companies';
 import { RequiredParameterError } from '../../errors';
 
-export default class CompaniesEndpoint extends Executor<CompaniesReturnType> {
+import type { IClient } from '../../utils/Client';
+
+export default class CompaniesEndpoint implements CompaniesEndpointNS.Class {
 	private readonly apiKey: string;
+	private readonly client: IClient;
 	private readonly companyID?: number;
 
-	public constructor(options: CompaniesConstructorOptions) {
-		super(client);
-
+	public constructor(options: CompaniesEndpointNS.Options.Constructor) {
 		this.apiKey = options.apiKey;
 		this.companyID = options.companyID;
+		this.client = options.client;
 	}
 
-	public details(companyID?: number): CompaniesEndpoint {
+	public async details(companyID?: number): Promise<CompaniesEndpointNS.Results.Details> {
 		if (!companyID || !this.companyID)
 			throw new RequiredParameterError('companyID');
 
-		this.addToExecutionList(
-			'details',
-			{
-				uri: `company/${companyID ?? this.companyID}`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`company/${companyID ?? this.companyID}`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public alternativeNames(companyID?: number): CompaniesEndpoint {
+	public async alternativeNames(companyID?: number): Promise<CompaniesEndpointNS.Results.AlternativeNames> {
 		if (!companyID || !this.companyID)
 			throw new RequiredParameterError('companyID');
 
-		this.addToExecutionList(
-			'alternativeNames',
-			{
-				uri: `company/${companyID ?? this.companyID}/alternative_names`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`company/${companyID ?? this.companyID}/alternative_names`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public images(companyID?: number): CompaniesEndpoint {
+	public async images(companyID?: number): Promise<CompaniesEndpointNS.Results.Images> {
 		if (!companyID || !this.companyID)
 			throw new RequiredParameterError('companyID');
 
-		this.addToExecutionList(
-			'images',
-			{
-				uri: `company/${companyID ?? this.companyID}/images`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`company/${companyID ?? this.companyID}/images`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 }

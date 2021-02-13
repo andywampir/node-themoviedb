@@ -1,80 +1,72 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-	GuestSessionsReturnType, GuestSessionsConstructorOptions,
-	GuestSessionsRatedMoviesOptions, GuestSessionsRatedTVShowsOptions,
-	GuestSessionsRatedTVEpisodesOptions,
-} from '../../interfaces/v3/guestSessions';
+import GuestSessionEndpointNS from '../../interfaces/v3/guestSessions';
 import { RequiredParameterError } from '../../errors';
 
-export default class GuestSessionEndpoint extends Executor<GuestSessionsReturnType> {
+import type { IClient } from '../../utils/Client';
+
+export default class GuestSessionEndpoint implements GuestSessionEndpointNS.Class {
 	private readonly apiKey: string;
 	private readonly language: string;
+	private readonly client: IClient;
 	private readonly guestSessionID?: string;
 
-	public constructor(options: GuestSessionsConstructorOptions) {
-		super(client);
-
+	public constructor(options: GuestSessionEndpointNS.Options.Constructor) {
 		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.guestSessionID = options.guestSessionID;
+		this.client = options.client;
 	}
 
-	public ratedMovies(options?: GuestSessionsRatedMoviesOptions): GuestSessionEndpoint {
+	public async ratedMovies(
+		options?: GuestSessionEndpointNS.Options.RatedMovies,
+	): Promise<GuestSessionEndpointNS.Results.RatedMovies> {
 		if (!options?.guestSessionID && !this.guestSessionID)
 			throw new RequiredParameterError('guestSessionID');
 
-		this.addToExecutionList(
-			'ratedMovies',
+		return this.client.get(
+			`guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/movies`,
 			{
-				uri: `guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/movies`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
-					sort_by: options?.sortBy ?? null,
+					sort_by: options?.sortBy,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public ratedTVShows(options?: GuestSessionsRatedTVShowsOptions): GuestSessionEndpoint {
+	public async ratedTVShows(
+		options?: GuestSessionEndpointNS.Options.RatedTVShows,
+	): Promise<GuestSessionEndpointNS.Results.RatedTVShows> {
 		if (!options?.guestSessionID && !this.guestSessionID)
 			throw new RequiredParameterError('guestSessionID');
 
-		this.addToExecutionList(
-			'ratedTVShows',
+		return this.client.get(
+			`guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/tv`,
 			{
-				uri: `guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/tv`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
-					sort_by: options?.sortBy ?? null,
+					sort_by: options?.sortBy,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public ratedTVEpisodes(options?: GuestSessionsRatedTVEpisodesOptions): GuestSessionEndpoint {
+	public async ratedTVEpisodes(
+		options?: GuestSessionEndpointNS.Options.RatedTVEpisodes,
+	): Promise<GuestSessionEndpointNS.Results.RatedTVEpisodes> {
 		if (!options?.guestSessionID && !this.guestSessionID)
 			throw new RequiredParameterError('guestSessionID');
 
-		this.addToExecutionList(
-			'ratedTVShows',
+		return this.client.get(
+			`guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/tv/episodes`,
 			{
-				uri: `guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/tv/episodes`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
-					sort_by: options?.sortBy ?? null,
+					sort_by: options?.sortBy,
 				},
 			},
 		);
-
-		return this;
 	}
 }

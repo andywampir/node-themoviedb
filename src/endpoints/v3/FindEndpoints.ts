@@ -1,33 +1,28 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-	FindByIDOptions, FindReturnType,
-	FindConstructorOptions,
-} from '../../interfaces/v3/find';
+import FindEndpointNS from '../../interfaces/v3/find';
 import { RequiredParameterError } from '../../errors';
 
-export default class FindEndpoint extends Executor<FindReturnType> {
+import type { IClient } from '../../utils/Client';
+
+export default class FindEndpoint implements FindEndpointNS.Class {
 	private readonly apiKey: string;
 	private readonly language: string;
+	private readonly client: IClient;
 
-	public constructor(options: FindConstructorOptions) {
-		super(client);
-
+	public constructor(options: FindEndpointNS.Options.Constructor) {
 		this.apiKey = options.apiKey;
 		this.language = options.language;
+		this.client = options.client;
 	}
 
-	public byID(options: FindByIDOptions): FindEndpoint {
+	public async byID(options: FindEndpointNS.Options.ByID): Promise<FindEndpointNS.Results.ByID> {
 		if (!options.externalID)
 			throw new RequiredParameterError('externalID');
 		if (!options.externalSource)
 			throw new RequiredParameterError('externalSource');
 
-		this.addToExecutionList(
-			'byID',
+		return this.client.get(
+			`find/${options.externalID}`,
 			{
-				uri: `find/${options.externalID}`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
@@ -35,7 +30,5 @@ export default class FindEndpoint extends Executor<FindReturnType> {
 				},
 			},
 		);
-
-		return this;
 	}
 }
