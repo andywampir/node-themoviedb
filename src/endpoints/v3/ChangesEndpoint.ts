@@ -17,8 +17,8 @@ export default class ChangesEndpoint implements ChangesEndpointNS.Class {
 			{
 				searchParams: {
 					api_key: this.apiKey,
-					end_date: options?.endDate ?? null,
-					start_date: options?.startDate ?? null,
+					end_date: options?.endDate,
+					start_date: options?.startDate,
 					page: options?.page ?? 1,
 				},
 			},
@@ -31,8 +31,8 @@ export default class ChangesEndpoint implements ChangesEndpointNS.Class {
 			{
 				searchParams: {
 					api_key: this.apiKey,
-					end_date: options?.endDate ?? null,
-					start_date: options?.startDate ?? null,
+					end_date: options?.endDate,
+					start_date: options?.startDate,
 					page: options?.page ?? 1,
 				},
 			},
@@ -45,8 +45,8 @@ export default class ChangesEndpoint implements ChangesEndpointNS.Class {
 			{
 				searchParams: {
 					api_key: this.apiKey,
-					end_date: options?.endDate ?? null,
-					start_date: options?.startDate ?? null,
+					end_date: options?.endDate,
+					start_date: options?.startDate,
 					page: options?.page ?? 1,
 				},
 			},
