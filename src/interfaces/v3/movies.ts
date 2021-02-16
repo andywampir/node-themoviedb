@@ -10,7 +10,7 @@ import type {
 namespace MoviesEndpointNS {
 	export interface Class {
 		details(options?: Options.Details): Promise<Results.Details>;
-		accountState(options?: Options.AccountState): Promise<Results.AccountState>;
+		accountStates(options?: Options.AccountStates): Promise<Results.AccountStates>;
 		alternativeTitles(options?: Options.AlternativeTitles): Promise<Results.AlternativeTitles>;
 		changes(options?: Options.Changes): Promise<Results.Changes>;
 		credits(options?: Options.Credits): Promise<Results.Credits>;
@@ -50,7 +50,7 @@ namespace MoviesEndpointNS {
 			appendToResponse?: string;
 		}
 
-		export interface AccountState extends Common {
+		export interface AccountStates extends Common {
 			sessionID?: string;
 			guestSessionID?: string;
 		}
@@ -122,7 +122,7 @@ namespace MoviesEndpointNS {
 
 	export namespace Results {
 		export type Details = Types.Details;
-		export type AccountState = Types.AccountStates;
+		export type AccountStates = Types.AccountStates;
 		export type AlternativeTitles = Types.AlternativeTitles;
 		export type Changes = Types.Changes;
 		export type Credits = Types.Credits;

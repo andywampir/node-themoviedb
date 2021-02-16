@@ -26,6 +26,7 @@ namespace PeopleEndpointNS {
 			apiKey: string;
 			language: string;
 			client: IClient;
+			personID?: number;
 		}
 
 		interface Common {
@@ -61,7 +62,7 @@ namespace PeopleEndpointNS {
 
 		export interface Latest extends Common {}
 
-		export interface Popular {
+		export interface Popular extends Omit<Common, 'personID'> {
 			page?: number;
 		}
 	}
