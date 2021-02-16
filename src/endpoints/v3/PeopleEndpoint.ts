@@ -1,164 +1,139 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-	PeopleChangesOptions, PeopleCombinedCreditsOptions,
-	PeopleDetailsOptions, PeopleExternalIDsOptions,
-	PeopleImagesOptions, PeopleLatestOptions,
-	PeopleMovieCreditsOptions, PeoplePopularOptions,
-	PeopleReturnType, PeopleTVCreditsOptions,
-	PeopleTaggedImagesOptions, PeopleTranslationsOptions,
-	PeopleConstructorOptions,
-} from '../../interfaces/v3/people';
+import PeopleEndpointNS from '../../interfaces/v3/people';
 import { RequiredParameterError } from '../../errors';
 
-export default class PeopleEndpoint extends Executor<PeopleReturnType> {
+import type { IClient } from '../../utils/Client';
+
+export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	private readonly apiKey: string;
 	private readonly language: string;
+	private readonly client: IClient;
 	private readonly personID?: number;
 
-	public constructor(options: PeopleConstructorOptions) {
-		super(client);
-
+	public constructor(options: PeopleEndpointNS.Options.Constructor) {
 		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.personID = options.personID;
+		this.client = options.client;
 	}
 
-	public details(options: PeopleDetailsOptions): PeopleEndpoint {
+	public async details(options: PeopleEndpointNS.Options.Details): Promise<PeopleEndpointNS.Results.Details> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'details',
+		return this.client.get(
+			`person/${options.personID ?? this.personID}`,
 			{
-				uri: `person/${options.personID ?? this.personID}`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
-					append_to_response: options.appendToResponse ?? null,
+					append_to_response: options.appendToResponse,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public changes(options: PeopleChangesOptions): PeopleEndpoint {
+	public async changes(options: PeopleEndpointNS.Options.Changes): Promise<PeopleEndpointNS.Results.Changes> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'changes',
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/changes`,
 			{
-				uri: `person/${options.personID ?? this.personID}/changes`,
 				searchParams: {
 					api_key: this.apiKey,
-					end_date: options.endDate ?? null,
+					start_date: options.startDate,
+					end_date: options.endDate,
 					page: options.page ?? 1,
-					start_date: options.startDate ?? null,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public movieCredits(options: PeopleMovieCreditsOptions): PeopleEndpoint {
+	public async movieCredits(
+		options: PeopleEndpointNS.Options.MovieCredits,
+	): Promise<PeopleEndpointNS.Results.MovieCredits> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'movieCredits',
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/movie_credits`,
 			{
-				uri: `person/${options.personID ?? this.personID}/movie_credits`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public tvCredits(options: PeopleTVCreditsOptions): PeopleEndpoint {
+	public async tvCredits(options: PeopleEndpointNS.Options.TVCredits): Promise<PeopleEndpointNS.Results.TVCredits> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'tvCredits',
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/tv_credits`,
 			{
-				uri: `person/${options.personID ?? this.personID}/tv_credits`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public combinedCredits(options: PeopleCombinedCreditsOptions): PeopleEndpoint {
+	public async combinedCredits(
+		options: PeopleEndpointNS.Options.CombinedCredits,
+	): Promise<PeopleEndpointNS.Results.CombinedCredits> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'combinedCredits',
+		return this.client.get(
+			`persont/${options.personID ?? this.personID}/combined_credits`,
 			{
-				uri: `person/${options.personID ?? this.personID}/combined_credits`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public externalIDs(options: PeopleExternalIDsOptions): PeopleEndpoint {
+	public async externalIDs(
+		options: PeopleEndpointNS.Options.ExternalIDs,
+	): Promise<PeopleEndpointNS.Results.ExternalIDs> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'externalIDs',
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/external_ids`,
 			{
-				uri: `person/${options.personID ?? this.personID}/external_ids`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public images(options: PeopleImagesOptions): PeopleEndpoint {
+	public async images(options: PeopleEndpointNS.Options.Images): Promise<PeopleEndpointNS.Results.Images> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'images',
-			{
-				uri: `person/${options.personID ?? this.personID}/images`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/images`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public taggedImages(options: PeopleTaggedImagesOptions): PeopleEndpoint {
+	public async taggedImages(
+		options: PeopleEndpointNS.Options.TaggedImages,
+	): Promise<PeopleEndpointNS.Results.TaggedImages> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'taggedImages',
+		return this.client.get(
+			`persont/${options.personID ?? this.personID}/tagged_images`,
 			{
-				uri: `person/${options.personID ?? this.personID}/tagged_images`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
@@ -166,48 +141,41 @@ export default class PeopleEndpoint extends Executor<PeopleReturnType> {
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public translations(options: PeopleTranslationsOptions): PeopleEndpoint {
+	public async translations(
+		options: PeopleEndpointNS.Options.Translations,
+	): Promise<PeopleEndpointNS.Results.Translations> {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		this.addToExecutionList(
-			'translations',
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/translations`,
 			{
-				uri: `person/${options.personID ?? this.personID}/translations`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public latest(options: PeopleLatestOptions): PeopleEndpoint {
-		this.addToExecutionList(
-			'latest',
+	public async latest(options: PeopleEndpointNS.Options.Latest): Promise<PeopleEndpointNS.Results.Latest> {
+		return this.client.get(
+			'person/latest',
 			{
-				uri: 'person/latest',
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public popular(options: PeoplePopularOptions): PeopleEndpoint {
-		this.addToExecutionList(
-			'popular',
+	public async popular(options: PeopleEndpointNS.Options.Popular): Promise<PeopleEndpointNS.Results.Popular> {
+		return this.client.get(
+			'person/popular',
 			{
-				uri: 'person/popular',
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
@@ -215,7 +183,5 @@ export default class PeopleEndpoint extends Executor<PeopleReturnType> {
 				},
 			},
 		);
-
-		return this;
 	}
 }

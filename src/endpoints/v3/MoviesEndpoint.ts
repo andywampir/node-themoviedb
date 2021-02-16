@@ -1,233 +1,187 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-	MoviesReturnType, MoviesConstructorOptions,
-	MoviesAccountStatesOptions, MoviesAlternativeTitlesOptions,
-	MoviesChangesOptions, MoviesCreditsOptions,
-	MoviesDeleteRatingOptions, MoviesDetailsOptions,
-	MoviesExternalIDsOptions, MoviesImagesOptions,
-	MoviesKeywordsOptions, MoviesLatestOptions,
-	MoviesListsOptions, MoviesNowPlayingOptions,
-	MoviesPopularOptions, MoviesRateOptions,
-	MoviesRecommendationsOptions, MoviesReleaseDatesOptions,
-	MoviesReviewsOptions, MoviesSimilarOptions,
-	MoviesTopRatedOptions, MoviesTranslationsOptions,
-	MoviesUpcomingOptions, MoviesVideosOptions,
-} from '../../interfaces/v3/movies';
+import MoviesEndpointNS from '../../interfaces/v3/movies';
 import { RequiredParameterError } from '../../errors';
 
-export default class MoviesEndpoint extends Executor<MoviesReturnType> {
+import type { IClient } from '../../utils/Client';
+
+export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 	private readonly apiKey: string;
 	private readonly language: string;
+	private readonly client: IClient;
 	private readonly movieID?: number;
 
-	public constructor(options: MoviesConstructorOptions) {
-		super(client);
-
+	public constructor(options: MoviesEndpointNS.Options.Constructor) {
 		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.movieID = options.movieID;
+		this.client = options.client;
 	}
 
-	public details(options: MoviesDetailsOptions): MoviesEndpoint {
+	public async details(options: MoviesEndpointNS.Options.Details): Promise<MoviesEndpointNS.Results.Details> {
 		if (!options.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'details',
+		return this.client.get(
+			`movie/${options.movieID ?? this.movieID}`,
 			{
-				uri: `movie/${options.movieID ?? this.movieID}`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options.language ?? this.language,
-					append_to_response: options.appendToResponse ?? null,
+					append_to_response: options.appendToResponse,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public accountState(options: MoviesAccountStatesOptions): MoviesEndpoint {
+	public async accountStates(
+		options: MoviesEndpointNS.Options.AccountStates,
+	): Promise<MoviesEndpointNS.Results.AccountStates> {
 		if (!options.sessionID && !options.guestSessionID)
 			throw new RequiredParameterError('sessionID or guestSessionID');
 		if (!options.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'accountState',
+		return this.client.get(
+			`movie/${options.movieID ?? this.movieID}/account_states`,
 			{
-				uri: `movie/${options.movieID ?? this.movieID}/account_states`,
 				searchParams: {
 					api_key: this.apiKey,
-					session_id: options.sessionID ?? null,
-					guest_session_id: options.guestSessionID ?? null,
+					session_id: options.sessionID,
+					guest_session_id: options.guestSessionID,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public alternativeTitles(options: MoviesAlternativeTitlesOptions): MoviesEndpoint {
+	public async alternativeTitles(
+		options: MoviesEndpointNS.Options.AlternativeTitles,
+	): Promise<MoviesEndpointNS.Results.AlternativeTitles> {
 		if (!options.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'alternativeTitles',
+		return this.client.get(
+			`movie/${options.movieID ?? this.movieID}/alternative_titles`,
 			{
-				uri: `movie/${options.movieID ?? this.movieID}/alternative_titles`,
 				searchParams: {
 					api_key: this.apiKey,
-					country: options.country ?? null,
+					country: options.country,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public changes(options?: MoviesChangesOptions): MoviesEndpoint {
+	public async changes(options?: MoviesEndpointNS.Options.Changes): Promise<MoviesEndpointNS.Results.Changes> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'changes',
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/changes`,
 			{
-				uri: `movie/${options?.movieID ?? this.movieID}/changes`,
 				searchParams: {
 					api_key: this.apiKey,
-					start_date: options?.startDate ?? null,
-					end_date: options?.endDate ?? null,
-					page: options?.page ?? 1,
+					start_date: options?.startDate,
+					end_date: options?.endDate,
+					page: options?.page,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public credits(options?: MoviesCreditsOptions): MoviesEndpoint {
+	public async credits(options?: MoviesEndpointNS.Options.Credits): Promise<MoviesEndpointNS.Results.Credits> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'credits',
-			{
-				uri: `movie/${options?.movieID ?? this.movieID}/credits`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/credits`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public externalIDs(options?: MoviesExternalIDsOptions): MoviesEndpoint {
+	public async externalIDs(
+		options?: MoviesEndpointNS.Options.ExternalIDs,
+	): Promise<MoviesEndpointNS.Results.ExternalIDs> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'externalIDs',
-			{
-				uri: `movie/${options?.movieID ?? this.movieID}/external_ids`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/external_ids`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public images(options?: MoviesImagesOptions): MoviesEndpoint {
+	public async images(options?: MoviesEndpointNS.Options.Images): Promise<MoviesEndpointNS.Results.Images> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'images',
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/images`,
 			{
-				uri: `movie/${options?.movieID ?? this.movieID}/images`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
-					include_image_language: options?.includeImageLanguage ?? null,
+					include_image_language: options?.includeImageLanguage,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public keywords(options?: MoviesKeywordsOptions): MoviesEndpoint {
+	public async keywords(options?: MoviesEndpointNS.Options.Keywords): Promise<MoviesEndpointNS.Results.Keywords> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'keywords',
-			{
-				uri: `movie/${options?.movieID ?? this.movieID}/keywords`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/keywords`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public releaseDates(options?: MoviesReleaseDatesOptions): MoviesEndpoint {
+	public async releaseDates(
+		options?: MoviesEndpointNS.Options.ReleaseDates,
+	): Promise<MoviesEndpointNS.Results.ReleaseDates> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'releaseDates',
-			{
-				uri: `movie/${options?.movieID ?? this.movieID}/release_dates`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/release_dates`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public videos(options?: MoviesVideosOptions): MoviesEndpoint {
+	public async videos(options?: MoviesEndpointNS.Options.Videos): Promise<MoviesEndpointNS.Results.Videos> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'videos',
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/videos`,
 			{
-				uri: `movie/${options?.movieID ?? this.movieID}/videos`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public translations(options?: MoviesTranslationsOptions): MoviesEndpoint {
+	public async translations(
+		options?: MoviesEndpointNS.Options.Translations,
+	): Promise<MoviesEndpointNS.Results.Translations> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'translations',
-			{
-				uri: `movie/${options?.movieID ?? this.movieID}/translations`,
-				searchParams: { api_key: this.apiKey },
-			},
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/translations`,
+			{ searchParams: { api_key: this.apiKey } },
 		);
-
-		return this;
 	}
 
-	public recommendations(options?: MoviesRecommendationsOptions): MoviesEndpoint {
+	public async recommendations(
+		options?: MoviesEndpointNS.Options.Recommendations,
+	): Promise<MoviesEndpointNS.Results.Recommendations> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'recommendations',
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/recommendations`,
 			{
-				uri: `movie/${options?.movieID ?? this.movieID}/recommendations`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
@@ -235,18 +189,15 @@ export default class MoviesEndpoint extends Executor<MoviesReturnType> {
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public similar(options?: MoviesSimilarOptions): MoviesEndpoint {
+	public async similar(options?: MoviesEndpointNS.Options.Similar): Promise<MoviesEndpointNS.Results.Similar> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'similar',
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/similar`,
 			{
-				uri: `movie/${options?.movieID ?? this.movieID}/similar`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
@@ -254,18 +205,15 @@ export default class MoviesEndpoint extends Executor<MoviesReturnType> {
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public reviews(options?: MoviesReviewsOptions): MoviesEndpoint {
+	public async reviews(options?: MoviesEndpointNS.Options.Reviews): Promise<MoviesEndpointNS.Results.Reviews> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'reviews',
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/reviews`,
 			{
-				uri: `movie/${options?.movieID ?? this.movieID}/reviews`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
@@ -273,18 +221,15 @@ export default class MoviesEndpoint extends Executor<MoviesReturnType> {
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public lists(options?: MoviesListsOptions): MoviesEndpoint {
+	public async lists(options?: MoviesEndpointNS.Options.Lists): Promise<MoviesEndpointNS.Results.Lists> {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		this.addToExecutionList(
-			'lists',
+		return this.client.get(
+			`movie/${options?.movieID ?? this.movieID}/lists`,
 			{
-				uri: `movie/${options?.movieID ?? this.movieID}/lists`,
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
@@ -292,135 +237,114 @@ export default class MoviesEndpoint extends Executor<MoviesReturnType> {
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public rate(options: MoviesRateOptions): MoviesEndpoint {
+	public async rate(options: MoviesEndpointNS.Options.Rate): Promise<MoviesEndpointNS.Results.Rate> {
 		if (!options.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 		if (!options.sessionID && !options.guestSessionID)
 			throw new RequiredParameterError('sessionID or guestSessionID');
 
-		this.addToExecutionList(
-			'rate',
+		return this.client.post(
+			`movie/${options.movieID ?? this.movieID}/rating`,
 			{
-				uri: `movie/${options.movieID ?? this.movieID}/rating`,
-				method: 'post',
 				searchParams: {
 					api_key: this.apiKey,
-					session_id: options.sessionID ?? null,
-					guest_session_id: options.guestSessionID ?? null,
+					session_id: options.sessionID,
+					guest_session_id: options.guestSessionID,
 				},
 				json: { value: options.value },
 			},
 		);
-
-		return this;
 	}
 
-	public deleteRating(options: MoviesDeleteRatingOptions): MoviesEndpoint {
+	public async deleteRating(
+		options: MoviesEndpointNS.Options.DeleteRating,
+	): Promise<MoviesEndpointNS.Results.DeleteRating> {
 		if (!options.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 		if (!options.sessionID && !options.guestSessionID)
 			throw new RequiredParameterError('sessionID or guestSessionID');
 
-		this.addToExecutionList(
-			'deleteRating',
+		return this.client.delete(
+			`movie/${options.movieID ?? this.movieID}/rating`,
 			{
-				uri: `movie/${options.movieID ?? this.movieID}/rating`,
-				method: 'delete',
 				searchParams: {
 					api_key: this.apiKey,
-					session_id: options.sessionID ?? null,
-					guest_session_id: options.guestSessionID ?? null,
+					session_id: options.sessionID,
+					guest_session_id: options.guestSessionID,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public latest(options?: MoviesLatestOptions): MoviesEndpoint {
-		this.addToExecutionList(
-			'latest',
+	public async latest(options?: MoviesEndpointNS.Options.Latest): Promise<MoviesEndpointNS.Results.Latest> {
+		return this.client.get(
+			'movie/latest',
 			{
-				uri: 'movie/latest',
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public nowPlaying(options?: MoviesNowPlayingOptions): MoviesEndpoint {
-		this.addToExecutionList(
-			'nowPlaying',
+	public async nowPlaying(
+		options?: MoviesEndpointNS.Options.NowPlaying,
+	): Promise<MoviesEndpointNS.Results.NowPlaying> {
+		return this.client.get(
+			'movie/now_playing',
 			{
-				uri: 'movie/now_playing',
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
-					region: options?.region ?? null,
+					region: options?.region,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public popular(options?: MoviesPopularOptions): MoviesEndpoint {
-		this.addToExecutionList(
-			'popular',
+	public async popular(options?: MoviesEndpointNS.Options.Popular): Promise<MoviesEndpointNS.Results.Popular> {
+		return this.client.get(
+			'movie/popular',
 			{
-				uri: 'movie/popular',
+				searchParams: {
+					api_key: this.apiKey,
+					language: options?.language ?? this.language,
+					page: options?.page,
+					region: options?.region,
+				},
+			},
+		);
+	}
+
+	public async topRated(options?: MoviesEndpointNS.Options.TopRated): Promise<MoviesEndpointNS.Results.TopRated> {
+		return this.client.get(
+			'movie/top_rated',
+			{
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
-					region: options?.region ?? null,
+					region: options?.region,
 				},
 			},
 		);
-
-		return this;
 	}
 
-	public topRated(options?: MoviesTopRatedOptions): MoviesEndpoint {
-		this.addToExecutionList(
-			'topRated',
+	public async upcoming(options?: MoviesEndpointNS.Options.Upcoming): Promise<MoviesEndpointNS.Results.Upcoming> {
+		return this.client.get(
+			'movie/upcoming',
 			{
-				uri: 'movie/top_rated',
 				searchParams: {
 					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
-					region: options?.region ?? null,
+					region: options?.region,
 				},
 			},
 		);
-
-		return this;
-	}
-
-	public upcoming(options?: MoviesUpcomingOptions): MoviesEndpoint {
-		this.addToExecutionList(
-			'upcoming',
-			{
-				uri: 'movie/upcoming',
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-					page: options?.page ?? 1,
-					region: options?.region ?? null,
-				},
-			},
-		);
-
-		return this;
 	}
 }

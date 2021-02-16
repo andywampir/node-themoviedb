@@ -95,6 +95,7 @@ export default class MovieDB {
 			apiKey: this.apiKey,
 			language: options?.language ?? this.language,
 			collectionID: options?.collectionID,
+			client: this.clientV3,
 		});
 	}
 }
