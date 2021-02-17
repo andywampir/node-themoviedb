@@ -1,33 +1,26 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import type {
-  TrendingGetOptions, TrendingReturnType,
-} from '../../interfaces/v3/trending';
+import TrendingEndpointNS from '../../interfaces/v3/trending';
 import { RequiredParameterError } from '../../errors';
 
-export default class TrendingEndpoint extends Executor<TrendingReturnType> {
-  private readonly apiKey: string;
+import type { IClient } from '../../utils/Client';
 
-  public constructor(apiKey: string) {
-    super(client);
-    this.apiKey = apiKey;
-  }
+export default class TrendingEndpoint implements TrendingEndpointNS.Class {
+	private readonly apiKey: string;
+	private readonly client: IClient;
 
-  public get(options: TrendingGetOptions): TrendingEndpoint {
-    if (!options.mediaType)
-      throw new RequiredParameterError('mediaType');
-    if (!options.timeWindow)
-      throw new RequiredParameterError('timeWindow');
+	public constructor(options: TrendingEndpointNS.Options.Constructor) {
+		this.apiKey = options.apiKey;
+		this.client = options.client;
+	}
 
-    this.addToExecutionList(
-      'get',
-      {
-        uri: `trending/${options.mediaType}/${options.timeWindow}`,
-        searchParams: { api_key: this.apiKey },
-      },
-    );
+	public async get(options: TrendingEndpointNS.Options.Get): Promise<TrendingEndpointNS.Results.Get> {
+		if (!options.mediaType)
+			throw new RequiredParameterError('mediaType');
+		if (!options.timeWindow)
+			throw new RequiredParameterError('timeWindow');
 
-    return this;
-  }
+		return this.client.get(
+			`trending/${options.mediaType}/${options.timeWindow}`,
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 }

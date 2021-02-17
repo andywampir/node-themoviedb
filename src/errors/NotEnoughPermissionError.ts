@@ -1,9 +1,12 @@
-export default class NotEnoughPermissionError extends Error {
-  public code: number;
+import BaseHTTPError from './BaseHTTPError';
 
-  public constructor(message: string, code: number) {
-    super(message);
-
-    this.code = code;
-  }
+export default class NotEnoughPermissionError extends BaseHTTPError {
+	public constructor(message: string, code: number) {
+		super({
+			message,
+			statusCode: code,
+			shortMessage: 'Not Enough Permission',
+			httpCode: 401,
+		});
+	}
 }

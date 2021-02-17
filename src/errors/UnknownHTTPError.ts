@@ -1,9 +1,11 @@
-export default class UnknownHTTPError extends Error {
-  public httpCode: number;
+import BaseHTTPError from './BaseHTTPError';
 
-  public constructor(message: string, httpCode: number) {
-    super(message);
-
-    this.httpCode = httpCode;
-  }
+export default class UnknownHTTPError extends BaseHTTPError {
+	public constructor(message: string, httpCode: number) {
+		super({
+			httpCode,
+			message,
+			shortMessage: 'Unknown HTTP Error',
+		});
+	}
 }

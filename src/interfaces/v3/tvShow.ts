@@ -1,278 +1,286 @@
-/* eslint-disable camelcase */
-import {
-  TVShow, CrewCredit,
-  CastCredit, ImageWithISO639,
-  ResultsWithPage, Review,
-  TVShowVideo, ResponseWithCode,
-  TVShowExtended, ExternalIDs,
+import type { IClient } from '../../utils/Client';
+import type {
+	TVShow, CrewCredit,
+	CastCredit, ImageWithISO639,
+	ResultsWithPage, Review,
+	TVShowVideo, ResponseWithCode,
+	TVShowExtended, ExternalIDs as IExternalIDs,
 } from '../common';
 
-// Options
-interface CommonParameters {
-  tvID?: number;
+namespace TVShowEndpointNS {
+	export interface Class {
+		details(options?: Options.Details): Promise<Results.Details>;
+		accountStates(options?: Options.AccountStates): Promise<Results.AccountStates>;
+		alternativeTiles(options?: Options.AlternativeTitles): Promise<Results.AlternativeTitles>;
+		changes(options?: Options.Changes): Promise<Results.Changes>;
+		contentRatings(options?: Options.ContentRatings): Promise<Results.ContentRatings>;
+		credits(options?: Options.Credits): Promise<Results.Credits>;
+		episodeGroups(options?: Options.EpisodeGroups): Promise<Results.EpisodeGroups>;
+		externalIDs(options?: Options.ExternalIDs): Promise<Results.ExternalIDs>;
+		images(options?: Options.Images): Promise<Results.Images>;
+		keywords(options?: Options.Keywords): Promise<Results.Keywords>;
+		recommendations(options?: Options.Recommendations): Promise<Results.Recommendations>;
+		reviews(options?: Options.Reviews): Promise<Results.Reviews>;
+		screenedTheatrically(options?: Options.ScreenedTheatrically): Promise<Results.ScreenedTheatrically>;
+		similar(options?: Options.Similar): Promise<Results.Similar>;
+		translations(options?: Options.Translations): Promise<Results.Translations>;
+		videos(options?: Options.Videos): Promise<Results.Videos>;
+		rate(options: Options.Rate): Promise<Results.Rate>;
+		deleteRating(options?: Options.DeleteRating): Promise<Results.DeleteRating>;
+		latest(options?: Options.Latest): Promise<Results.Latest>;
+		airingToday(options?: Options.AiringToday): Promise<Results.AiringToday>;
+		onTheAir(options?: Options.OnTheAir): Promise<Results.OnTheAir>;
+		popular(options?: Options.Popular): Promise<Results.Popular>;
+		topRated(options?: Options.TopRated): Promise<Results.TopRated>;
+	}
+
+	export namespace Options {
+		export interface Constructor {
+			apiKey: string;
+			client: IClient;
+			language: string;
+			tvID?: number;
+		}
+
+		interface Common {
+			tvID?: number;
+			language?: string;
+		}
+
+		export interface Details extends Common {
+			appendToResponse?: string;
+		}
+
+		export interface AccountStates extends Common {
+			guesSessionID?: string;
+			sessionID?: string;
+		}
+
+		export interface AlternativeTitles extends Common {}
+
+		export interface Changes extends Omit<Common, 'language'> {
+			startDate?: string;
+			endDate?: string;
+			page?: number;
+		}
+
+		export interface ContentRatings extends Common {}
+
+		export interface Credits extends Common {}
+
+		export interface EpisodeGroups extends Common {}
+
+		export interface ExternalIDs extends Common {}
+
+		export interface Images extends Common {}
+
+		export interface Keywords extends Omit<Common, 'language'> {}
+
+		export interface Recommendations extends Common {
+			page?: number;
+		}
+
+		export interface Reviews extends Common {
+			page?: number;
+		}
+
+		export interface ScreenedTheatrically extends Omit<Common, 'language'> {}
+
+		export interface Similar extends Common {
+			page?: number;
+		}
+
+		export interface Translations extends Omit<Common, 'language'> {}
+
+		export interface Videos extends Common {}
+
+		export interface Rate extends Omit<Common, 'language'> {
+			value: number;
+			guestSessionID?: string;
+			sessionID?: string;
+		}
+
+		export interface DeleteRating extends Omit<Common, 'language'> {
+			guesSessionID?: string;
+			sessionID?: string;
+		}
+
+		export interface Latest extends Common {}
+
+		export interface AiringToday extends Common {
+			page?: number;
+		}
+
+		export interface OnTheAir extends Common {
+			page?: number;
+		}
+
+		export interface Popular extends Common {
+			page?: number;
+		}
+
+		export interface TopRated extends Common {
+			page?: number;
+		}
+	}
+
+	export namespace Results {
+		export type Details = Types.Details;
+		export type AccountStates = Types.AccountStates;
+		export type AlternativeTitles = Types.AlternativeTitles;
+		export type Changes = Types.Changes;
+		export type ContentRatings = Types.ContentRatings;
+		export type Credits = Types.Credits;
+		export type EpisodeGroups = Types.EpisodeGroups;
+		export type ExternalIDs = Types.ExternalIDs;
+		export type Images = Types.Images;
+		export type Keywords = Types.Keywords;
+		export type Recommendations = Types.Recommendations;
+		export type Reviews = Types.Reviews;
+		export type ScreenedTheatrically = Types.ScreenedTheatrically;
+		export type Similar = Types.Similar;
+		export type Translations = Types.Translations;
+		export type Videos = Types.Videos;
+		export type Rate = ResponseWithCode;
+		export type DeleteRating = ResponseWithCode;
+		export type Latest = Omit<TVShowExtended, 'last_episode_to_air' & 'next_episode_to_air'>;
+		export type AiringToday = ResultsWithPage<TVShow>;
+		export type OnTheAir = ResultsWithPage<TVShow>;
+		export type Popular = ResultsWithPage<TVShow>;
+		export type TopRated = ResultsWithPage<TVShow>;
+	}
+
+	namespace Types {
+		export interface Details extends TVShowExtended {
+			alternative_titles?: Omit<AlternativeTitles, 'id'>;
+			changes?: Changes;
+			content_ratings?: Omit<ContentRatings, 'id'>;
+			credits?: Omit<Credits, 'id'>;
+			episode_groups?: Omit<EpisodeGroups, 'id'>;
+			external_ids?: Omit<ExternalIDs, 'id'>;
+			images?: Omit<Images, 'id'>;
+			keywords?: Omit<Keywords, 'id'>;
+			recommendations?: Recommendations;
+			reviews?: Omit<Reviews, 'id'>;
+			screened_theatrically?: Omit<ScreenedTheatrically, 'id'>;
+			similar?: Similar;
+			translations?: Omit<Translations, 'id'>;
+			videos?: Omit<Videos, 'id'>;
+		}
+
+		export interface AccountStates {
+			id: number;
+			favorite: boolean;
+			rated: {
+				value: number;
+			} | boolean;
+			watchlist: boolean;
+		}
+
+		export interface AlternativeTitles {
+			id: number;
+			results: {
+				title: string;
+				iso_3166_1: string;
+				type: string;
+			}[];
+		}
+
+		export interface Changes {
+			changes: {
+				key: string;
+				items: {
+					id: string;
+					action: string;
+					time: string;
+				}[];
+			}[];
+		}
+
+		export interface ContentRatings {
+			id: number;
+			results: {
+				iso_3166_1: string;
+				rating: string;
+			}[];
+		}
+
+		export interface Credits {
+			id: number;
+			cast: CastCredit[];
+			crew: CrewCredit[];
+		}
+
+		export interface EpisodeGroups {
+			id: number;
+			results: {
+				description: string;
+				episode_count: number;
+				group_count: number;
+				id: string;
+				name: string;
+				network: {
+					id: number;
+					logo_path: string;
+					name: string;
+					origin_country: string;
+				} | null;
+			}[];
+		}
+
+		export interface ExternalIDs extends IExternalIDs {
+			id: number;
+		}
+
+		export interface Images {
+			id: number;
+			backdrops: ImageWithISO639[];
+			posters: ImageWithISO639[];
+		}
+
+		export interface Keywords {
+			id: number;
+			results: {
+				id: number;
+				name: string;
+			}[];
+		}
+
+		export interface ScreenedTheatrically {
+			id: number;
+			results: {
+				id: number;
+				episode_number: number;
+				season_number: number;
+			}[];
+		}
+
+		export interface Translations {
+			id: number;
+			translations: {
+				iso_3166_1: string;
+				iso_639_1: string;
+				name: string;
+				english_name: string;
+				data: {
+					name: string;
+					overview: string;
+					homepage: string;
+				};
+			}[];
+		}
+
+		export interface Videos {
+			id: number;
+			results: TVShowVideo[];
+		}
+
+		export interface Recommendations extends ResultsWithPage<TVShow> {}
+
+		export interface Reviews extends ResultsWithPage<Review & { id: number }> {}
+
+		export interface Similar extends ResultsWithPage<TVShow> {}
+	}
 }
 
-export interface TVShowDetailsOptions extends CommonParameters {
-  language?: string;
-  appendToResponse?: string;
-}
-
-export interface TVShowAccountStatesOptions extends CommonParameters {
-  language?: string;
-  guestSessionID?: string;
-  sessionID?: string;
-}
-
-export interface TVShowAlternativeTitlesOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface TVShowChangesOptions extends CommonParameters {
-  startDate?: string;
-  endDate?: string;
-  page?: number;
-}
-
-export interface TVShowContentRatingsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface TVShowCreditsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface TVShowEpisodeGroupsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface TVShowExternalIDsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface TVShowImagesOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface TVShowKeywordsOptions extends CommonParameters {}
-
-export interface TVShowRecommendationsOptions extends CommonParameters {
-  language?: string;
-  page?: number;
-}
-
-export interface TVShowReviewsOptions extends CommonParameters {
-  language?: string;
-  page?: number;
-}
-
-export interface TVShowScreenedTheatricallyOptions extends CommonParameters {}
-
-export interface TVShowSimilarOptions extends CommonParameters {
-  language?: string;
-  page?: number;
-}
-
-export interface TVShowTranslationsOptions extends CommonParameters {}
-
-export interface TVShowVideosOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface TVShowRateOptions extends CommonParameters {
-  value: number;
-  guestSessionID?: string;
-  sessionID?: string;
-}
-
-export interface TVShowDeleteRatingOptions extends CommonParameters {
-  guestSessionID?: string;
-  sessionID?: string;
-}
-
-export interface TVShowLatestOptions {
-  language?: string;
-}
-
-export interface TVShowAiringTodayOptions {
-  language?: string;
-  page?: number;
-}
-
-export interface TVShowOnTheAirOptions {
-  language?: string;
-  page?: number;
-}
-
-export interface TVShowPopularOptins {
-  language?: string;
-  page?: number;
-}
-
-export interface TVShowTopRatedOptions {
-  language?: string;
-  page?: number;
-}
-
-// Return Types
-export interface TVShowReturnType {
-  details?: TVShowDetails[];
-  accountStates?: TVShowAccountStates[];
-  alternativeTiles?: TVShowAlternativeTitles[];
-  changes?: TVShowChanges[];
-  contentRatings?: TVShowContentRatings[];
-  credits?: TVShowCredits[];
-  episodeGroups?: TVShowEpisodeGroups[];
-  externalIDs?: TVShowExternalIDs[];
-  images?: TVShowImages[];
-  keywords?: TVShowKeywords[];
-  recommendations?: TVShowRecommendations[];
-  reviews?: TVShowReviews[];
-  screenedTheatrically?: TVShowScreenedTheatrically[];
-  similar?: TVShowSimilar[];
-  translations?: TVShowTranslations[];
-  videos?: TVShowVideos[];
-  rate?: TVShowRate[];
-  deleteRating?: TVShowDeleteRating[];
-  latest?: TVShowLatest[];
-  airingToday?: TVShowAiringToday[];
-  onTheAir?: TVShowOnTheAir[];
-  popular?: TVShowPopular[];
-  topRated?: TVShowTopRated[];
-}
-
-interface TVShowDetails extends TVShowExtended {
-  alternative_titles?: Omit<TVShowAlternativeTitles, 'id'>;
-  changes?: TVShowChanges;
-  content_ratings?: Omit<TVShowContentRatings, 'id'>;
-  credits?: Omit<TVShowCredits, 'id'>;
-  episode_groups?: Omit<TVShowEpisodeGroups, 'id'>;
-  external_ids?: Omit<TVShowExternalIDs, 'id'>;
-  images?: Omit<TVShowImages, 'id'>;
-  keywords?: Omit<TVShowKeywords, 'id'>;
-  recommendations?: TVShowRecommendations;
-  reviews?: Omit<TVShowReviews, 'id'>;
-  screened_theatrically?: Omit<TVShowScreenedTheatrically, 'id'>;
-  similar?: TVShowSimilar;
-  translations?: Omit<TVShowTranslations, 'id'>;
-  videos?: Omit<TVShowVideos, 'id'>;
-}
-
-interface TVShowAccountStates {
-  id: number;
-  favorite: boolean;
-  rated: {
-    value: number;
-  } | boolean;
-  watchlist: boolean;
-}
-
-interface TVShowAlternativeTitles {
-  id: number;
-  results: {
-    title: string;
-    iso_3166_1: string;
-    type: string;
-  }[];
-}
-
-interface TVShowChanges {
-  changes: {
-    key: string;
-    items: {
-      id: string;
-      action: string;
-      time: string;
-    }[];
-  }[];
-}
-
-interface TVShowContentRatings {
-  id: number;
-  results: {
-    iso_3166_1: string;
-    rating: string;
-  }[];
-}
-
-interface TVShowCredits {
-  id: number;
-  cast: CastCredit[];
-  crew: CrewCredit[];
-}
-
-interface TVShowEpisodeGroups {
-  id: number;
-  results: {
-    description: string;
-    episode_count: number;
-    group_count: number;
-    id: string;
-    name: string;
-    network: {
-      id: number;
-      logo_path: string;
-      name: string;
-      origin_country: string;
-    } | null;
-  }[];
-}
-
-interface TVShowExternalIDs extends ExternalIDs {
-  id: number;
-}
-
-interface TVShowImages {
-  id: number;
-  backdrops: ImageWithISO639[];
-  posters: ImageWithISO639[];
-}
-
-interface TVShowKeywords {
-  id: number;
-  results: {
-    id: number;
-    name: string;
-  }[];
-}
-
-interface TVShowRecommendations extends ResultsWithPage<TVShow> {}
-interface TVShowReviews extends ResultsWithPage<Review & { id: number }> {}
-
-interface TVShowScreenedTheatrically {
-  id: number;
-  results: {
-    id: number;
-    episode_number: number;
-    season_number: number;
-  }[];
-}
-
-interface TVShowSimilar extends ResultsWithPage<TVShow> {}
-
-interface TVShowTranslations {
-  id: number;
-  translations: {
-    iso_3166_1: string;
-    iso_639_1: string;
-    name: string;
-    english_name: string;
-    data: {
-      name: string;
-      overview: string;
-      homepage: string;
-    };
-  }[];
-}
-
-interface TVShowVideos {
-  id: number;
-  results: TVShowVideo[];
-}
-
-interface TVShowRate extends ResponseWithCode {}
-interface TVShowDeleteRating extends ResponseWithCode {}
-interface TVShowLatest extends Omit<TVShowExtended, 'last_episode_to_air' & 'next_episode_to_air'> {}
-interface TVShowAiringToday extends ResultsWithPage<TVShow> {}
-interface TVShowOnTheAir extends ResultsWithPage<TVShow> {}
-interface TVShowPopular extends ResultsWithPage<TVShow> {}
-interface TVShowTopRated extends ResultsWithPage<TVShow> {}
+export default TVShowEndpointNS;

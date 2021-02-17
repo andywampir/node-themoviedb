@@ -1,86 +1,55 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
+import ConfigurationEndpointNS from '../../interfaces/v3/configuration';
 
-import { ConfigurationReturnType } from '../../interfaces/v3/configuration';
+import type { IClient } from '../../utils/Client';
 
-export default class ConfigurationEndpoint extends Executor<ConfigurationReturnType> {
-  private readonly apiKey: string;
+export default class ConfigurationEndpoint implements ConfigurationEndpointNS.Class {
+	private readonly apiKey: string;
+	private readonly client: IClient;
 
-  public constructor(apiKey: string) {
-    super(client);
+	public constructor(options: ConfigurationEndpointNS.Options.Constructor) {
+		this.apiKey = options.apiKey;
+		this.client = options.client;
+	}
 
-    this.apiKey = apiKey;
-  }
+	public async api(): Promise<ConfigurationEndpointNS.Results.Api> {
+		return this.client.get(
+			'configuration',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 
-  public api(): ConfigurationEndpoint {
-    this.addToExecutionList(
-      'api',
-      {
-        uri: 'configuration',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
+	public async countries(): Promise<ConfigurationEndpointNS.Results.Countries> {
+		return this.client.get(
+			'configuration/countries',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 
-    return this;
-  }
+	public async jobs(): Promise<ConfigurationEndpointNS.Results.Jobs> {
+		return this.client.get(
+			'configuration/jobs',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 
-  public countries(): ConfigurationEndpoint {
-    this.addToExecutionList(
-      'countries',
-      {
-        uri: 'configuration/countries',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
+	public async languages(): Promise<ConfigurationEndpointNS.Results.Languages> {
+		return this.client.get(
+			'configuration/languages',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 
-    return this;
-  }
+	public async primaryTranslations(): Promise<ConfigurationEndpointNS.Results.PrimaryTranslations> {
+		return this.client.get(
+			'configuration/primary_translations',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 
-  public jobs(): ConfigurationEndpoint {
-    this.addToExecutionList(
-      'jobs',
-      {
-        uri: 'configuration/jobs',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
-
-  public languages(): ConfigurationEndpoint {
-    this.addToExecutionList(
-      'languages',
-      {
-        uri: 'configuration/languages',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
-
-  public primaryTranslations(): ConfigurationEndpoint {
-    this.addToExecutionList(
-      'primaryTranslations',
-      {
-        uri: 'configuration/primary_translations',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
-
-  public timezones(): ConfigurationEndpoint {
-    this.addToExecutionList(
-      'timezones',
-      {
-        uri: 'configuration/timezones',
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
+	public async timezones(): Promise<ConfigurationEndpointNS.Results.Timezones> {
+		return this.client.get(
+			'configuration/timezones',
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 }

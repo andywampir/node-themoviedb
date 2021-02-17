@@ -1,182 +1,151 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-  ListsReturnType, ListsConstructorOptions,
-  ListsDetailsOptions, ListsAddMovieOptions,
-  ListsClearOptions, ListsCreateOptions,
-  ListsItemStatusOptions, ListsRemoveMovieOptions,
-  ListsDeleteOptions,
-} from '../../interfaces/v3/lists';
+import ListsEndpointNS from '../../interfaces/v3/lists';
 import { RequiredParameterError } from '../../errors';
 
-export default class ListsEndpoint extends Executor<ListsReturnType> {
-  private readonly apiKey: string;
-  private readonly language: string;
-  private readonly sessionID?: string;
-  private readonly listID?: number;
+import type { IClient } from '../../utils/Client';
 
-  public constructor(options: ListsConstructorOptions) {
-    super(client);
+export default class ListsEndpoint implements ListsEndpointNS.Class {
+	private readonly apiKey: string;
+	private readonly language: string;
+	private readonly client: IClient;
+	private readonly sessionID?: string;
+	private readonly listID?: string;
 
-    this.apiKey = options.apiKey;
-    this.language = options.language;
-    this.sessionID = options.sessionID;
-    this.listID = options.listID;
-  }
+	public constructor(options: ListsEndpointNS.Options.Constructor) {
+		this.apiKey = options.apiKey;
+		this.language = options.language;
+		this.sessionID = options.sessionID;
+		this.listID = options.listID;
+		this.client = options.client;
+	}
 
-  public details(options: ListsDetailsOptions): ListsEndpoint {
-    if (!options.listID && !this.listID)
-      throw new RequiredParameterError('listID');
+	public async details(options: ListsEndpointNS.Options.Details): Promise<ListsEndpointNS.Results.Details> {
+		if (!options.listID && !this.listID)
+			throw new RequiredParameterError('listID');
 
-    this.addToExecutionList(
-      'details',
-      {
-        uri: `list/${options.listID ?? this.listID}`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-        },
-      },
-    );
+		return this.client.get(
+			`list/${options.listID ?? this.listID}`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+				},
+			},
+		);
+	}
 
-    return this;
-  }
+	public async itemStatus(options: ListsEndpointNS.Options.ItemStatus): Promise<ListsEndpointNS.Results.ItemStatus> {
+		if (!options.listID && !this.listID)
+			throw new RequiredParameterError('listID');
+		if (!options.movieID)
+			throw new RequiredParameterError('movieID');
 
-  public itemStatus(options: ListsItemStatusOptions): ListsEndpoint {
-    if (!options.listID && !this.listID)
-      throw new RequiredParameterError('listID');
-    if (!options.movieID)
-      throw new RequiredParameterError('movieID');
+		return this.client.get(
+			`list/${options.listID ?? this.listID}/item_status`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					movie_id: options.movieID,
+				},
+			},
+		);
+	}
 
-    this.addToExecutionList(
-      'itemStatus',
-      {
-        uri: `list/${options.listID ?? this.listID}/item_status`,
-        searchParams: {
-          api_key: this.apiKey,
-          movie_id: options.movieID,
-        },
-      },
-    );
+	public async create(options: ListsEndpointNS.Options.Create): Promise<ListsEndpointNS.Results.Create> {
+		if (!options.sessionID && !this.sessionID)
+			throw new RequiredParameterError('sessionID');
 
-    return this;
-  }
+		return this.client.post(
+			'list',
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					session_id: options.sessionID ?? this.sessionID,
+				},
+				json: {
+					name: options.name,
+					description: options.description,
+					language: options.language,
+				},
+			},
+		);
+	}
 
-  public create(options: ListsCreateOptions): ListsEndpoint {
-    if (!options.sessionID && !this.sessionID)
-      throw new RequiredParameterError('sessionID');
+	public async addMovie(options: ListsEndpointNS.Options.AddMovie): Promise<ListsEndpointNS.Results.AddMovie> {
+		if (!options.sessionID && !this.sessionID)
+			throw new RequiredParameterError('sessionID');
+		if (!options.listID && !this.listID)
+			throw new RequiredParameterError('listID');
+		if (!options.mediaID)
+			throw new RequiredParameterError('mediaID');
 
-    this.addToExecutionList(
-      'create',
-      {
-        uri: 'list',
-        method: 'post',
-        searchParams: {
-          api_key: this.apiKey,
-          session_id: options.sessionID ?? this.sessionID ?? null,
-        },
-        json: {
-          name: options.name,
-          description: options.description,
-          language: options.language,
-        },
-      },
-    );
+		return this.client.post(
+			`list/${options.listID ?? this.listID}/add_item`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					session_id: options.sessionID ?? this.sessionID,
+				},
+				json: { media_id: options.mediaID },
+			},
+		);
+	}
 
-    return this;
-  }
+	public async removeMovie(
+		options: ListsEndpointNS.Options.RemoveMovie,
+	): Promise<ListsEndpointNS.Results.RemoveMovie> {
+		if (!options.listID && !this.listID)
+			throw new RequiredParameterError('listID');
+		if (!options.sessionID && !this.sessionID)
+			throw new RequiredParameterError('sessionID');
+		if (!options.mediaID)
+			throw new RequiredParameterError('mediaID');
 
-  public addMovie(options: ListsAddMovieOptions): ListsEndpoint {
-    if (!options.sessionID && !this.sessionID)
-      throw new RequiredParameterError('sessionID');
-    if (!options.listID && !this.listID)
-      throw new RequiredParameterError('listID');
-    if (!options.mediaID)
-      throw new RequiredParameterError('mediaID');
+		return this.client.post(
+			`list/${options.listID ?? this.listID}/remove_item`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					session_id: options.sessionID ?? this.sessionID,
+				},
+				json: { media_id: options.mediaID },
+			},
+		);
+	}
 
-    this.addToExecutionList(
-      'addMovie',
-      {
-        uri: `list/${options.listID ?? this.listID}/add_item`,
-        method: 'post',
-        searchParams: {
-          api_key: this.apiKey,
-          session_id: options.sessionID ?? this.sessionID ?? null,
-        },
-        json: { media_id: options.mediaID },
-      },
-    );
+	public async clear(options: ListsEndpointNS.Options.Clear): Promise<ListsEndpointNS.Results.Clear> {
+		if (!options.listID && !this.listID)
+			throw new RequiredParameterError('listID');
+		if (!options.sessionID && !this.sessionID)
+			throw new RequiredParameterError('sessionID');
+		if (!('confirm' in options))
+			throw new RequiredParameterError('confirm');
 
-    return this;
-  }
+		return this.client.post(
+			`list/${options.listID ?? this.listID}/clear`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					session_id: options.sessionID ?? this.sessionID,
+					confirm: options.confirm,
+				},
+			},
+		);
+	}
 
-  public removeMovie(options: ListsRemoveMovieOptions): ListsEndpoint {
-    if (!options.listID && !this.listID)
-      throw new RequiredParameterError('listID');
-    if (!options.sessionID && !this.sessionID)
-      throw new RequiredParameterError('sessionID');
-    if (!options.mediaID)
-      throw new RequiredParameterError('mediaID');
+	public async delete(options: ListsEndpointNS.Options.Delete): Promise<ListsEndpointNS.Results.Delete> {
+		if (!options.sessionID && !this.sessionID)
+			throw new RequiredParameterError('sessionID');
+		if (!options.listID && !this.listID)
+			throw new RequiredParameterError('listID');
 
-    this.addToExecutionList(
-      'removeMovie',
-      {
-        uri: `list/${options.listID ?? this.listID}/add_item`,
-        method: 'post',
-        searchParams: {
-          api_key: this.apiKey,
-          session_id: options.sessionID ?? this.sessionID ?? null,
-        },
-        json: { media_id: options.mediaID },
-      },
-    );
-
-    return this;
-  }
-
-  public clear(options: ListsClearOptions): ListsEndpoint {
-    if (!options.listID && !this.listID)
-      throw new RequiredParameterError('listID');
-    if (!options.sessionID && !this.sessionID)
-      throw new RequiredParameterError('sessionID');
-    if (!('confirm' in options))
-      throw new RequiredParameterError('confirm');
-
-    this.addToExecutionList(
-      'clear',
-      {
-        uri: `list/${options.listID ?? this.listID}/clear`,
-        method: 'post',
-        searchParams: {
-          api_key: this.apiKey,
-          session_id: options.sessionID ?? this.sessionID ?? null,
-          confirm: options.confirm,
-        },
-      },
-    );
-
-    return this;
-  }
-
-  public delete(options: ListsDeleteOptions): ListsEndpoint {
-    if (!options.sessionID && !this.sessionID)
-      throw new RequiredParameterError('sessionID');
-    if (!options.listID && !this.listID)
-      throw new RequiredParameterError('listID');
-
-    this.addToExecutionList(
-      'delete',
-      {
-        uri: `list/${options.listID ?? this.listID}`,
-        method: 'delete',
-        searchParams: {
-          api_key: this.apiKey,
-          session_id: options.sessionID ?? this.sessionID ?? null,
-        },
-      },
-    );
-
-    return this;
-  }
+		return this.client.delete(
+			`list/${options.listID ?? this.listID}`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					session_id: options.sessionID ?? this.sessionID,
+				},
+			},
+		);
+	}
 }

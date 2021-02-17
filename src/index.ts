@@ -1,3 +1,5 @@
+import Client, { IClient } from './utils/Client';
+
 import AccountEndpoint from './endpoints/v3/AccountEndpoint';
 import AuthentificationEndpoint from './endpoints/v3/AuthenticationEndpoint';
 import CertificationsEndpoint from './endpoints/v3/CertificationsEndpoint';
@@ -7,80 +9,95 @@ import CollectionsEndpoint from './endpoints/v3/CollectionsEndpoint';
 import { RequiredParameterError } from './errors';
 
 interface AccountEndpointOptions {
-  sessionID?: string;
-  language?: string;
-  userID?: number;
+	sessionID?: string;
+	language?: string;
+	userID?: number;
 }
 
 interface CollectionEndpointOptions {
-  collectionID?: number;
-  language?: string;
+	collectionID?: number;
+	language?: string;
 }
 
 interface MovieDBConstructorOptions {
-  apiKey: string;
-  language?: string;
+	apiKey: string;
+	language?: string;
 }
 
 export default class MovieDB {
-  private apiKey: string;
-  private language: string;
-  private sessionID?: string;
+	private apiKey: string;
+	private language: string;
+	private sessionID?: string;
+	private readonly clientV3: IClient;
+	private readonly clientV4: IClient;
 
-  public constructor(options: MovieDBConstructorOptions) {
-    if (!options.apiKey)
-      throw new RequiredParameterError('apiKey');
+	public constructor(options: MovieDBConstructorOptions) {
+		if (!options.apiKey)
+			throw new RequiredParameterError('apiKey');
 
-    this.apiKey = options.apiKey;
-    this.language = options.language ?? 'en-US';
-  }
+		this.apiKey = options.apiKey;
+		this.language = options.language ?? 'en-US';
+		this.clientV3 = new Client(3);
+		this.clientV4 = new Client(4);
+	}
 
-  public setApiKey(apiKey: string): void {
-    if (!apiKey || typeof apiKey !== 'string')
-      throw new RequiredParameterError('apiKey');
+	public setApiKey(apiKey: string): void {
+		if (!apiKey || typeof apiKey !== 'string')
+			throw new RequiredParameterError('apiKey');
 
-    this.apiKey = apiKey;
-  }
+		this.apiKey = apiKey;
+	}
 
-  public setLanguage(language: string): void {
-    this.language = language;
-  }
+	public setLanguage(language: string): void {
+		this.language = language;
+	}
 
-  public setSessionID(sessionID: string): void {
-    if (!sessionID || typeof sessionID !== 'string')
-      throw new RequiredParameterError('sessionID');
+	public setSessionID(sessionID: string): void {
+		if (!sessionID || typeof sessionID !== 'string')
+			throw new RequiredParameterError('sessionID');
 
-    this.sessionID = sessionID;
-  }
+		this.sessionID = sessionID;
+	}
 
-  public account(options?: AccountEndpointOptions): AccountEndpoint {
-    return new AccountEndpoint({
-      apiKey: this.apiKey,
-      sessionID: options?.sessionID ?? this.sessionID,
-      language: options?.language ?? this.language,
-      userID: options?.userID,
-    });
-  }
+	public account(options?: AccountEndpointOptions): AccountEndpoint {
+		return new AccountEndpoint({
+			apiKey: this.apiKey,
+			sessionID: options?.sessionID ?? this.sessionID,
+			language: options?.language ?? this.language,
+			userID: options?.userID,
+			client: this.clientV3,
+		});
+	}
 
-  public authentication(): AuthentificationEndpoint {
-    return new AuthentificationEndpoint(this.apiKey);
-  }
+	public authentication(): AuthentificationEndpoint {
+		return new AuthentificationEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+		});
+	}
 
-  public certifications(): CertificationsEndpoint {
-    return new CertificationsEndpoint(this.apiKey);
-  }
+	public certifications(): CertificationsEndpoint {
+		return new CertificationsEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+		});
+	}
 
-  public changes(): ChangesEndpoint {
-    return new ChangesEndpoint(this.apiKey);
-  }
+	public changes(): ChangesEndpoint {
+		return new ChangesEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+		});
+	}
 
-  public collections(options?: CollectionEndpointOptions): CollectionsEndpoint {
-    return new CollectionsEndpoint({
-      apiKey: this.apiKey,
-      language: options?.language ?? this.language,
-      collectionID: options?.collectionID,
-    });
-  }
+	public collections(options?: CollectionEndpointOptions): CollectionsEndpoint {
+		return new CollectionsEndpoint({
+			apiKey: this.apiKey,
+			language: options?.language ?? this.language,
+			collectionID: options?.collectionID,
+			client: this.clientV3,
+		});
+	}
 }
 
 // For CommonJS default export support

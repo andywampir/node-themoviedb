@@ -1,34 +1,26 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-  CreditsReturnType, CreditsConstructorOptions,
-} from '../../interfaces/v3/credits';
+import CreditsEndpointNS from '../../interfaces/v3/credits';
 import { RequiredParameterError } from '../../errors';
 
-export default class CreditsEndpoint extends Executor<CreditsReturnType> {
-  private readonly apiKey: string;
-  private readonly creditID?: string;
+import type { IClient } from '../../utils/Client';
 
-  public constructor(options: CreditsConstructorOptions) {
-    super(client);
+export default class CreditsEndpoint implements CreditsEndpointNS.Class {
+	private readonly apiKey: string;
+	private readonly client: IClient;
+	private readonly creditID?: string;
 
-    this.apiKey = options.apiKey;
-    this.creditID = options.creditID;
-  }
+	public constructor(options: CreditsEndpointNS.Options.Constructor) {
+		this.apiKey = options.apiKey;
+		this.creditID = options.creditID;
+		this.client = options.client;
+	}
 
-  public details(creditID?: string): CreditsEndpoint {
-    if (!creditID || !this.creditID)
-      throw new RequiredParameterError('creditID');
+	public async details(creditID?: number): Promise<CreditsEndpointNS.Results.Details> {
+		if (!creditID || !this.creditID)
+			throw new RequiredParameterError('creditID');
 
-    this.addToExecutionList(
-      'details',
-      {
-        uri: `credit/${creditID ?? this.creditID}`,
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
+		return this.client.get(
+			`credit/${creditID ?? this.creditID}`,
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 }

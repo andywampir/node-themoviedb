@@ -1,23 +1,34 @@
-/* eslint-disable camelcase */
+import type { IClient } from '../../utils/Client';
 
-// Options
-export interface GenresConstructorOptions {
-  apiKey: string;
-  language: string;
+namespace GenresEndpointNS {
+	export interface Class {
+		movie(): Promise<Results.Movie>;
+		tv(): Promise<Results.TV>;
+	}
+
+	export namespace Options {
+		export interface Constructor {
+			apiKey: string;
+			language: string;
+			client: IClient;
+		}
+	}
+
+	export namespace Results {
+		export type Movie = Types.Movie;
+		export type TV = Types.TV;
+	}
+
+	namespace Types {
+		export interface Movie {
+			genres: {
+				id: number;
+				name: string;
+			}[];
+		}
+
+		export interface TV extends Movie {}
+	}
 }
 
-// Return Types
-export interface GenresReturnType {
-  movie?: GenresMovie[];
-  tv?: GenresTV[];
-}
-
-interface CommonReturnType {
-  genres: {
-    id: number;
-    name: string;
-  }[];
-}
-
-interface GenresMovie extends CommonReturnType {}
-interface GenresTV extends CommonReturnType {}
+export default GenresEndpointNS;

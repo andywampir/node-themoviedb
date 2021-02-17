@@ -1,29 +1,47 @@
-/* eslint-disable camelcase */
-import { ResultsWithPage } from '../common';
+import type { ResultsWithPage } from '../common';
 
-// Options
-interface CommonParameters {
-  endDate?: string;
-  startDate?: string;
-  page?: number;
+import type { IClient } from '../../utils/Client';
+
+namespace ChangesEndpointNS {
+	export interface Class {
+		movie(options?: Options.Movie): Promise<Results.Movie>;
+		tv(options?: Options.TV): Promise<Results.TV>;
+		person(options?: Options.Person): Promise<Results.Person>;
+	}
+
+	export namespace Options {
+		export interface Constructor {
+			apiKey: string;
+			client: IClient;
+		}
+
+		export interface Movie {
+			endDate?: string;
+			startDate?: string;
+			page?: number;
+		}
+
+		export interface TV extends Movie {}
+
+		export interface Person extends Movie {}
+	}
+
+	export namespace Results {
+		export type Movie = ResultsWithPage<Types.Movie>;
+		export type TV = ResultsWithPage<Types.TV>;
+		export type Person = ResultsWithPage<Types.Person>;
+	}
+
+	namespace Types {
+		export interface Movie {
+			id: number;
+			adult: boolean | null;
+		}
+
+		export interface TV extends Movie {}
+
+		export interface Person extends Movie {}
+	}
 }
 
-export interface ChangesMovieOptions extends CommonParameters {}
-export interface ChangesTVOptions extends CommonParameters {}
-export interface ChangesPersonOptions extends CommonParameters {}
-
-// Return types
-export interface ChangesReturnType {
-  movie?: ResultsWithPage<ChangesMovie>[];
-  tv?: ResultsWithPage<ChangesTV>[];
-  person?: ResultsWithPage<ChangesPerson>[];
-}
-
-interface CommonReturnType {
-  id: number;
-  adult: boolean | null;
-}
-
-interface ChangesMovie extends CommonReturnType {}
-interface ChangesTV extends CommonReturnType {}
-interface ChangesPerson extends CommonReturnType {}
+export default ChangesEndpointNS;

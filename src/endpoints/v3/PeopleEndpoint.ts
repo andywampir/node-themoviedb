@@ -1,221 +1,187 @@
-import Executor from '../../utils/Executor';
-import client from '../../utils/clients';
-
-import {
-  PeopleChangesOptions, PeopleCombinedCreditsOptions,
-  PeopleDetailsOptions, PeopleExternalIDsOptions,
-  PeopleImagesOptions, PeopleLatestOptions,
-  PeopleMovieCreditsOptions, PeoplePopularOptions,
-  PeopleReturnType, PeopleTVCreditsOptions,
-  PeopleTaggedImagesOptions, PeopleTranslationsOptions,
-  PeopleConstructorOptions,
-} from '../../interfaces/v3/people';
+import PeopleEndpointNS from '../../interfaces/v3/people';
 import { RequiredParameterError } from '../../errors';
 
-export default class PeopleEndpoint extends Executor<PeopleReturnType> {
-  private readonly apiKey: string;
-  private readonly language: string;
-  private readonly personID?: number;
+import type { IClient } from '../../utils/Client';
 
-  public constructor(options: PeopleConstructorOptions) {
-    super(client);
+export default class PeopleEndpoint implements PeopleEndpointNS.Class {
+	private readonly apiKey: string;
+	private readonly language: string;
+	private readonly client: IClient;
+	private readonly personID?: number;
 
-    this.apiKey = options.apiKey;
-    this.language = options.language;
-    this.personID = options.personID;
-  }
+	public constructor(options: PeopleEndpointNS.Options.Constructor) {
+		this.apiKey = options.apiKey;
+		this.language = options.language;
+		this.personID = options.personID;
+		this.client = options.client;
+	}
 
-  public details(options: PeopleDetailsOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
+	public async details(options: PeopleEndpointNS.Options.Details): Promise<PeopleEndpointNS.Results.Details> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-    this.addToExecutionList(
-      'details',
-      {
-        uri: `person/${options.personID ?? this.personID}`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-          append_to_response: options.appendToResponse ?? null,
-        },
-      },
-    );
+		return this.client.get(
+			`person/${options.personID ?? this.personID}`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+					append_to_response: options.appendToResponse,
+				},
+			},
+		);
+	}
 
-    return this;
-  }
+	public async changes(options: PeopleEndpointNS.Options.Changes): Promise<PeopleEndpointNS.Results.Changes> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-  public changes(options: PeopleChangesOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/changes`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					start_date: options.startDate,
+					end_date: options.endDate,
+					page: options.page ?? 1,
+				},
+			},
+		);
+	}
 
-    this.addToExecutionList(
-      'changes',
-      {
-        uri: `person/${options.personID ?? this.personID}/changes`,
-        searchParams: {
-          api_key: this.apiKey,
-          end_date: options.endDate ?? null,
-          page: options.page ?? 1,
-          start_date: options.startDate ?? null,
-        },
-      },
-    );
+	public async movieCredits(
+		options: PeopleEndpointNS.Options.MovieCredits,
+	): Promise<PeopleEndpointNS.Results.MovieCredits> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-    return this;
-  }
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/movie_credits`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+				},
+			},
+		);
+	}
 
-  public movieCredits(options: PeopleMovieCreditsOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
+	public async tvCredits(options: PeopleEndpointNS.Options.TVCredits): Promise<PeopleEndpointNS.Results.TVCredits> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-    this.addToExecutionList(
-      'movieCredits',
-      {
-        uri: `person/${options.personID ?? this.personID}/movie_credits`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-        },
-      },
-    );
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/tv_credits`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+				},
+			},
+		);
+	}
 
-    return this;
-  }
+	public async combinedCredits(
+		options: PeopleEndpointNS.Options.CombinedCredits,
+	): Promise<PeopleEndpointNS.Results.CombinedCredits> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-  public tvCredits(options: PeopleTVCreditsOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
+		return this.client.get(
+			`persont/${options.personID ?? this.personID}/combined_credits`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+				},
+			},
+		);
+	}
 
-    this.addToExecutionList(
-      'tvCredits',
-      {
-        uri: `person/${options.personID ?? this.personID}/tv_credits`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-        },
-      },
-    );
+	public async externalIDs(
+		options: PeopleEndpointNS.Options.ExternalIDs,
+	): Promise<PeopleEndpointNS.Results.ExternalIDs> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-    return this;
-  }
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/external_ids`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+				},
+			},
+		);
+	}
 
-  public combinedCredits(options: PeopleCombinedCreditsOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
+	public async images(options: PeopleEndpointNS.Options.Images): Promise<PeopleEndpointNS.Results.Images> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-    this.addToExecutionList(
-      'combinedCredits',
-      {
-        uri: `person/${options.personID ?? this.personID}/combined_credits`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-        },
-      },
-    );
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/images`,
+			{ searchParams: { api_key: this.apiKey } },
+		);
+	}
 
-    return this;
-  }
+	public async taggedImages(
+		options: PeopleEndpointNS.Options.TaggedImages,
+	): Promise<PeopleEndpointNS.Results.TaggedImages> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-  public externalIDs(options: PeopleExternalIDsOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
+		return this.client.get(
+			`persont/${options.personID ?? this.personID}/tagged_images`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+					page: options.page ?? 1,
+				},
+			},
+		);
+	}
 
-    this.addToExecutionList(
-      'externalIDs',
-      {
-        uri: `person/${options.personID ?? this.personID}/external_ids`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-        },
-      },
-    );
+	public async translations(
+		options: PeopleEndpointNS.Options.Translations,
+	): Promise<PeopleEndpointNS.Results.Translations> {
+		if (!options.personID || !this.personID)
+			throw new RequiredParameterError('personID');
 
-    return this;
-  }
+		return this.client.get(
+			`person/${options.personID ?? this.personID}/translations`,
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+				},
+			},
+		);
+	}
 
-  public images(options: PeopleImagesOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
+	public async latest(options: PeopleEndpointNS.Options.Latest): Promise<PeopleEndpointNS.Results.Latest> {
+		return this.client.get(
+			'person/latest',
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+				},
+			},
+		);
+	}
 
-    this.addToExecutionList(
-      'images',
-      {
-        uri: `person/${options.personID ?? this.personID}/images`,
-        searchParams: { api_key: this.apiKey },
-      },
-    );
-
-    return this;
-  }
-
-  public taggedImages(options: PeopleTaggedImagesOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
-
-    this.addToExecutionList(
-      'taggedImages',
-      {
-        uri: `person/${options.personID ?? this.personID}/tagged_images`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-          page: options.page ?? 1,
-        },
-      },
-    );
-
-    return this;
-  }
-
-  public translations(options: PeopleTranslationsOptions): PeopleEndpoint {
-    if (!options.personID || !this.personID)
-      throw new RequiredParameterError('personID');
-
-    this.addToExecutionList(
-      'translations',
-      {
-        uri: `person/${options.personID ?? this.personID}/translations`,
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-        },
-      },
-    );
-
-    return this;
-  }
-
-  public latest(options: PeopleLatestOptions): PeopleEndpoint {
-    this.addToExecutionList(
-      'latest',
-      {
-        uri: 'person/latest',
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-        },
-      },
-    );
-
-    return this;
-  }
-
-  public popular(options: PeoplePopularOptions): PeopleEndpoint {
-    this.addToExecutionList(
-      'popular',
-      {
-        uri: 'person/popular',
-        searchParams: {
-          api_key: this.apiKey,
-          language: options.language ?? this.language,
-          page: options.page ?? 1,
-        },
-      },
-    );
-
-    return this;
-  }
+	public async popular(options: PeopleEndpointNS.Options.Popular): Promise<PeopleEndpointNS.Results.Popular> {
+		return this.client.get(
+			'person/popular',
+			{
+				searchParams: {
+					api_key: this.apiKey,
+					language: options.language ?? this.language,
+					page: options.page ?? 1,
+				},
+			},
+		);
+	}
 }

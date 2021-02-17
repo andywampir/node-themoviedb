@@ -1,81 +1,82 @@
 {
-  "name": "node-themoviedb",
-  "version": "1.0.0",
-  "description": "A Node.JS wrapper for The Movie DB API v3 and v4",
-  "author": "Andy Wampir <wampirchikkkk@yandex.ru>",
-  "license": "MIT",
-  "main": "dist/src/index.js",
-  "engines": {
-    "node": ">=10"
-  },
-  "devDependencies": {
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
-    "@types/node": "^14.14.6",
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.6.1",
-    "ava": "^3.13.0",
-    "dotenv": "^8.2.0",
-    "eslint": "^7.13.0",
-    "eslint-plugin-ava": "^11.0.0",
-    "np": "^7.0.0",
-    "nyc": "^15.1.0",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.5"
-  },
-  "dependencies": {
-    "got": "^11.8.0"
-  },
-  "scripts": {
-    "build": "tsc",
-    "test": "nyc ava --serial",
-    "test:alternative": "nyc --use-spawn-wrap ava --serial",
-    "release:patch": "np patch",
-    "release:minor": "np minor",
-    "release:major": "np major",
-    "release:preview": "np --preview",
-    "lint": "eslint src/**/*.ts test/*.ts --ignore-path .gitignore --fix"
-  },
-  "types": "./dist/src",
-  "files": [
-    "dist/src",
-    "LICENSE.md"
-  ],
-  "keywords": [
-    "tmdb",
-    "tmdb-api",
-    "moviedb",
-    "themoviedb",
-    "themoviedatabase",
-    "wrapper",
-    "movie",
-    "the movie db",
-    "tv shows"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/andywampir/node-themoviedb.git"
-  },
-  "bugs": {
-    "url": "https://github.com/andywampir/node-themoviedb/issues"
-  },
-  "homepage": "https://github.com/andywampir/node-themoviedb",
-  "ava": {
-    "files": [
-      "test/*",
-      "!test/helper.ts"
-    ],
-    "require": [
-      "ts-node/register",
-      "dotenv/config"
-    ],
-    "extensions": [
-      "ts"
-    ],
-    "failFast": false,
-    "timeout": "30s"
-  },
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "cache": false
-  }
+	"name": "node-themoviedb",
+	"version": "1.0.0",
+	"description": "A Node.JS wrapper for The Movie DB API v3 and v4",
+	"author": "Andy Wampir <wampirchikkkk@yandex.ru>",
+	"license": "MIT",
+	"main": "dist/src/index.js",
+	"engines": {
+		"node": ">=10"
+	},
+	"devDependencies": {
+		"@istanbuljs/nyc-config-typescript": "^1.0.1",
+		"@types/node": "^12",
+		"@typescript-eslint/eslint-plugin": "^4.15.1",
+		"@typescript-eslint/parser": "^4.15.1",
+		"ava": "^3.15.0",
+		"dotenv": "^8.2.0",
+		"eslint": "^7.20.0",
+		"eslint-plugin-ava": "^11.0.0",
+		"np": "^7.4.0",
+		"nyc": "^15.1.0",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.1.5"
+	},
+	"dependencies": {
+		"got": "^11.8.1"
+	},
+	"scripts": {
+		"build": "tsc",
+		"test": "nyc ava --serial",
+		"test:alternative": "nyc --use-spawn-wrap ava --serial",
+		"release:patch": "np patch",
+		"release:minor": "np minor",
+		"release:major": "np major",
+		"release:preview": "np --preview",
+		"lint": "eslint src/**/*.ts test/**/*.ts --ignore-path .gitignore",
+		"lint:fix": "eslint src/**/*.ts test/**/*.ts --ignore-path .gitignore --fix"
+	},
+	"types": "./dist/src",
+	"files": [
+		"dist/src",
+		"LICENSE.md"
+	],
+	"keywords": [
+		"tmdb",
+		"tmdb-api",
+		"moviedb",
+		"themoviedb",
+		"themoviedatabase",
+		"wrapper",
+		"movie",
+		"the movie db",
+		"tv shows"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/andywampir/node-themoviedb.git"
+	},
+	"bugs": {
+		"url": "https://github.com/andywampir/node-themoviedb/issues"
+	},
+	"homepage": "https://github.com/andywampir/node-themoviedb",
+	"ava": {
+		"files": [
+			"test/*",
+			"!test/helper.ts"
+		],
+		"require": [
+			"ts-node/register",
+			"dotenv/config"
+		],
+		"extensions": [
+			"ts"
+		],
+		"failFast": false,
+		"timeout": "30s"
+	},
+	"nyc": {
+		"extends": "@istanbuljs/nyc-config-typescript",
+		"cache": false
+	}
 }

@@ -1,245 +1,251 @@
-/* eslint-disable camelcase */
-import {
-  PeopleCredit, Image,
-  ResultsWithPage, TVShowWithMediaType,
-  MovieWithMediaType, ImageWithISO639,
-  Person, ExternalIDs,
+import type { IClient } from '../../utils/Client';
+import type {
+	PeopleCredit, Image,
+	ResultsWithPage, TVShowWithMediaType,
+	MovieWithMediaType, ImageWithISO639,
+	Person, ExternalIDs as IExternalIDs,
 } from '../common';
 
-// Options
-interface CommonParameters {
-  personID?: number;
+namespace PeopleEndpointNS {
+	export interface Class {
+		details(options?: Options.Details): Promise<Results.Details>;
+		changes(options?: Options.Changes): Promise<Results.Changes>;
+		movieCredits(options?: Options.MovieCredits): Promise<Results.MovieCredits>;
+		tvCredits(options?: Options.TVCredits): Promise<Results.TVCredits>;
+		combinedCredits(options?: Options.CombinedCredits): Promise<Results.CombinedCredits>;
+		externalIDs(options?: Options.ExternalIDs): Promise<Results.ExternalIDs>;
+		images(options?: Options.Images): Promise<Results.Images>;
+		taggedImages(options?: Options.TaggedImages): Promise<Results.TaggedImages>;
+		translations(options?: Options.Translations): Promise<Results.Translations>;
+		latest(options?: Options.Latest): Promise<Results.Latest>;
+		popular(options?: Options.Popular): Promise<Results.Popular>;
+	}
+
+	export namespace Options {
+		export interface Constructor {
+			apiKey: string;
+			language: string;
+			client: IClient;
+			personID?: number;
+		}
+
+		interface Common {
+			personID?: number;
+			language?: string;
+		}
+
+		export interface Details extends Common {
+			appendToResponse?: string;
+		}
+
+		export interface Changes extends Omit<Common, 'language'> {
+			endDate?: string;
+			startDate?: string;
+			page?: number;
+		}
+
+		export interface MovieCredits extends Common {}
+
+		export interface TVCredits extends Common {}
+
+		export interface CombinedCredits extends Common {}
+
+		export interface ExternalIDs extends Common {}
+
+		export interface Images extends Common {}
+
+		export interface TaggedImages extends Common {
+			page?: number;
+		}
+
+		export interface Translations extends Common {}
+
+		export interface Latest extends Common {}
+
+		export interface Popular extends Omit<Common, 'personID'> {
+			page?: number;
+		}
+	}
+
+	export namespace Results {
+		export type Details = Types.Details;
+		export type Changes = Types.Changes;
+		export type MovieCredits = Types.MovieCredits;
+		export type TVCredits = Types.TVCredits;
+		export type CombinedCredits = Types.CombinedCredits;
+		export type ExternalIDs = Types.ExternalIDs;
+		export type Images = Types.Images;
+		export type TaggedImages = Types.TaggedImages;
+		export type Translations = Types.Translations;
+		export type Latest = Types.Latest;
+		export type Popular = ResultsWithPage<Person>;
+	}
+
+	namespace Types {
+		export interface Details {
+			birthday: string | null;
+			known_for_department?: string;
+			deathday: string | null;
+			id: number;
+			name: string;
+			also_known_as: string[];
+			gender: number;
+			biography: string;
+			popularity: number;
+			place_of_birth: string | null;
+			profile_path: string | null;
+			adult: boolean;
+			imdb_id: string;
+			homepage: string | null;
+			changes?: Changes;
+			movie_credits?: Omit<MovieCredits, 'id'>;
+			tv_credits?: Omit<TVCredits, 'id'>;
+			combined_credits?: Omit<CombinedCredits, 'id'>;
+			external_ids?: Omit<ExternalIDs, 'id'>;
+			images?: Omit<Images, 'id'>;
+			tagged_images?: TaggedImages;
+			translations?: Omit<Translations, 'id'>;
+		}
+
+		export interface Changes {
+			changes: {
+				key: string;
+				items: {
+					id: string;
+					action: string;
+					time: string;
+					original_value: {
+						profile: {
+							file_path: string;
+						};
+					};
+				}[];
+			}[];
+		}
+
+		interface MovieCreditCast extends PeopleCredit {
+			character: string;
+			title: string;
+			original_title: string;
+		}
+
+		interface MovieCreditCrew extends PeopleCredit {
+			job: string;
+			department: string;
+			title: string;
+			original_title: string;
+		}
+
+		export interface MovieCredits {
+			id: number;
+			cast: MovieCreditCast[];
+			crew: MovieCreditCrew[];
+		}
+
+		interface TVCreditCast extends PeopleCredit {
+			character: string;
+			original_name: string;
+			name: string;
+			first_air_date: string;
+			episode_count: string;
+			origin_country: string[];
+		}
+
+		interface TVCreditCrew extends PeopleCredit {
+			department: string;
+			episode_count: string;
+			job: string;
+			origin_country: string[];
+			original_name: string;
+			name: string;
+			first_air_date: string;
+		}
+
+		export interface TVCredits {
+			id: number;
+			cast: TVCreditCast[];
+			crew: TVCreditCrew[];
+		}
+
+		interface CombinedCreditCast extends PeopleCredit {
+			character: string;
+			title: string;
+			original_title: string;
+			episode_count: number;
+			original_name: string;
+			name: string;
+			first_air_date: string;
+			origin_country: string[];
+		}
+
+		interface CombinedCreditCrew extends PeopleCredit {
+			department: string;
+			episode_count: string;
+			job: string;
+			origin_country: string[];
+			original_name: string;
+			name: string;
+			first_air_date: string;
+			title: string;
+			original_title: string;
+		}
+
+		export interface CombinedCredits {
+			id: number;
+			cast: CombinedCreditCast[];
+			crew: CombinedCreditCrew[];
+		}
+
+		export interface ExternalIDs extends IExternalIDs {
+			id: number;
+		}
+
+		interface PeopleImage extends Image {
+			iso_639_1: null;
+		}
+
+		export interface Images {
+			id: number;
+			profiles: PeopleImage[];
+		}
+
+		interface TaggedImage extends ImageWithISO639 {
+			id: string;
+			image_type: string;
+			media: TVShowWithMediaType | MovieWithMediaType;
+			media_type:
+			| 'tv'
+			| 'movie';
+		}
+
+		export interface TaggedImages extends ResultsWithPage<TaggedImage> {
+			id: number;
+		}
+
+		export interface Translations {
+			id: number;
+			translations: {
+				iso_639_1: string;
+				iso_3166_1: string;
+				name: string;
+				data: {
+					biography: string;
+				};
+				english_name: string;
+			}[];
+		}
+
+		export interface Latest extends Omit<Person, 'known_for'> {
+			also_known_as: string[];
+			biography: string;
+			birthday: string | null;
+			deathday: string | null;
+			gender: number;
+			homepage: string | null;
+			imdb_id: string | null;
+			place_of_birth: string | null;
+		}
+	}
 }
 
-export interface PeopleConstructorOptions extends CommonParameters {
-  apiKey: string;
-  language: string;
-}
-
-export interface PeopleDetailsOptions extends CommonParameters {
-  language?: string;
-  appendToResponse?: string;
-}
-
-export interface PeopleChangesOptions extends CommonParameters {
-  endDate?: string;
-  startDate?: string;
-  page?: number;
-}
-
-export interface PeopleMovieCreditsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface PeopleTVCreditsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface PeopleCombinedCreditsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface PeopleExternalIDsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface PeopleImagesOptions extends CommonParameters {}
-
-export interface PeopleTaggedImagesOptions extends CommonParameters {
-  language?: string;
-  page?: number;
-}
-
-export interface PeopleTranslationsOptions extends CommonParameters {
-  language?: string;
-}
-
-export interface PeopleLatestOptions {
-  language?: string;
-}
-
-export interface PeoplePopularOptions {
-  language?: string;
-  page?: number;
-}
-
-// Return Type
-export interface PeopleReturnType {
-  details?: PeopleDetails[];
-  changes?: PeopleChanges[];
-  movieCredits?: PeopleMovieCredits[];
-  tvCredits?: PeopleTVCredits[];
-  combinedCredits?: PeopleCombinedCredits[];
-  externalIDs?: PeopleExternalIDs[];
-  images?: PeopleImages[];
-  taggedImages?: PeopleTaggedImages[];
-  translations?: PeopleTranslations[];
-  latest?: PeopleLatest[];
-  popular?: PeoplePopular[];
-}
-
-interface PeopleDetails {
-  birthday: string | null;
-  known_for_department?: string;
-  deathday: string | null;
-  id: number;
-  name: string;
-  also_known_as: string[];
-  gender: number;
-  biography: string;
-  popularity: number;
-  place_of_birth: string | null;
-  profile_path: string | null;
-  adult: boolean;
-  imdb_id: string;
-  homepage: string | null;
-  changes?: PeopleChanges;
-  movie_credits?: Omit<PeopleMovieCredits, 'id'>;
-  tv_credits?: Omit<PeopleTVCredits, 'id'>;
-  combined_credits?: Omit<PeopleCombinedCredits, 'id'>;
-  external_ids?: Omit<PeopleExternalIDs, 'id'>;
-  images?: Omit<PeopleImages, 'id'>;
-  tagged_images?: PeopleTaggedImages;
-  translations?: Omit<PeopleTranslations, 'id'>;
-}
-
-interface PeopleChanges {
-  changes: {
-    key: string;
-    items: {
-      id: string;
-      action: string;
-      time: string;
-      original_value: {
-        profile: {
-          file_path: string;
-        };
-      };
-    }[];
-  }[];
-}
-
-interface PeopleMovieCredits {
-  id: number;
-  cast: PeopleMovieCreditCast[];
-  crew: PeopleMovieCreditCrew[];
-}
-
-interface PeopleMovieCreditCast extends PeopleCredit {
-  character: string;
-  title: string;
-  original_title: string;
-}
-
-interface PeopleMovieCreditCrew extends PeopleCredit {
-  job: string;
-  department: string;
-  title: string;
-  original_title: string;
-}
-
-interface PeopleTVCredits {
-  id: number;
-  cast: PeopleTVCreditCast[];
-  crew: PeopleTVCreditCrew[];
-}
-
-interface PeopleTVCreditCast extends PeopleCredit {
-  character: string;
-  original_name: string;
-  name: string;
-  first_air_date: string;
-  episode_count: string;
-  origin_country: string[];
-}
-
-interface PeopleTVCreditCrew extends PeopleCredit {
-  department: string;
-  episode_count: string;
-  job: string;
-  origin_country: string[];
-  original_name: string;
-  name: string;
-  first_air_date: string;
-}
-
-interface PeopleCombinedCredits {
-  id: number;
-  cast: PeopleCombinedCreditCast[];
-  crew: PeopleCombinedCreditCrew[];
-}
-
-interface PeopleCombinedCreditCast extends PeopleCredit {
-  character: string;
-  title: string;
-  original_title: string;
-  episode_count: number;
-  original_name: string;
-  name: string;
-  first_air_date: string;
-  origin_country: string[];
-}
-
-interface PeopleCombinedCreditCrew extends PeopleCredit {
-  department: string;
-  episode_count: string;
-  job: string;
-  origin_country: string[];
-  original_name: string;
-  name: string;
-  first_air_date: string;
-  title: string;
-  original_title: string;
-}
-
-interface PeopleExternalIDs extends ExternalIDs {
-  id: number;
-}
-
-interface PeopleImages {
-  id: number;
-  profiles: PeopleImage[];
-}
-
-interface PeopleImage extends Image {
-  iso_639_1: null;
-}
-
-interface PeopleTaggedImages extends ResultsWithPage<PeopleTaggedImage> {
-  id: number;
-}
-
-interface PeopleTaggedImage extends ImageWithISO639 {
-  id: string;
-  image_type: string;
-  media: TVShowWithMediaType | MovieWithMediaType;
-  media_type:
-  | 'tv'
-  | 'movie';
-}
-
-interface PeopleTranslations {
-  id: number;
-  translations: {
-    iso_639_1: string;
-    iso_3166_1: string;
-    name: string;
-    data: {
-      biography: string;
-    };
-    english_name: string;
-  }[];
-}
-
-interface PeopleLatest extends Omit<Person, 'known_for'> {
-  also_known_as: string[];
-  biography: string;
-  birthday: string | null;
-  deathday: string | null;
-  gender: number;
-  homepage: string | null;
-  imdb_id: string | null;
-  place_of_birth: string | null;
-}
-
-interface PeoplePopular extends ResultsWithPage<Person> {}
+export default PeopleEndpointNS;

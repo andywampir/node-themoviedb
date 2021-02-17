@@ -1,5 +1,5 @@
-export default class UnknownHTTPError extends Error {
-  public constructor(message: string) {
-    super(message);
-  }
+export default class UnknownError extends Error {
+	public constructor(message: string) {
+		super(message);
+	}
 }
