@@ -24,6 +24,7 @@ namespace TVEpisodesEndpointNS {
 		export interface Constructor {
 			apiKey: string;
 			client: IClient;
+			language: string;
 			tvID?: number;
 			seasonNumber?: number;
 			episodeNumber?: number;
