@@ -15,7 +15,8 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 	}
 
 	public async companies(options: SearchEndpointNS.Options.Companies): Promise<SearchEndpointNS.Results.Companies> {
-		if (!options.query) throw new RequiredParameterError('query');
+		if (!options.query)
+			throw new RequiredParameterError('query');
 
 		return this.client.get(
 			'search/company',
@@ -29,8 +30,11 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 		);
 	}
 
-	public async collections(options: SearchEndpointNS.Options.Collections): Promise<SearchEndpointNS.Results.Collections> {
-		if (!options.query) throw new RequiredParameterError('query');
+	public async collections(
+		options: SearchEndpointNS.Options.Collections,
+	): Promise<SearchEndpointNS.Results.Collections> {
+		if (!options.query)
+			throw new RequiredParameterError('query');
 
 		return this.client.get(
 			'search/collection',
@@ -46,7 +50,8 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 	}
 
 	public async keywords(options: SearchEndpointNS.Options.Keywords): Promise<SearchEndpointNS.Results.Keywords> {
-		if (!options.query) throw new RequiredParameterError('query');
+		if (!options.query)
+			throw new RequiredParameterError('query');
 
 		return this.client.get(
 			'search/keyword',
@@ -61,7 +66,8 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 	}
 
 	public async movies(options: SearchEndpointNS.Options.Movies): Promise<SearchEndpointNS.Results.Movies> {
-		if (!options.query) throw new RequiredParameterError('query');
+		if (!options.query)
+			throw new RequiredParameterError('query');
 
 		return this.client.get(
 			'search/movie',
@@ -80,7 +86,8 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 	}
 
 	public async multi(options: SearchEndpointNS.Options.Multi): Promise<SearchEndpointNS.Results.Multi> {
-		if (!options.query) throw new RequiredParameterError('query');
+		if (!options.query)
+			throw new RequiredParameterError('query');
 
 		return this.client.get(
 			'search/multi',
@@ -98,7 +105,8 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 	}
 
 	public async people(options: SearchEndpointNS.Options.People): Promise<SearchEndpointNS.Results.People> {
-		if (!options.query) throw new RequiredParameterError('query');
+		if (!options.query)
+			throw new RequiredParameterError('query');
 
 		return this.client.get(
 			'search/people',
@@ -116,7 +124,8 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 	}
 
 	public async tvShows(options: SearchEndpointNS.Options.TVShow): Promise<SearchEndpointNS.Results.TVShows> {
-		if (!options.query) throw new RequiredParameterError('query');
+		if (!options.query)
+			throw new RequiredParameterError('query');
 
 		return this.client.get(
 			'search/tv',
