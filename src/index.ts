@@ -11,6 +11,14 @@ import CreditsEndpoint from './endpoints/v3/CreditsEndpoint';
 import DiscoverEndpoint from './endpoints/v3/DiscoverEndpoint';
 import FindEndpoint from './endpoints/v3/FindEndpoints';
 import GenresEndpoint from './endpoints/v3/GenresEndpoint';
+import GuestSessionEndpoint from './endpoints/v3/GuestSessionEndpoiunt';
+import KeywordsEndpoint from './endpoints/v3/KeywordsEndpoint';
+import ListsEndpoint from './endpoints/v3/ListsEndpoint';
+import MoviesEndpoint from './endpoints/v3/MoviesEndpoint';
+import NetworksEndpoint from './endpoints/v3/NetworksEndpoint';
+import PeopleEndpoint from './endpoints/v3/PeopleEndpoint';
+import TrendingEndpoint from './endpoints/v3/TrendingEndpoint';
+import SearchEndpoint from './endpoints/v3/SearchEndpoint';
 
 import { RequiredParameterError } from './errors';
 
@@ -132,6 +140,75 @@ export default class MovieDB implements MovieDBNS.Class {
 
 	public genres(options?: MovieDBNS.Options.V3.Genres): GenresEndpoint {
 		return new GenresEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+		});
+	}
+
+	public guestSession(options?: MovieDBNS.Options.V3.GuestSessions): GuestSessionEndpoint {
+		return new GuestSessionEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			guestSessionID: options?.guestSessionID,
+		});
+	}
+
+	public keywords(options?: MovieDBNS.Options.V3.Keywords): KeywordsEndpoint {
+		return new KeywordsEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			keywordID: options?.keywordID,
+		});
+	}
+
+	public lists(options?: MovieDBNS.Options.V3.Lists): ListsEndpoint {
+		return new ListsEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			listID: options?.listID,
+			sessionID: options?.sessionID ?? this.sessionID,
+		});
+	}
+
+	public movies(options?: MovieDBNS.Options.V3.Movies): MoviesEndpoint {
+		return new MoviesEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			movieID: options?.movieID,
+		});
+	}
+
+	public networks(options?: MovieDBNS.Options.V3.Networks): NetworksEndpoint {
+		return new NetworksEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			networkID: options?.networkID,
+		});
+	}
+
+	public people(options?: MovieDBNS.Options.V3.People): PeopleEndpoint {
+		return new PeopleEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			personID: options?.personID,
+		});
+	}
+
+	public trending(): TrendingEndpoint {
+		return new TrendingEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+		});
+	}
+
+	public search(options?: MovieDBNS.Options.V3.Search): SearchEndpoint {
+		return new SearchEndpoint({
 			apiKey: this.apiKey,
 			client: this.clientV3,
 			language: options?.language ?? this.language,
