@@ -19,6 +19,7 @@ import NetworksEndpoint from './endpoints/v3/NetworksEndpoint';
 import PeopleEndpoint from './endpoints/v3/PeopleEndpoint';
 import TrendingEndpoint from './endpoints/v3/TrendingEndpoint';
 import SearchEndpoint from './endpoints/v3/SearchEndpoint';
+import ReviewsEndpoint from './endpoints/v3/ReviewsEndpoint';
 
 import { RequiredParameterError } from './errors';
 
@@ -212,6 +213,13 @@ export default class MovieDB implements MovieDBNS.Class {
 			apiKey: this.apiKey,
 			client: this.clientV3,
 			language: options?.language ?? this.language,
+		});
+	}
+
+	public reviews(): ReviewsEndpoint {
+		return new ReviewsEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
 		});
 	}
 }
