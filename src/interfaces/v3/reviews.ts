@@ -2,7 +2,7 @@ import type { IClient } from '../../utils/Client';
 
 namespace ReviewsEndpointNS {
 	export interface Class {
-		get(reviewID: number): Promise<Results.Get>;
+		details(reviewID: number): Promise<Results.Details>;
 	}
 
 	export namespace Options {
@@ -13,11 +13,11 @@ namespace ReviewsEndpointNS {
 	}
 
 	export namespace Results {
-		export type Get = Types.Get;
+		export type Details = Types.Details;
 	}
 
 	namespace Types {
-		export interface Get {
+		export interface Details {
 			id: string;
 			author: string;
 			content: string;
