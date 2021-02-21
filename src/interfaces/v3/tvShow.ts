@@ -40,6 +40,7 @@ namespace TVShowEndpointNS {
 			client: IClient;
 			language: string;
 			tvID?: number;
+			sessionID?: string;
 		}
 
 		interface Common {
@@ -52,7 +53,7 @@ namespace TVShowEndpointNS {
 		}
 
 		export interface AccountStates extends Common {
-			guesSessionID?: string;
+			guestSessionID?: string;
 			sessionID?: string;
 		}
 
@@ -101,25 +102,25 @@ namespace TVShowEndpointNS {
 		}
 
 		export interface DeleteRating extends Omit<Common, 'language'> {
-			guesSessionID?: string;
+			guestSessionID?: string;
 			sessionID?: string;
 		}
 
-		export interface Latest extends Common {}
+		export interface Latest extends Omit<Common, 'tvID'> {}
 
-		export interface AiringToday extends Common {
+		export interface AiringToday extends Omit<Common, 'tvID'> {
 			page?: number;
 		}
 
-		export interface OnTheAir extends Common {
+		export interface OnTheAir extends Omit<Common, 'tvID'> {
 			page?: number;
 		}
 
-		export interface Popular extends Common {
+		export interface Popular extends Omit<Common, 'tvID'> {
 			page?: number;
 		}
 
-		export interface TopRated extends Common {
+		export interface TopRated extends Omit<Common, 'tvID'> {
 			page?: number;
 		}
 	}
