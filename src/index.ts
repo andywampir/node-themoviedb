@@ -20,6 +20,7 @@ import PeopleEndpoint from './endpoints/v3/PeopleEndpoint';
 import TrendingEndpoint from './endpoints/v3/TrendingEndpoint';
 import SearchEndpoint from './endpoints/v3/SearchEndpoint';
 import ReviewsEndpoint from './endpoints/v3/ReviewsEndpoint';
+import TVShowEndpoint from './endpoints/v3/TVShowEndpoint';
 
 import { RequiredParameterError } from './errors';
 
@@ -220,6 +221,16 @@ export default class MovieDB implements MovieDBNS.Class {
 		return new ReviewsEndpoint({
 			apiKey: this.apiKey,
 			client: this.clientV3,
+		});
+	}
+
+	public tvShow(options?: MovieDBNS.Options.V3.TVShow): TVShowEndpoint {
+		return new TVShowEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			tvID: options?.tvID,
+			sessionID: this.sessionID,
 		});
 	}
 }
