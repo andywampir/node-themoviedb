@@ -56,7 +56,12 @@ typings/
 
 dist
 .tsbuildinfo
-yarn.lock
 .env
-pnpm-lock.yaml
-package-lock.json
+
+# Yarn stuff
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
