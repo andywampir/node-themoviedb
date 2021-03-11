@@ -29,9 +29,7 @@
 		"build": "tsc",
 		"test": "nyc ava --serial",
 		"test:alternative": "nyc --use-spawn-wrap ava --serial",
-		"release:patch": "np patch",
-		"release:minor": "np minor",
-		"release:major": "np major",
+		"release": "np",
 		"release:preview": "np --preview",
 		"lint": "eslint src/**/*.ts test/**/*.ts --ignore-path .gitignore",
 		"lint:fix": "eslint src/**/*.ts test/**/*.ts --ignore-path .gitignore --fix"
