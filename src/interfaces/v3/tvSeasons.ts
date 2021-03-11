@@ -3,16 +3,18 @@ import type {
 	TVEpisode, CrewCredit,
 	CastCredit, ExternalIDs as IExternalIDs,
 	ImageWithISO639, TVShowVideo,
+	TVTranslationWithoutHomepage,
 } from '../common';
 
 namespace TVSeasonsEndpointNS {
 	export interface Class {
 		details(options?: Options.Details): Promise<Results.Details>;
-		changes(options?: Options.Changes): Promise<Results.Changes>;
+		changes(options: Options.Changes): Promise<Results.Changes>;
 		accountStates(options?: Options.AccountStates): Promise<Results.AccountStates>;
 		credits(options?: Options.Credits): Promise<Results.Credits>;
 		externalIDs(options?: Options.ExternalIDs): Promise<Results.ExternalIDs>;
 		images(options?: Options.Images): Promise<Results.Images>;
+		translations(options?: Options.Translations): Promise<Results.Translations>;
 		videos(options?: Options.Videos): Promise<Results.Videos>;
 	}
 
@@ -35,7 +37,8 @@ namespace TVSeasonsEndpointNS {
 			appendToResponse?: string;
 		}
 
-		export interface Changes extends Omit<Common, 'tvID' | 'language'> {
+		export interface Changes extends Omit<Common, 'tvID' | 'language' | 'seasonNumber'> {
+			seasonID: number;
 			startDate?: string;
 			endDate?: string;
 			page?: string;
@@ -43,7 +46,7 @@ namespace TVSeasonsEndpointNS {
 
 		export interface AccountStates extends Common {
 			guestSessionID?: string;
-			sessinID?: string;
+			sessionID?: string;
 		}
 
 		export interface Credits extends Common {}
@@ -51,6 +54,8 @@ namespace TVSeasonsEndpointNS {
 		export interface ExternalIDs extends Common {}
 
 		export interface Images extends Common {}
+
+		export interface Translations extends Common {}
 
 		export interface Videos extends Common {}
 	}
@@ -62,6 +67,7 @@ namespace TVSeasonsEndpointNS {
 		export type Credits = Types.Credits;
 		export type ExternalIDs = Types.ExternalIDs;
 		export type Images = Types.Images;
+		export type Translations = Types.Translations;
 		export type Videos = Types.Videos;
 	}
 
@@ -124,6 +130,11 @@ namespace TVSeasonsEndpointNS {
 		export interface Images {
 			id: number;
 			posters: ImageWithISO639[];
+		}
+
+		export interface Translations {
+			id: number;
+			translations: TVTranslationWithoutHomepage[];
 		}
 
 		export interface Videos {
