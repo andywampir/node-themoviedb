@@ -3,19 +3,19 @@ import type {
 	TVEpisode, CastCredit,
 	CrewCredit, ExternalIDs as IExternalIDs,
 	ImageWithISO639, ResponseWithCode,
-	TVShowVideo,
+	TVShowVideo, TVTranslationWithoutHomepage,
 } from '../common';
 
 namespace TVEpisodesEndpointNS {
 	export interface Class {
 		details(options?: Options.Details): Promise<Results.Details>;
-		changes(options?: Options.Changes): Promise<Results.Changes>;
+		changes(options: Options.Changes): Promise<Results.Changes>;
 		accountStates(options?: Options.AccountStates): Promise<Results.AccountStates>;
 		credits(options?: Options.Credits): Promise<Results.Credits>;
 		externalIDs(options?: Options.ExternalIDs): Promise<Results.ExternalIDs>;
 		images(options?: Options.Images): Promise<Results.Images>;
 		translations(options?: Options.Translations): Promise<Results.Translations>;
-		rate(options?: Options.Rate): Promise<Results.Rate>;
+		rate(options: Options.Rate): Promise<Results.Rate>;
 		deleteRating(options?: Options.DeleteRating): Promise<Results.DeleteRating>;
 		videos(options?: Options.Videos): Promise<Results.Videos>;
 	}
@@ -42,7 +42,10 @@ namespace TVEpisodesEndpointNS {
 		}
 
 		export interface Changes {
-			episodeID?: number;
+			episodeID: number;
+			startDate?: string;
+			endDate?: string;
+			page?: number;
 		}
 
 		export interface AccountStates extends Common {
@@ -50,7 +53,9 @@ namespace TVEpisodesEndpointNS {
 			sessionID?: string;
 		}
 
-		export interface Credits extends Common {}
+		export interface Credits extends Common {
+			language?: string;
+		}
 
 		export interface ExternalIDs extends Common {}
 
@@ -59,6 +64,7 @@ namespace TVEpisodesEndpointNS {
 		export interface Translations extends Common {}
 
 		export interface Rate extends Common {
+			value: number;
 			guestSessionID?: string;
 			sessionID?: string;
 		}
@@ -131,16 +137,7 @@ namespace TVEpisodesEndpointNS {
 
 		export interface Translations {
 			id: number;
-			translations: {
-				iso_3166_1: string;
-				iso_639_1: string;
-				name: string;
-				english_name: string;
-				data: {
-					name: string;
-					overview: string;
-				};
-			}[];
+			translations: TVTranslationWithoutHomepage[];
 		}
 
 		export interface Videos {
