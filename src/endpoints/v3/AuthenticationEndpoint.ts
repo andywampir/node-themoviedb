@@ -3,26 +3,18 @@ import AuthenticationEndpointNS from '../../interfaces/v3/authentication';
 import type { IClient } from '../../utils/Client';
 
 export default class AuthenticationEndpoint implements AuthenticationEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly client: IClient;
 
 	public constructor(options: AuthenticationEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.client = options.client;
 	}
 
 	public async newGuestSession(): Promise<AuthenticationEndpointNS.Results.NewGuestSession> {
-		return this.client.get(
-			'authentication/guest_session/new',
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get('authentication/guest_session/new');
 	}
 
 	public async newToken(): Promise<AuthenticationEndpointNS.Results.NewToken> {
-		return this.client.get(
-			'authentication/token/new',
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get('authentication/token/new');
 	}
 
 	public async newSession(
@@ -30,10 +22,7 @@ export default class AuthenticationEndpoint implements AuthenticationEndpointNS.
 	): Promise<AuthenticationEndpointNS.Results.NewSession> {
 		return this.client.post(
 			'authentication/session/new',
-			{
-				searchParams: { api_key: this.apiKey },
-				json: { request_token: options.requestToken },
-			},
+			{ json: { request_token: options.requestToken } },
 		);
 	}
 
@@ -43,7 +32,6 @@ export default class AuthenticationEndpoint implements AuthenticationEndpointNS.
 		return this.client.post(
 			'authentication/token/validate_with_login',
 			{
-				searchParams: { api_key: this.apiKey },
 				json: {
 					username: options.username,
 					password: options.password,
@@ -58,10 +46,7 @@ export default class AuthenticationEndpoint implements AuthenticationEndpointNS.
 	): Promise<AuthenticationEndpointNS.Results.ConvertToken> {
 		return this.client.post(
 			'authentication/session/convert/4',
-			{
-				searchParams: { api_key: this.apiKey },
-				json: { access_token: options.accessToken },
-			},
+			{ json: { access_token: options.accessToken } },
 		);
 	}
 
@@ -70,10 +55,7 @@ export default class AuthenticationEndpoint implements AuthenticationEndpointNS.
 	): Promise<AuthenticationEndpointNS.Results.DeleteSession> {
 		return this.client.delete(
 			'authentication/session',
-			{
-				searchParams: { api_key: this.apiKey },
-				json: { session_id: options.sessionID },
-			},
+			{ json: { session_id: options.sessionID } },
 		);
 	}
 }

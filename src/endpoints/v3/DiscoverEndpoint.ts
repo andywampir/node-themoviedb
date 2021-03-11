@@ -3,12 +3,10 @@ import DiscoverEndpointNS from '../../interfaces/v3/discover';
 import type { IClient } from '../../utils/Client';
 
 export default class DiscoverEndpoint implements DiscoverEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 
 	public constructor(options: DiscoverEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.client = options.client;
 	}
@@ -18,7 +16,6 @@ export default class DiscoverEndpoint implements DiscoverEndpointNS.Class {
 			'discover/movie',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					region: options?.region,
 					sort_by: options?.sortBy,
@@ -61,7 +58,6 @@ export default class DiscoverEndpoint implements DiscoverEndpointNS.Class {
 			'discover/tv',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					sort_by: options?.sortBy,
 					'air_date.gte': options?.airDateGTE,

@@ -24,7 +24,6 @@ namespace PeopleEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			language: string;
 			client: IClient;
 			personID?: number;

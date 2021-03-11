@@ -4,13 +4,11 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class GuestSessionEndpoint implements GuestSessionEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 	private readonly guestSessionID?: string;
 
 	public constructor(options: GuestSessionEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.guestSessionID = options.guestSessionID;
 		this.client = options.client;
@@ -26,7 +24,6 @@ export default class GuestSessionEndpoint implements GuestSessionEndpointNS.Clas
 			`guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/movies`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					sort_by: options?.sortBy,
 				},
@@ -44,7 +41,6 @@ export default class GuestSessionEndpoint implements GuestSessionEndpointNS.Clas
 			`guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/tv`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					sort_by: options?.sortBy,
 				},
@@ -62,7 +58,6 @@ export default class GuestSessionEndpoint implements GuestSessionEndpointNS.Clas
 			`guest_session/${options?.guestSessionID ?? this.guestSessionID}/rated/tv/episodes`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					sort_by: options?.sortBy,
 				},

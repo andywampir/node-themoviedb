@@ -8,7 +8,6 @@ namespace TVEpisodeGroupsEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			language: string;
 			client: IClient;
 			id?: string;

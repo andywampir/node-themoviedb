@@ -4,11 +4,9 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class TrendingEndpoint implements TrendingEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly client: IClient;
 
 	public constructor(options: TrendingEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.client = options.client;
 	}
 
@@ -18,9 +16,6 @@ export default class TrendingEndpoint implements TrendingEndpointNS.Class {
 		if (!options.timeWindow)
 			throw new RequiredParameterError('timeWindow');
 
-		return this.client.get(
-			`trending/${options.mediaType}/${options.timeWindow}`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`trending/${options.mediaType}/${options.timeWindow}`);
 	}
 }

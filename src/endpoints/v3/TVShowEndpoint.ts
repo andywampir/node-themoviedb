@@ -4,14 +4,12 @@ import type TVShowEndpointNS from '../../interfaces/v3/tvShow';
 import type { IClient } from '../../utils/Client';
 
 export default class TVShowEndpoint implements TVShowEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly client: IClient;
 	private readonly language: string;
 	private readonly tvID?: number;
 	private readonly sessionID?: string;
 
 	public constructor(options: TVShowEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.client = options.client;
 		this.language = options.language;
 		this.tvID = options.tvID;
@@ -26,7 +24,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options?.tvID ?? this.tvID}`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					append_to_response: options?.appendToResponse,
 				},
@@ -44,7 +41,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/account_states`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					session_id: options.sessionID,
 					guest_session_id: options.guestSessionID,
@@ -61,12 +57,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options?.tvID ?? this.tvID}/alternative_titles`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
@@ -78,7 +69,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/changes`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					start_date: options.startDate,
 					end_date: options.endDate,
 					page: options.page ?? 1,
@@ -95,12 +85,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/content_ratings`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -110,12 +95,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -127,12 +107,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/episode_groups`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -144,12 +119,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/external_ids`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -159,12 +129,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/images`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -172,10 +137,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 		if (!options?.tvID ?? this.tvID)
 			throw new RequiredParameterError('tvID');
 
-		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`tv/${options.tvID ?? this.tvID}`);
 	}
 
 	public async recommendations(
@@ -188,7 +150,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/recommendations`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
 				},
@@ -204,7 +165,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/reviews`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
 				},
@@ -218,10 +178,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 		if (!options?.tvID ?? this.tvID)
 			throw new RequiredParameterError('tvID');
 
-		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/screened_theatrically`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`tv/${options.tvID ?? this.tvID}/screened_theatrically`);
 	}
 
 	public async similar(options?: TVShowEndpointNS.Options.Similar): Promise<TVShowEndpointNS.Results.Similar> {
@@ -232,7 +189,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/similar`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
 				},
@@ -246,10 +202,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 		if (!options?.tvID ?? this.tvID)
 			throw new RequiredParameterError('tvID');
 
-		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/translations`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`tv/${options.tvID ?? this.tvID}/translations`);
 	}
 
 	public async videos(options?: TVShowEndpointNS.Options.Videos): Promise<TVShowEndpointNS.Results.Videos> {
@@ -258,12 +211,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/videos`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -279,7 +227,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options.sessionID ?? this.sessionID,
 					guest_session_id: options.guestSessionID,
 				},
@@ -300,7 +247,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/rating`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					guest_session_id: options.guestSessionID,
 					session_id: options.sessionID,
 				},
@@ -311,12 +257,7 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 	public async latest(options?: TVShowEndpointNS.Options.Latest): Promise<TVShowEndpointNS.Results.Latest> {
 		return this.client.get(
 			'tv/latest',
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
@@ -327,7 +268,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			'tv/airing_today',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},
@@ -340,7 +280,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			'tv/on_the_air',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},
@@ -353,7 +292,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			'tv/popular',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},
@@ -366,7 +304,6 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 			'tv/top_rated',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},

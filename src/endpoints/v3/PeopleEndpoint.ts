@@ -4,13 +4,11 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class PeopleEndpoint implements PeopleEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 	private readonly personID?: number;
 
 	public constructor(options: PeopleEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.personID = options.personID;
 		this.client = options.client;
@@ -24,7 +22,6 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 			`person/${options.personID ?? this.personID}`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					append_to_response: options.appendToResponse,
 				},
@@ -40,7 +37,6 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 			`person/${options.personID ?? this.personID}/changes`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					start_date: options.startDate,
 					end_date: options.endDate,
 					page: options.page ?? 1,
@@ -57,12 +53,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 
 		return this.client.get(
 			`person/${options.personID ?? this.personID}/movie_credits`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -72,12 +63,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 
 		return this.client.get(
 			`person/${options.personID ?? this.personID}/tv_credits`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -89,12 +75,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 
 		return this.client.get(
 			`persont/${options.personID ?? this.personID}/combined_credits`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -106,12 +87,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 
 		return this.client.get(
 			`person/${options.personID ?? this.personID}/external_ids`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -119,10 +95,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 		if (!options.personID || !this.personID)
 			throw new RequiredParameterError('personID');
 
-		return this.client.get(
-			`person/${options.personID ?? this.personID}/images`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`person/${options.personID ?? this.personID}/images`);
 	}
 
 	public async taggedImages(
@@ -132,10 +105,9 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
-			`persont/${options.personID ?? this.personID}/tagged_images`,
+			`person/${options.personID ?? this.personID}/tagged_images`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
 				},
@@ -151,24 +123,14 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 
 		return this.client.get(
 			`person/${options.personID ?? this.personID}/translations`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
 	public async latest(options: PeopleEndpointNS.Options.Latest): Promise<PeopleEndpointNS.Results.Latest> {
 		return this.client.get(
 			'person/latest',
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -177,7 +139,6 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 			'person/popular',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
 				},

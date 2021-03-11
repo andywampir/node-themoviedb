@@ -9,7 +9,6 @@ namespace NetworksEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			client: IClient;
 			networkID?: number;
 		}

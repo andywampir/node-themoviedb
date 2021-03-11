@@ -7,7 +7,6 @@ namespace CreditsEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			client: IClient;
 			creditID?: string;
 		}

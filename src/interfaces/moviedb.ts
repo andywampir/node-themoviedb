@@ -25,7 +25,7 @@ import type TVShowEndpointNS from './v3/tvShow';
 
 namespace MovieDBNS {
 	export interface Class {
-		setApiKey(apiKey: string): void;
+		setAccessToken(accessToken: string): void;
 		setLanguage(language: string): void;
 		setSessionID(sessionID: string): void;
 		account(options?: Options.V3.Account): AccountEndpointNS.Class;
@@ -56,7 +56,7 @@ namespace MovieDBNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
+			accessToken: string;
 			language?: string;
 		}
 

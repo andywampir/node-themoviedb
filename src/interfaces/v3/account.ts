@@ -31,7 +31,6 @@ namespace AccountEndpointNS {
 
 		export interface Constructor {
 			client: IClient;
-			apiKey: string;
 			language: string;
 			userID?: number;
 			sessionID?: string;

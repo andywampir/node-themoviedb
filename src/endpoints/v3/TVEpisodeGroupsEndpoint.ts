@@ -4,13 +4,11 @@ import type TVEpisodeGroupsEndpointNS from '../../interfaces/v3/tvEpisodeGroups'
 import type { IClient } from '../../utils/Client';
 
 export default class TVEpisodeGroupsEndpoint implements TVEpisodeGroupsEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 	private readonly id?: string;
 
 	public constructor(options: TVEpisodeGroupsEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.client = options.client;
 		this.id = options.id;
@@ -19,17 +17,12 @@ export default class TVEpisodeGroupsEndpoint implements TVEpisodeGroupsEndpointN
 	public async details(
 		options?: TVEpisodeGroupsEndpointNS.Options.Details,
 	): Promise<TVEpisodeGroupsEndpointNS.Results.Details> {
-		if (!this.id || !options.id)
+		if (!this.id || !options?.id)
 			throw new RequiredParameterError('id');
 
 		return this.client.get(
 			`tv/episode_groups/${options.id ?? this.id}`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 }

@@ -16,6 +16,7 @@ export interface IClient {
 	get<T>(url: string, options?: GetOptions): Promise<T>;
 	post<T>(url: string, options?: PostOptions): Promise<T>;
 	delete<T>(url: string, options?: DeleteOptions): Promise<T>;
+	recreate(accessToken: string): void;
 }
 
 interface GetOptions {
@@ -28,15 +29,22 @@ interface PostOptions extends GetOptions {
 
 interface DeleteOptions extends PostOptions {}
 
-export default class Client implements IClient {
-	private readonly agent: Got;
+const USER_AGENT = 'node-themoviedb/1.0.0';
 
-	public constructor(version: 3 | 4) {
+export default class Client implements IClient {
+	private readonly version: 3 | 4;
+	private agent: Got;
+
+	public constructor(accessToken: string, version: 3 | 4) {
 		this.agent = got.extend({
 			prefixUrl: `https://api.themoviedb.org/${version}`,
-			headers: { 'user-agent': 'node-themoviedb/1.0.0' },
+			headers: {
+				'user-agent': USER_AGENT,
+				authorization: `Bearer ${accessToken}`,
+			},
 			hooks: { init: [ normalizeSearchParams ] },
 		});
+		this.version = version;
 	}
 
 	private static handleError(error: Error | HTTPError): Error {
@@ -96,5 +104,16 @@ export default class Client implements IClient {
 		} catch (error) {
 			throw Client.handleError(error);
 		}
+	}
+
+	public recreate(accessToken: string): void {
+		this.agent = got.extend({
+			prefixUrl: `https://api.themoviedb.org/${this.version}`,
+			headers: {
+				'user-agent': USER_AGENT,
+				authorization: `Bearer ${accessToken}`,
+			},
+			hooks: { init: [ normalizeSearchParams ] },
+		});
 	}
 }

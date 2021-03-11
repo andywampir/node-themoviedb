@@ -11,7 +11,6 @@ namespace ChangesEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			client: IClient;
 		}
 

@@ -10,7 +10,6 @@ namespace TrendingEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			client: IClient;
 		}
 

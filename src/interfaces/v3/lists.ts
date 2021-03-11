@@ -14,7 +14,6 @@ namespace ListsEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			language: string;
 			client: IClient;
 			sessionID?: string;

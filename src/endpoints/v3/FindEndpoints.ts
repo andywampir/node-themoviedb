@@ -4,12 +4,10 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class FindEndpoint implements FindEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 
 	public constructor(options: FindEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.client = options.client;
 	}
@@ -24,7 +22,6 @@ export default class FindEndpoint implements FindEndpointNS.Class {
 			`find/${options.externalID}`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					external_source: options.externalSource,
 				},

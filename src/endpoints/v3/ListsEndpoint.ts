@@ -4,14 +4,12 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class ListsEndpoint implements ListsEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 	private readonly sessionID?: string;
 	private readonly listID?: string;
 
 	public constructor(options: ListsEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.sessionID = options.sessionID;
 		this.listID = options.listID;
@@ -24,12 +22,7 @@ export default class ListsEndpoint implements ListsEndpointNS.Class {
 
 		return this.client.get(
 			`list/${options.listID ?? this.listID}`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -41,12 +34,7 @@ export default class ListsEndpoint implements ListsEndpointNS.Class {
 
 		return this.client.get(
 			`list/${options.listID ?? this.listID}/item_status`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					movie_id: options.movieID,
-				},
-			},
+			{ searchParams: { movie_id: options.movieID } },
 		);
 	}
 
@@ -57,10 +45,7 @@ export default class ListsEndpoint implements ListsEndpointNS.Class {
 		return this.client.post(
 			'list',
 			{
-				searchParams: {
-					api_key: this.apiKey,
-					session_id: options.sessionID ?? this.sessionID,
-				},
+				searchParams: { session_id: options.sessionID ?? this.sessionID },
 				json: {
 					name: options.name,
 					description: options.description,
@@ -81,10 +66,7 @@ export default class ListsEndpoint implements ListsEndpointNS.Class {
 		return this.client.post(
 			`list/${options.listID ?? this.listID}/add_item`,
 			{
-				searchParams: {
-					api_key: this.apiKey,
-					session_id: options.sessionID ?? this.sessionID,
-				},
+				searchParams: { session_id: options.sessionID ?? this.sessionID },
 				json: { media_id: options.mediaID },
 			},
 		);
@@ -103,10 +85,7 @@ export default class ListsEndpoint implements ListsEndpointNS.Class {
 		return this.client.post(
 			`list/${options.listID ?? this.listID}/remove_item`,
 			{
-				searchParams: {
-					api_key: this.apiKey,
-					session_id: options.sessionID ?? this.sessionID,
-				},
+				searchParams: { session_id: options.sessionID ?? this.sessionID },
 				json: { media_id: options.mediaID },
 			},
 		);
@@ -124,7 +103,6 @@ export default class ListsEndpoint implements ListsEndpointNS.Class {
 			`list/${options.listID ?? this.listID}/clear`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options.sessionID ?? this.sessionID,
 					confirm: options.confirm,
 				},
@@ -140,12 +118,7 @@ export default class ListsEndpoint implements ListsEndpointNS.Class {
 
 		return this.client.delete(
 			`list/${options.listID ?? this.listID}`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					session_id: options.sessionID ?? this.sessionID,
-				},
-			},
+			{ searchParams: { session_id: options.sessionID ?? this.sessionID } },
 		);
 	}
 }

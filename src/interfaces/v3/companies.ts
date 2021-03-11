@@ -10,7 +10,6 @@ namespace CompaniesEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			client: IClient;
 			companyID?: number;
 		}

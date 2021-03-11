@@ -3,11 +3,9 @@ import ChangesEndpointNS from '../../interfaces/v3/changes';
 import type { IClient } from '../../utils/Client';
 
 export default class ChangesEndpoint implements ChangesEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly client: IClient;
 
 	public constructor(options: ChangesEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.client = options.client;
 	}
 
@@ -16,7 +14,6 @@ export default class ChangesEndpoint implements ChangesEndpointNS.Class {
 			'movie/changes',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					end_date: options?.endDate,
 					start_date: options?.startDate,
 					page: options?.page ?? 1,
@@ -30,7 +27,6 @@ export default class ChangesEndpoint implements ChangesEndpointNS.Class {
 			'tv/changes',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					end_date: options?.endDate,
 					start_date: options?.startDate,
 					page: options?.page ?? 1,
@@ -44,7 +40,6 @@ export default class ChangesEndpoint implements ChangesEndpointNS.Class {
 			'person/changes',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					end_date: options?.endDate,
 					start_date: options?.startDate,
 					page: options?.page ?? 1,

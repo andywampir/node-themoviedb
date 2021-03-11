@@ -4,14 +4,12 @@ import type TVSeasonsEndpointNS from '../../interfaces/v3/tvSeasons';
 import type { IClient } from '../../utils/Client';
 
 export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 	private readonly tvID?: number;
 	private readonly seasonNumber?: number;
 
 	public constructor(options: TVSeasonsEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.client = options.client;
 		this.tvID = options.tvID;
@@ -28,7 +26,6 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					append_to_response: options.appendToResponse,
 				},
@@ -44,7 +41,6 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 			`tv/season/${options.seasonID}/changes`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					start_date: options.startDate,
 					end_date: options.endDate,
 					page: options.page ?? 1,
@@ -67,7 +63,6 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}/account_states`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					guest_session_id: options.guestSessionID,
 					session_id: options.sessionID,
@@ -84,12 +79,7 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}/credits`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -103,12 +93,7 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}/external_ids`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -120,12 +105,7 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}/images`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -139,12 +119,7 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}/translations`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 
@@ -156,12 +131,7 @@ export default class TVSeasonsEndpoint implements TVSeasonsEndpointNS.Class {
 
 		return this.client.get(
 			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}/videos`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options.language ?? this.language } },
 		);
 	}
 }

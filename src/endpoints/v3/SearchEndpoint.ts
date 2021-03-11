@@ -4,12 +4,10 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class SearchEndpoint implements SearchEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly client: IClient;
 	private readonly language: string;
 
 	public constructor(options: SearchEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.client = options.client;
 		this.language = options.language;
 	}
@@ -22,7 +20,6 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 			'search/company',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					query: options.query,
 					page: options.page ?? 1,
 				},
@@ -40,7 +37,6 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 			'search/collection',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					query: options.query,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
@@ -57,7 +53,6 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 			'search/keyword',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					query: options.query,
 					page: options.page ?? 1,
 				},
@@ -73,7 +68,6 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 			'search/movie',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					query: options.query,
 					page: options.page ?? 1,
 					include_adult: options.includeAdult,
@@ -93,7 +87,6 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 			'search/multi',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					query: options.query,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
@@ -112,7 +105,6 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 			'search/people',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					query: options.query,
 					page: options.page ?? 1,
@@ -131,7 +123,6 @@ export default class SearchEndpoint implements SearchEndpointNS.Class {
 			'search/tv',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					page: options.page ?? 1,
 					include_adult: options.includeAdult,

@@ -4,13 +4,11 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class MoviesEndpoint implements MoviesEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 	private readonly movieID?: number;
 
 	public constructor(options: MoviesEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.movieID = options.movieID;
 		this.client = options.client;
@@ -24,7 +22,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options.movieID ?? this.movieID}`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options.language ?? this.language,
 					append_to_response: options.appendToResponse,
 				},
@@ -44,7 +41,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options.movieID ?? this.movieID}/account_states`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options.sessionID,
 					guest_session_id: options.guestSessionID,
 				},
@@ -60,12 +56,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 
 		return this.client.get(
 			`movie/${options.movieID ?? this.movieID}/alternative_titles`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					country: options.country,
-				},
-			},
+			{ searchParams: { country: options.country } },
 		);
 	}
 
@@ -77,7 +68,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options?.movieID ?? this.movieID}/changes`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					start_date: options?.startDate,
 					end_date: options?.endDate,
 					page: options?.page,
@@ -90,10 +80,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		return this.client.get(
-			`movie/${options?.movieID ?? this.movieID}/credits`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`movie/${options?.movieID ?? this.movieID}/credits`);
 	}
 
 	public async externalIDs(
@@ -102,10 +89,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		return this.client.get(
-			`movie/${options?.movieID ?? this.movieID}/external_ids`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`movie/${options?.movieID ?? this.movieID}/external_ids`);
 	}
 
 	public async images(options?: MoviesEndpointNS.Options.Images): Promise<MoviesEndpointNS.Results.Images> {
@@ -116,7 +100,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options?.movieID ?? this.movieID}/images`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					include_image_language: options?.includeImageLanguage,
 				},
@@ -128,10 +111,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		return this.client.get(
-			`movie/${options?.movieID ?? this.movieID}/keywords`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`movie/${options?.movieID ?? this.movieID}/keywords`);
 	}
 
 	public async releaseDates(
@@ -140,10 +120,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		return this.client.get(
-			`movie/${options?.movieID ?? this.movieID}/release_dates`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`movie/${options?.movieID ?? this.movieID}/release_dates`);
 	}
 
 	public async videos(options?: MoviesEndpointNS.Options.Videos): Promise<MoviesEndpointNS.Results.Videos> {
@@ -152,12 +129,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 
 		return this.client.get(
 			`movie/${options?.movieID ?? this.movieID}/videos`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
@@ -167,10 +139,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 		if (!options?.movieID && !this.movieID)
 			throw new RequiredParameterError('movieID');
 
-		return this.client.get(
-			`movie/${options?.movieID ?? this.movieID}/translations`,
-			{ searchParams: { api_key: this.apiKey } },
-		);
+		return this.client.get(`movie/${options?.movieID ?? this.movieID}/translations`);
 	}
 
 	public async recommendations(
@@ -183,7 +152,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options?.movieID ?? this.movieID}/recommendations`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},
@@ -199,7 +167,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options?.movieID ?? this.movieID}/similar`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},
@@ -215,7 +182,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options?.movieID ?? this.movieID}/reviews`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},
@@ -231,7 +197,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options?.movieID ?? this.movieID}/lists`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 				},
@@ -249,7 +214,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options.movieID ?? this.movieID}/rating`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options.sessionID,
 					guest_session_id: options.guestSessionID,
 				},
@@ -270,7 +234,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			`movie/${options.movieID ?? this.movieID}/rating`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options.sessionID,
 					guest_session_id: options.guestSessionID,
 				},
@@ -281,12 +244,7 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 	public async latest(options?: MoviesEndpointNS.Options.Latest): Promise<MoviesEndpointNS.Results.Latest> {
 		return this.client.get(
 			'movie/latest',
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
@@ -297,7 +255,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			'movie/now_playing',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 					region: options?.region,
@@ -311,7 +268,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			'movie/popular',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page,
 					region: options?.region,
@@ -325,7 +281,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			'movie/top_rated',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 					region: options?.region,
@@ -339,7 +294,6 @@ export default class MoviesEndpoint implements MoviesEndpointNS.Class {
 			'movie/upcoming',
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
 					region: options?.region,

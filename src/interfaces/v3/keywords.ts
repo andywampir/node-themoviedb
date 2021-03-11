@@ -11,7 +11,6 @@ namespace KeywordsEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			language: string;
 			client: IClient;
 			keywordID?: number;

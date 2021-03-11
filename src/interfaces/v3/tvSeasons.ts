@@ -20,7 +20,6 @@ namespace TVSeasonsEndpointNS {
 
 	export namespace Options {
 		export interface Constructor {
-			apiKey: string;
 			client: IClient;
 			language: string;
 			tvID?: number;

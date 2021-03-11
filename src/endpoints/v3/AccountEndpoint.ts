@@ -5,14 +5,12 @@ import type { IClient } from '../../utils/Client';
 
 export default class AccountEndpoint implements AccountEndpointNS.Class {
 	private readonly client: IClient;
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly sessionID?: string;
 	private readonly userID?: number;
 
 	public constructor(options: AccountEndpointNS.Options.Constructor) {
 		this.client = options.client;
-		this.apiKey = options.apiKey;
 		this.language = options.language as string;
 		this.sessionID = options.sessionID;
 		this.userID = options.userID;
@@ -24,12 +22,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 
 		return this.client.get(
 			'account',
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					session_id: options.sessionID ?? this.sessionID,
-				},
-			},
+			{ searchParams: { session_id: options.sessionID ?? this.sessionID } },
 		);
 	}
 
@@ -45,7 +38,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID ?? this.userID}/lists`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -66,7 +58,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID ?? this.userID}/favorite/movies`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -88,7 +79,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID}/favorite/tv`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -109,10 +99,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 		return this.client.post(
 			`account/${options.userID ?? this.userID}/favorite`,
 			{
-				searchParams: {
-					api_key: this.apiKey,
-					session_id: options.sessionID ?? this.sessionID,
-				},
+				searchParams: { session_id: options.sessionID ?? this.sessionID },
 				json: {
 					media_type: options.mediaType,
 					media_id: options.mediaID,
@@ -134,7 +121,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID ?? this.userID}/rated/movies`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -156,7 +142,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID ?? this.userID}/rated/tv`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -178,7 +163,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID ?? this.userID}/rated/tv/episodes`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -200,7 +184,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID ?? this.userID}/watchlist/movies`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -222,7 +205,6 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 			`account/${options?.userID ?? this.userID}/watchlist/tv`,
 			{
 				searchParams: {
-					api_key: this.apiKey,
 					session_id: options?.sessionID ?? this.sessionID,
 					language: options?.language ?? this.language,
 					page: options?.page ?? 1,
@@ -243,10 +225,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 		return this.client.post(
 			`account/${options.userID ?? this.userID}/watchlist`,
 			{
-				searchParams: {
-					api_key: this.apiKey,
-					session_id: options.sessionID ?? this.sessionID,
-				},
+				searchParams: { session_id: options.sessionID ?? this.sessionID },
 				json: {
 					media_type: options.mediaType,
 					media_id: options.mediaID,

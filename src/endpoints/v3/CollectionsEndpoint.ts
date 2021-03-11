@@ -4,13 +4,11 @@ import { RequiredParameterError } from '../../errors';
 import type { IClient } from '../../utils/Client';
 
 export default class CollectionsEndpoint implements CollectionsEndpointNS.Class {
-	private readonly apiKey: string;
 	private readonly language: string;
 	private readonly client: IClient;
 	private readonly collectionID?: number;
 
 	public constructor(options: CollectionsEndpointNS.Options.Constructor) {
-		this.apiKey = options.apiKey;
 		this.language = options.language;
 		this.collectionID = options.collectionID;
 		this.client = options.client;
@@ -24,12 +22,7 @@ export default class CollectionsEndpoint implements CollectionsEndpointNS.Class 
 
 		return this.client.get(
 			`collection/${options?.collectionID ?? this.collectionID}`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
@@ -39,12 +32,7 @@ export default class CollectionsEndpoint implements CollectionsEndpointNS.Class 
 
 		return this.client.get(
 			`collection/${options?.collectionID ?? this.collectionID}/images`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
@@ -56,12 +44,7 @@ export default class CollectionsEndpoint implements CollectionsEndpointNS.Class 
 
 		return this.client.get(
 			`collection/${options?.collectionID ?? this.collectionID}/translations`,
-			{
-				searchParams: {
-					api_key: this.apiKey,
-					language: options?.language ?? this.language,
-				},
-			},
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 }
