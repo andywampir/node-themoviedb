@@ -144,8 +144,21 @@ export interface TVShowExtended extends Omit<TVShow, 'genre_ids'> {
 		poster_path: string;
 		season_number: number;
 	}[];
-	status: string; // TODO: Define statuses
-	type: string; // TODO: Define types
+	status:
+	| 'Returning Series'
+	| 'Planned'
+	| 'In Production'
+	| 'Ended'
+	| 'Canceled'
+	| 'Pilot';
+	type:
+	| 'Documentary'
+	| 'News'
+	| 'Miniseries'
+	| 'Reality'
+	| 'Scripted'
+	| 'Talk Show'
+	| 'Video';
 }
 
 export interface EpisodeToAir {
@@ -261,7 +274,8 @@ export interface TVShowVideo extends Video {
 	| 'Featurette'
 	| 'Behind the Scenes'
 	| 'Bloopers'
-	| 'Opening Credits';
+	| 'Opening Credits'
+	| 'Recap';
 }
 
 export interface TVEpisode {
@@ -289,3 +303,41 @@ export interface ExternalIDs {
 	instagram_id: string | null;
 	twitter_id: string | null;
 }
+
+export interface Translation<TData> {
+	iso_3166_1: string;
+	iso_639_1: string;
+	name: string;
+	english_name: string;
+	data: TData;
+}
+
+interface TVTranslationData {
+	name: string;
+	homepage: string;
+	overview: string;
+}
+
+interface TVTranslationDataWithoutHomepage extends Omit<TVTranslationData, 'homepage'> {}
+
+interface MovieTranslationData {
+	title: string;
+	overview: string;
+	homepage: string;
+}
+
+interface PeopleTranslationData {
+	biography: string;
+}
+
+interface CollectionTranslationData extends MovieTranslationData {}
+
+export interface TVTranslation extends Translation<TVTranslationData> {}
+
+export interface TVTranslationWithoutHomepage extends Translation<TVTranslationDataWithoutHomepage> {}
+
+export interface MovieTranslation extends Translation<MovieTranslationData> {}
+
+export interface PeopleTranslation extends Translation<PeopleTranslationData> {}
+
+export interface CollectionTranslation extends Translation<CollectionTranslationData> {}

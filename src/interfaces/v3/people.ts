@@ -4,6 +4,7 @@ import type {
 	ResultsWithPage, TVShowWithMediaType,
 	MovieWithMediaType, ImageWithISO639,
 	Person, ExternalIDs as IExternalIDs,
+	PeopleTranslation,
 } from '../common';
 
 namespace PeopleEndpointNS {
@@ -224,15 +225,7 @@ namespace PeopleEndpointNS {
 
 		export interface Translations {
 			id: number;
-			translations: {
-				iso_639_1: string;
-				iso_3166_1: string;
-				name: string;
-				data: {
-					biography: string;
-				};
-				english_name: string;
-			}[];
+			translations: PeopleTranslation[];
 		}
 
 		export interface Latest extends Omit<Person, 'known_for'> {

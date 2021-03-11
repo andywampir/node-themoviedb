@@ -5,6 +5,7 @@ import type {
 	ResponseWithCode, MovieExtended,
 	CrewCredit, CastCredit,
 	MovieVideo, ExternalIDs as IExternalIDs,
+	MovieTranslation,
 } from '../common';
 
 namespace MoviesEndpointNS {
@@ -240,17 +241,7 @@ namespace MoviesEndpointNS {
 
 		export interface Translations {
 			id: number;
-			translations: {
-				iso_639_1: string;
-				iso_3166_1: string;
-				name: string;
-				english_name: string;
-				data: {
-					title: string;
-					overview: string;
-					homepage: string;
-				};
-			}[];
+			translations: MovieTranslation[];
 		}
 
 		export interface Reviews extends ResultsWithPage<Review> {

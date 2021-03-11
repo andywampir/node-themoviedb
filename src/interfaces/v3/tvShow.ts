@@ -5,6 +5,7 @@ import type {
 	ResultsWithPage, Review,
 	TVShowVideo, ResponseWithCode,
 	TVShowExtended, ExternalIDs as IExternalIDs,
+	TVTranslation,
 } from '../common';
 
 namespace TVShowEndpointNS {
@@ -258,17 +259,7 @@ namespace TVShowEndpointNS {
 
 		export interface Translations {
 			id: number;
-			translations: {
-				iso_3166_1: string;
-				iso_639_1: string;
-				name: string;
-				english_name: string;
-				data: {
-					name: string;
-					overview: string;
-					homepage: string;
-				};
-			}[];
+			translations: TVTranslation[];
 		}
 
 		export interface Videos {

@@ -1,5 +1,7 @@
 import type { IClient } from '../../utils/Client';
-import type { Image } from '../common';
+import type {
+	Image, CollectionTranslation,
+} from '../common';
 
 namespace CollectionsEndpointNS {
 	export interface Class {
@@ -71,19 +73,7 @@ namespace CollectionsEndpointNS {
 
 		export interface Translations {
 			id: number;
-			translations: Translation[];
-		}
-
-		interface Translation {
-			iso_3166_1: string;
-			iso_639_1: string;
-			name: string;
-			english_name: string;
-			data: {
-				title: string;
-				overview: string;
-				homepage: string;
-			};
+			translations: CollectionTranslation[];
 		}
 	}
 }
