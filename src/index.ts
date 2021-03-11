@@ -21,6 +21,9 @@ import TrendingEndpoint from './endpoints/v3/TrendingEndpoint';
 import SearchEndpoint from './endpoints/v3/SearchEndpoint';
 import ReviewsEndpoint from './endpoints/v3/ReviewsEndpoint';
 import TVShowEndpoint from './endpoints/v3/TVShowEndpoint';
+import TVSeasonsEndpoint from './endpoints/v3/TVSeasonsEndpoint';
+import TVEpisodesEndpoint from './endpoints/v3/TVEpisodesEndpoint';
+import TVEpisodeGroupsEndpoint from './endpoints/v3/TVEpisodeGroupsEndpoint';
 
 import { RequiredParameterError } from './errors';
 
@@ -231,6 +234,36 @@ export default class MovieDB implements MovieDBNS.Class {
 			language: options?.language ?? this.language,
 			tvID: options?.tvID,
 			sessionID: this.sessionID,
+		});
+	}
+
+	public tvSeasons(options?: MovieDBNS.Options.V3.TVSeasons): TVSeasonsEndpoint {
+		return new TVSeasonsEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			seasonNumber: options?.seasonNumber,
+			tvID: options?.tvID,
+		});
+	}
+
+	public tvEpisodes(options?: MovieDBNS.Options.V3.TVEpisodes): TVEpisodesEndpoint {
+		return new TVEpisodesEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			episodeNumber: options?.episodeNumber,
+			seasonNumber: options?.seasonNumber,
+			tvID: options?.tvID,
+		});
+	}
+
+	public tvEpisodeGroups(options?: MovieDBNS.Options.V3.TVEpisodeGroups): TVEpisodeGroupsEndpoint {
+		return new TVEpisodeGroupsEndpoint({
+			apiKey: this.apiKey,
+			client: this.clientV3,
+			language: options?.language ?? this.language,
+			id: options?.id,
 		});
 	}
 }
