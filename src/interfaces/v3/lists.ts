@@ -1,4 +1,4 @@
-import type { IClient } from '../../utils/Client';
+import type { IClient } from '../../utils/client';
 import type { Movie } from '../common';
 
 namespace ListsEndpointNS {

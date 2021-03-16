@@ -17,8 +17,8 @@ test('base functions', t => {
 	const mdb = new MovieDB({ apiKey: TMDB_API_KEY });
 
 	// Api key
-	t.throws(() => mdb.setApiKey(''), { instanceOf: RequiredParameterError });
-	t.notThrows(() => mdb.setApiKey(TMDB_API_KEY));
+	t.throws(() => mdb.setAccessToken(''), { instanceOf: RequiredParameterError });
+	t.notThrows(() => mdb.setAccessToken(TMDB_API_KEY));
 
 	// Language
 	t.notThrows(() => mdb.setLanguage('ru-RU'));

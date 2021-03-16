@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { IClient } from '../../utils/Client';
+import type { IClient } from '../../utils/client';
 
 namespace CertificationsEndpointNS {
 	export interface Class {

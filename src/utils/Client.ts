@@ -2,7 +2,7 @@ import got, {
 	Got, HTTPError,
 } from 'got';
 
-import normalizeSearchParams from './normalizeSearchParams';
+import normalizeSearchParams from './normalize-search-params';
 import {
 	UnknownError, NotEnoughPermissionError,
 	NotFoundError, UnknownHTTPError,

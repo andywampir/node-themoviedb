@@ -51,7 +51,7 @@ test('errors', async t => {
 			.execute(),
 		{ instanceOf: NotEnoughPermissionError },
 	);
-	mdb.setApiKey(TMDB_API_KEY);
+	mdb.setAccessToken(TMDB_API_KEY);
 
 	// Session ID
 	t.notThrows(

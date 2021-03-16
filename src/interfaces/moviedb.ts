@@ -9,7 +9,7 @@ import type CreditsEndpointNS from './v3/credits';
 import type DiscoverEndpointNS from './v3/discover';
 import type FindEndpointNS from './v3/find';
 import type GenresEndpointNS from './v3/genres';
-import type GuestSessionEndpointNS from './v3/guestSessions';
+import type GuestSessionEndpointNS from './v3/guest-sessions';
 import type KeywordsEndpointNS from './v3/keywords';
 import type ListsEndpointNS from './v3/lists';
 import type MoviesEndpointNS from './v3/movies';
@@ -18,10 +18,10 @@ import type PeopleEndpointNS from './v3/people';
 import type ReviewsEndpointNS from './v3/reviews';
 import type SearchEndpointNS from './v3/search';
 import type TrendingEndpointNS from './v3/trending';
-import type TVEpisodeGroupsEndpointNS from './v3/tvEpisodeGroups';
-import type TVEpisodesEndpointNS from './v3/tvEpisodes';
-import type TVSeasonsEndpointNS from './v3/tvSeasons';
-import type TVShowEndpointNS from './v3/tvShow';
+import type TVEpisodeGroupsEndpointNS from './v3/tv-episode-groups';
+import type TVEpisodesEndpointNS from './v3/tv-episodes';
+import type TVSeasonsEndpointNS from './v3/tv-seasons';
+import type TVShowEndpointNS from './v3/tv-show';
 
 namespace MovieDBNS {
 	export interface Class {

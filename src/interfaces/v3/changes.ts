@@ -1,6 +1,6 @@
 import type { ResultsWithPage } from '../common';
 
-import type { IClient } from '../../utils/Client';
+import type { IClient } from '../../utils/client';
 
 namespace ChangesEndpointNS {
 	export interface Class {

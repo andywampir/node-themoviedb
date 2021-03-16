@@ -1,8 +1,8 @@
-import NotEnoughPermissionError from './NotEnoughPermissionError';
-import NotFoundError from './NotFoundError';
-import UnknownHTTPError from './UnknownHTTPError';
-import UnknownError from './UnknownError';
-import RequiredParameterError from './RequiredParameterError';
+import NotEnoughPermissionError from './not-enough-permission-error';
+import NotFoundError from './not-found-error';
+import UnknownHTTPError from './unknown-http-error';
+import UnknownError from './unknown-error';
+import RequiredParameterError from './required-parameter-error';
 
 export {
 	UnknownHTTPError, UnknownError,
