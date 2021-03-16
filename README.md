@@ -4,6 +4,7 @@
 [![npm](https://img.shields.io/npm/dm/node-themoviedb?style=flat)](https://www.npmjs.com/package/node-themoviedb)
 [![npm](https://img.shields.io/npm/v/node-themoviedb)](https://www.npmjs.com/package/node-themoviedb)
 ![GitHub last commit](https://img.shields.io/github/last-commit/andywampir/node-themoviedb)
+[![Rate on Openbase](https://badges.openbase.com/js/rating/node-themoviedb.svg)](https://openbase.com/js/node-themoviedb?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 # Highlights
 - [Installation](#install)
