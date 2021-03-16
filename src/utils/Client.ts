@@ -6,6 +6,7 @@ import normalizeSearchParams from './normalize-search-params';
 import {
 	UnknownError, NotEnoughPermissionError,
 	NotFoundError, UnknownHTTPError,
+	InternalServerError,
 } from '../errors';
 
 import type {
@@ -41,6 +42,7 @@ export default class Client implements IClient {
 			headers: {
 				'user-agent': USER_AGENT,
 				authorization: `Bearer ${accessToken}`,
+				'content-type': 'application/json;charset=utf-8',
 			},
 			hooks: { init: [ normalizeSearchParams ] },
 		});
@@ -62,6 +64,16 @@ export default class Client implements IClient {
 					const { status_code } = error.response.body as ResponseError;
 
 					return new NotFoundError(status_code);
+				}
+
+				case 500: {
+					const statusCode = (error.response.body as ResponseError).status_code ?? 11;
+					const statusMessage = (
+						(error.response.body as ResponseError).status_message
+							?? 'Internal error: Something went wrong, contact TMDb.'
+					);
+
+					return new InternalServerError(statusMessage, statusCode);
 				}
 
 				default: {
