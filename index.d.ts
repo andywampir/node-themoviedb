@@ -1146,6 +1146,7 @@ declare namespace MovieDB {
       interface GetAiringToday {
         query?: {
           page?: number | string;
+          timezone?: string;
         };
       }
 
