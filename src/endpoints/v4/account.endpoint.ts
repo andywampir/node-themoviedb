@@ -13,7 +13,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	}
 
 	public async lists(options?: AccountEndpointNS.Options.Lists): Promise<AccountEndpointNS.Results.Lists> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -25,7 +25,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async favoriteMovies(
 		options?: AccountEndpointNS.Options.FavoriteMovies,
 	): Promise<AccountEndpointNS.Results.FavoriteMovies> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -42,7 +42,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async favoriteTVShows(
 		options?: AccountEndpointNS.Options.FavoriteTVShows,
 	): Promise<AccountEndpointNS.Results.FavoriteTVShows> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -59,7 +59,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async movieRecommendations(
 		options?: AccountEndpointNS.Options.MovieRecommendations,
 	): Promise<AccountEndpointNS.Results.MovieRecommendations> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -76,7 +76,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async tvShowRecommendations(
 		options?: AccountEndpointNS.Options.TVShowRecommendations,
 	): Promise<AccountEndpointNS.Results.TVShowRecommendations> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -93,7 +93,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async movieWatchlist(
 		options?: AccountEndpointNS.Options.MovieWatchlist,
 	): Promise<AccountEndpointNS.Results.MovieWatchlist> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -110,7 +110,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async tvShowWatchlist(
 		options?: AccountEndpointNS.Options.TVShowWatchlist,
 	): Promise<AccountEndpointNS.Results.TVShowWatchlist> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -127,7 +127,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async ratedMovies(
 		options?: AccountEndpointNS.Options.RatedMovies,
 	): Promise<AccountEndpointNS.Results.FavoriteMovies> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
@@ -144,7 +144,7 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 	public async ratedTVShows(
 		options?: AccountEndpointNS.Options.RatedTVShows,
 	): Promise<AccountEndpointNS.Results.RatedTVShows> {
-		if (!options.accountID && !this.accountID)
+		if (!options?.accountID || !this.accountID)
 			throw new RequiredParameterError('accountID');
 
 		return this.client.get(
