@@ -16,6 +16,10 @@ export interface ResponseWithCode {
 	status_code: number;
 }
 
+export interface ResponseWithCodeExtended extends ResponseWithCode {
+	success: boolean;
+}
+
 export type SearchParametrs = Record<string, string | number | boolean | null | undefined>;
 export type MediaType = 'movie' | 'tv';
 export type SortOrder = 'created_at.asc' | 'created_at.desc';
