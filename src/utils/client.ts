@@ -68,10 +68,9 @@ export default class Client implements IClient {
 
 				case 500: {
 					const statusCode = (error.response.body as ResponseError).status_code ?? 11;
-					const statusMessage = (
-						(error.response.body as ResponseError).status_message
-							?? 'Internal error: Something went wrong, contact TMDb.'
-					);
+					const statusMessage
+						= (error.response.body as ResponseError).status_message
+							?? 'Internal error: Something went wrong, contact TMDb.';
 
 					return new InternalServerError(statusMessage, statusCode);
 				}
