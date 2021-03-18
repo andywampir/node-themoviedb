@@ -20,6 +20,7 @@ namespace ListEndpointNS {
 	export namespace Options {
 		export interface Constructor {
 			client: IClient;
+			language: string;
 			listID?: number;
 		}
 
