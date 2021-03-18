@@ -36,9 +36,9 @@ namespace ListEndpointNS {
 			page?: number;
 			language?: string;
 			sortBy?:
-				| SortBy
-				| 'release_date.asc'
-				| 'release_date.desc';
+			| SortBy
+			| 'release_date.asc'
+			| 'release_date.desc';
 		}
 
 		export interface CreateList {
@@ -55,9 +55,9 @@ namespace ListEndpointNS {
 			name?: string;
 			public?: boolean;
 			sortBy?:
-				| SortBy
-				| 'primary_release_date.asc'
-				| 'primary_release_date.desc';
+			| SortBy
+			| 'primary_release_date.asc'
+			| 'primary_release_date.desc';
 		}
 
 		export interface AddItems {

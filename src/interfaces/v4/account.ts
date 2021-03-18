@@ -62,11 +62,11 @@ namespace AccountEndpointNS {
 
 		export interface TVShowRecommendations extends Common {
 			sortBy?:
-				| TVShowSortBy
-				| 'release_date.asc'
-				| 'release_date.desc'
-				| 'title.asc'
-				| 'title.desc';
+			| TVShowSortBy
+			| 'release_date.asc'
+			| 'release_date.desc'
+			| 'title.asc'
+			| 'title.desc';
 		}
 
 		export interface MovieWatchlist extends Common {
