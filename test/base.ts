@@ -3,22 +3,22 @@ import test from 'ava';
 import MovieDB from '../src';
 import { RequiredParameterError } from '../src/errors';
 
-const TMDB_API_KEY = process.env.TMDB_API_KEY as string;
+const TMDB_ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN as string;
 
 test('instance creating', t => {
-	t.throws(() => new MovieDB({ apiKey: '' }), { instanceOf: RequiredParameterError });
+	t.throws(() => new MovieDB({ accessToken: '' }), { instanceOf: RequiredParameterError });
 	t.notThrows(() => new MovieDB({
-		apiKey: TMDB_API_KEY,
+		accessToken: TMDB_ACCESS_TOKEN,
 		language: 'ru-RU',
 	}));
 });
 
-test('base functions', t => {
-	const mdb = new MovieDB({ apiKey: TMDB_API_KEY });
+test('instance setter functions', t => {
+	const mdb = new MovieDB({ accessToken: TMDB_ACCESS_TOKEN });
 
 	// Api key
 	t.throws(() => mdb.setAccessToken(''), { instanceOf: RequiredParameterError });
-	t.notThrows(() => mdb.setAccessToken(TMDB_API_KEY));
+	t.notThrows(() => mdb.setAccessToken(TMDB_ACCESS_TOKEN));
 
 	// Language
 	t.notThrows(() => mdb.setLanguage('ru-RU'));
