@@ -17,6 +17,7 @@ export interface IClient {
 	get<T>(url: string, options?: GetOptions): Promise<T>;
 	post<T>(url: string, options?: PostOptions): Promise<T>;
 	delete<T>(url: string, options?: DeleteOptions): Promise<T>;
+	put<T>(url: string, options?: PutOptions): Promise<T>;
 	recreate(accessToken: string): void;
 }
 
@@ -25,10 +26,12 @@ interface GetOptions {
 }
 
 interface PostOptions extends GetOptions {
-	json?: Record<string, string | number | boolean>;
+	json?: Record<string, string | number | boolean | Record<string, string | number | boolean>[] | undefined>;
 }
 
 interface DeleteOptions extends PostOptions {}
+
+interface PutOptions extends PostOptions {}
 
 const USER_AGENT = 'node-themoviedb/1.0.0';
 
@@ -87,31 +90,33 @@ export default class Client implements IClient {
 		}
 	}
 
-	public async get<T>(uri: string, options?: GetOptions): Promise<T> {
+	public async get<T>(url: string, options?: GetOptions): Promise<T> {
 		try {
-			const response = await this.agent.get(uri, options).json<T>();
-
-			return response;
+			return await this.agent.get(url, options).json<T>();
 		} catch (error) {
 			throw Client.handleError(error);
 		}
 	}
 
-	public async post<T>(uri: string, options?: PostOptions): Promise<T> {
+	public async post<T>(url: string, options?: PostOptions): Promise<T> {
 		try {
-			const response = await this.agent.post(uri, options).json<T>();
-
-			return response;
+			return await this.agent.post(url, options).json<T>();
 		} catch (error) {
 			throw Client.handleError(error);
 		}
 	}
 
-	public async delete<T>(uri: string, options?: DeleteOptions): Promise<T> {
+	public async delete<T>(url: string, options?: DeleteOptions): Promise<T> {
 		try {
-			const response = await this.agent.delete(uri, options).json<T>();
+			return await this.agent.delete(url, options).json<T>();
+		} catch (error) {
+			throw Client.handleError(error);
+		}
+	}
 
-			return response;
+	public async put<T>(url: string, options?: PutOptions): Promise<T> {
+		try {
+			return await this.agent.put(url, options).json<T>();
 		} catch (error) {
 			throw Client.handleError(error);
 		}
