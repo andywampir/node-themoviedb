@@ -257,6 +257,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@bcoe/v8-coverage@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@bcoe/v8-coverage@npm:0.2.3"
+  checksum: 4fc6fb784b09d2e994fc9180dc8af9f674a4e5114cd2c52754e689f87725e670d0919728945fe3991d434109e42e5ac6f9d85c58a566e2a645eb9dda68eead6a
+  languageName: node
+  linkType: hard
+
 "@concordance/react@npm:^2.0.0":
   version: 2.0.0
   resolution: "@concordance/react@npm:2.0.0"
@@ -412,6 +419,20 @@ __metadata:
   version: 4.0.0
   resolution: "@types/http-cache-semantics@npm:4.0.0"
   checksum: e16fae56d4daea4ed678b4d5918b693b44ca12fb5e479b87d242d3a35bf3a014974dcf9ed7aba7e29149fdb6c3719f9987fca51b20ef10aa84b58f86553c2f74
+  languageName: node
+  linkType: hard
+
+"@types/is-windows@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/is-windows@npm:1.0.0"
+  checksum: dea87837bcf279d4892bde219aeed2e992c12fa8f2ed06347697f35ea0f48d83227f6897c291fafbda387be2f1b413fbe9c1e98639c44bded88bcc18c9fcdc20
+  languageName: node
+  linkType: hard
+
+"@types/istanbul-lib-coverage@npm:^2.0.1":
+  version: 2.0.3
+  resolution: "@types/istanbul-lib-coverage@npm:2.0.3"
+  checksum: d6f6dbf66d2d2d7d80d093329f0428ac279440510030bfd0080545bba6882433444430905e6e31eba299b890e50ccf2b6a7de9345d7d0ed52ff174f8ead48855
   languageName: node
   linkType: hard
 
@@ -1101,6 +1122,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"c8@npm:^7.6.0":
+  version: 7.6.0
+  resolution: "c8@npm:7.6.0"
+  dependencies:
+    "@bcoe/v8-coverage": ^0.2.3
+    "@istanbuljs/schema": ^0.1.2
+    find-up: ^5.0.0
+    foreground-child: ^2.0.0
+    furi: ^2.0.0
+    istanbul-lib-coverage: ^3.0.0
+    istanbul-lib-report: ^3.0.0
+    istanbul-reports: ^3.0.2
+    rimraf: ^3.0.0
+    test-exclude: ^6.0.0
+    v8-to-istanbul: ^7.1.0
+    yargs: ^16.0.0
+    yargs-parser: ^20.0.0
+  bin:
+    c8: bin/c8.js
+  checksum: 6b4f1d81d40208111678c258a0881b856cd1e67ffcbadf5698406183abe7867f56e57137b555ef56e23ef8dbafad2c5531ba7efbd334d677bf872dd4e9c70de1
+  languageName: node
+  linkType: hard
+
 "cacheable-lookup@npm:^2.0.0":
   version: 2.0.1
   resolution: "cacheable-lookup@npm:2.0.1"
@@ -1534,7 +1578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert-source-map@npm:^1.7.0":
+"convert-source-map@npm:^1.6.0, convert-source-map@npm:^1.7.0":
   version: 1.7.0
   resolution: "convert-source-map@npm:1.7.0"
   dependencies:
@@ -2430,6 +2474,16 @@ fsevents@~2.3.1:
   version: 1.0.1
   resolution: "functional-red-black-tree@npm:1.0.1"
   checksum: 477ecaf62d4f8d788876099b35ed4b97586b331e729d2d28d0df96b598863d21c18b8a45a6cbecb6c2bf7f5e5ef1e82a053570583ef9a0ff8336683ab42b8d14
+  languageName: node
+  linkType: hard
+
+"furi@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "furi@npm:2.0.0"
+  dependencies:
+    "@types/is-windows": ^1.0.0
+    is-windows: ^1.0.2
+  checksum: 5052fc35ac44f602666ff60978fbfee1b8cfe8177ea5d54e2e7cd8eeec1a04cc2b20547032e8c57160896942fcf815971f8bd767292b2d635a4a071d7347cd9b
   languageName: node
   linkType: hard
 
@@ -4053,6 +4107,7 @@ fsevents@~2.3.1:
     "@typescript-eslint/eslint-plugin": ^4.18.0
     "@typescript-eslint/parser": ^4.18.0
     ava: ^3.15.0
+    c8: ^7.6.0
     dotenv: ^8.2.0
     eslint: ^7.22.0
     eslint-plugin-ava: ^11.0.0
@@ -5233,6 +5288,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"source-map@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "source-map@npm:0.7.3"
+  checksum: 351ce26ffa1ebf203660c0d70d7566c81e65d2d994d1c2d94da140808e02da34961673ce12ecea9b40797b96fbeb8c70bf71a4ad9f779f1a4fdbba75530bb386
+  languageName: node
+  linkType: hard
+
 "spawn-wrap@npm:^2.0.0":
   version: 2.0.0
   resolution: "spawn-wrap@npm:2.0.0"
@@ -5896,6 +5958,17 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
+"v8-to-istanbul@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "v8-to-istanbul@npm:7.1.0"
+  dependencies:
+    "@types/istanbul-lib-coverage": ^2.0.1
+    convert-source-map: ^1.6.0
+    source-map: ^0.7.3
+  checksum: decc2cc896de173adc27e5621f3d7e5d0d4018d6df12cc95c5de2d8eb1a1bab2ed4fe9a4e767dd469b81b3520024b9fec6b9b4beeefbfac2bbeebfc9937bf9ba
+  languageName: node
+  linkType: hard
+
 "vali-date@npm:^1.0.0":
   version: 1.0.0
   resolution: "vali-date@npm:1.0.0"
@@ -6088,6 +6161,13 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
+"yargs-parser@npm:^20.0.0":
+  version: 20.2.7
+  resolution: "yargs-parser@npm:20.2.7"
+  checksum: 124e7f1c24c9609d5d1c343f14b83289634e19bb43770708ebb6a19852647aaa0f89edcbf0e5b18a21bee77f54513ab5051518b2950cda69eb607a7c6251aa4f
+  languageName: node
+  linkType: hard
+
 "yargs-parser@npm:^20.2.2, yargs-parser@npm:^20.2.3":
   version: 20.2.6
   resolution: "yargs-parser@npm:20.2.6"
@@ -6114,7 +6194,7 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
-"yargs@npm:^16.2.0":
+"yargs@npm:^16.0.0, yargs@npm:^16.2.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
   dependencies:
