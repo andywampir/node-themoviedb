@@ -16,13 +16,13 @@ export default class AccountEndpoint implements AccountEndpointNS.Class {
 		this.userID = options.userID;
 	}
 
-	public async details(options: AccountEndpointNS.Options.Details): Promise<AccountEndpointNS.Results.Details> {
-		if (!options.sessionID && !this.sessionID)
+	public async details(options?: AccountEndpointNS.Options.Details): Promise<AccountEndpointNS.Results.Details> {
+		if (!options?.sessionID && !this.sessionID)
 			throw new RequiredParameterError('sessionID');
 
 		return this.client.get(
 			'account',
-			{ searchParams: { session_id: options.sessionID ?? this.sessionID } },
+			{ searchParams: { session_id: options?.sessionID ?? this.sessionID } },
 		);
 	}
 
