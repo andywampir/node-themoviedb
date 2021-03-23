@@ -63,8 +63,9 @@
 	"homepage": "https://github.com/andywampir/node-themoviedb",
 	"ava": {
 		"files": [
-			"test/*",
-			"!test/helper.ts"
+			"test/**/*",
+			"!test/**/helper.ts",
+			"!test/**/_*"
 		],
 		"require": [
 			"ts-node/register",
