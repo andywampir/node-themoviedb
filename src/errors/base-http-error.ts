@@ -6,9 +6,9 @@ interface BaseHTTPErrorOptions {
 }
 
 export default class BaseHTTPError extends Error {
-	public httpCode: number;
-	public shortMessage: string;
-	public statusCode?: number;
+	public readonly httpCode: number;
+	public readonly shortMessage: string;
+	public readonly statusCode?: number;
 
 	public constructor(options: BaseHTTPErrorOptions) {
 		super(options.message);
