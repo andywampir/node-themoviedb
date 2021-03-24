@@ -1,49 +1,36 @@
 /* eslint-disable camelcase */
 import MovieDB from '../src';
 
-import {
-	AuthenticationValidateToken, AuthenticationNewToken,
-	AuthenticationNewSession,
-} from '../src/interfaces/v3/authentication';
+import type AuthenticationEndpointNS from '../src/interfaces/v3/authentication';
 
 const TMDB_LOGIN = process.env.TMDB_LOGIN as string;
 const TMDB_PASSWORD = process.env.TMDB_PASSWORD as string;
 
-let session: AuthenticationNewSession | null = null;
+let session: AuthenticationEndpointNS.Results.NewSession | null = null;
 
-export async function getRequestToken(mdb: MovieDB): Promise<AuthenticationNewToken | null> {
-	const response = await mdb
-		.authentication()
-		.newToken()
-		.execute();
-
-	return response?.newToken?.[0] ?? null;
+export async function getRequestToken(mdb: MovieDB): Promise<AuthenticationEndpointNS.Results.NewToken> {
+	return mdb.authentication().newToken();
 }
 
-export async function getValidatedToken(mdb: MovieDB): Promise<AuthenticationValidateToken | null> {
+export async function getValidatedToken(mdb: MovieDB): Promise<AuthenticationEndpointNS.Results.ValidateToken> {
 	const requestToken = await getRequestToken(mdb);
-	const response = await mdb
+
+	return mdb
 		.authentication()
 		.validateToken({
 			password: TMDB_PASSWORD,
 			username: TMDB_LOGIN,
-			requestToken: requestToken?.request_token as string,
-		})
-		.execute();
-
-	return response?.validateToken?.[0] ?? null;
+			requestToken: requestToken.request_token as string,
+		});
 }
 
-export async function getSession(mdb: MovieDB): Promise<AuthenticationNewSession | null> {
+export async function getSession(mdb: MovieDB): Promise<AuthenticationEndpointNS.Results.NewSession> {
 	if (!session) {
 		const validatedToken = await getValidatedToken(mdb);
-		const response = await mdb
-			.authentication()
-			.newSession(validatedToken?.request_token as string)
-			.execute();
+		const newSession = await mdb.authentication().newSession({ requestToken: validatedToken.request_token });
 
 		// eslint-disable-next-line require-atomic-updates
-		session = response?.newSession?.[0] ?? null;
+		session = newSession
 	}
 
 	return session;
