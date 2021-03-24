@@ -43,7 +43,7 @@ namespace AuthenticationEndpointNS {
 		export type DeleteSession = Types.DeleteSession;
 	}
 
-	namespace Types {
+	export namespace Types {
 		export interface NewGuestSession {
 			success: boolean;
 			guest_session_id: string;
@@ -65,14 +65,15 @@ namespace AuthenticationEndpointNS {
 		export interface ConvertToken extends NewSession {}
 
 		export type DeleteSession =
-      | DeleteSessionSuccess
-      | DeleteSessionFailure;
+			| DeleteSessionSuccess
+			| DeleteSessionFailure;
 
-		interface DeleteSessionSuccess {
-			success: boolean;
+		export interface DeleteSessionSuccess {
+			success: true;
 		}
 
-		interface DeleteSessionFailure {
+		export interface DeleteSessionFailure {
+			success: false;
 			status_code: number;
 			status_message: string;
 		}
