@@ -29,7 +29,7 @@
 	},
 	"scripts": {
 		"build": "tsc",
-		"test": "ava",
+		"test": "ava --serial",
 		"coverage": "c8 yarn test",
 		"coverage:alternative": "nyc yarn test",
 		"release": "np",
