@@ -41,10 +41,16 @@ test('[v3:account] errors', async t => {
 	const mdb = new MovieDB({ accessToken: TMDB_ACCESS_TOKEN });
 
 	// Access token
-	await t.throwsAsync(
+	const notEnoughPermissionError = await t.throwsAsync<NotEnoughPermissionError>(
 		mdb.account({ sessionID: 'fake_session_id' }).details(),
 		{ instanceOf: NotEnoughPermissionError },
 	);
+
+	t.is(notEnoughPermissionError.httpCode, 401);
+	t.is(notEnoughPermissionError.message, 'Authentication failed: You do not have permissions to access the service.');
+	t.is(notEnoughPermissionError.shortMessage, 'Not Enough Permission');
+	t.is(notEnoughPermissionError.statusCode, 3);
+
 	mdb.setAccessToken(TMDB_ACCESS_TOKEN);
 
 	// Session ID
