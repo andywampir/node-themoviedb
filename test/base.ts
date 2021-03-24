@@ -13,7 +13,7 @@ test('[instance] creating', t => {
 	}));
 });
 
-test('[instance] setter functions', t => {
+test('[instance] setter-functions', t => {
 	const mdb = new MovieDB({ accessToken: TMDB_ACCESS_TOKEN });
 
 	// Access token

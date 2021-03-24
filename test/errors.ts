@@ -13,7 +13,7 @@ test('[error] not enough permission error', t => {
 	t.is(notEnoughPermissionError.shortMessage, 'Not Enough Permission');
 });
 
-test('[error] not found error', t => {
+test('[error] not-found-error', t => {
 	const notFoundError = t.throws<errors.NotFoundError>(() => {
 		throw new errors.NotFoundError(1337);
 	}, { instanceOf: errors.NotFoundError });
@@ -24,7 +24,7 @@ test('[error] not found error', t => {
 	t.is(notFoundError.shortMessage, 'Not Found');
 });
 
-test('[error] required parameter error', t => {
+test('[error] required-parameter-error', t => {
 	const requiredParameterError = t.throws<errors.RequiredParameterError>(() => {
 		throw new errors.RequiredParameterError('exampleParam');
 	}, { instanceOf: errors.RequiredParameterError });
@@ -33,7 +33,7 @@ test('[error] required parameter error', t => {
 	t.is(requiredParameterError.parameter, 'exampleParam');
 });
 
-test('[error] unknown error', t => {
+test('[error] unknown-error', t => {
 	const unknownError = t.throws<errors.UnknownError>(() => {
 		throw new errors.UnknownError('what kind this error?');
 	}, { instanceOf: errors.UnknownError });
@@ -41,7 +41,7 @@ test('[error] unknown error', t => {
 	t.is(unknownError.message, 'what kind this error?');
 });
 
-test('[error] unknown http error', t => {
+test('[error] unknown-http-error', t => {
 	const unknownHTTPError = t.throws<errors.UnknownHTTPError>(() => {
 		throw new errors.UnknownHTTPError('i am teapot', 418);
 	}, { instanceOf: errors.UnknownHTTPError });
@@ -51,7 +51,7 @@ test('[error] unknown http error', t => {
 	t.is(unknownHTTPError.shortMessage, 'Unknown HTTP Error');
 });
 
-test('[error] internal server error', t => {
+test('[error] internal-server-error', t => {
 	const internalServerError = t.throws<errors.InternalServerError>(() => {
 		throw new errors.InternalServerError('Test message', 21);
 	}, { instanceOf: errors.InternalServerError });

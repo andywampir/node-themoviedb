@@ -73,7 +73,7 @@ test('[v3:account] details', async t => {
 	t.is(accountDetails.username, TMDB_LOGIN);
 });
 
-test('[v3:account] created lists', async t => {
+test('[v3:account] created-lists', async t => {
 	const {
 		sessionID,
 		userID,
@@ -124,7 +124,7 @@ test('[v3:account] created lists', async t => {
 	t.is(createdLists.page, 1);
 });
 
-test('[v3:account] favorite movies', async t => {
+test('[v3:account] favorite-movies', async t => {
 	const {
 		sessionID,
 		userID,
@@ -176,7 +176,7 @@ test('[v3:account] favorite movies', async t => {
 	t.is(favoriteMovies.page, 1);
 });
 
-test('[v3:account] favorite tv shows', async t => {
+test('[v3:account] favorite-tv-shows', async t => {
 	const {
 		sessionID,
 		userID,
@@ -228,7 +228,7 @@ test('[v3:account] favorite tv shows', async t => {
 	t.is(favoriteTVShows.page, 1);
 });
 
-test('[v3:account] mark as favorite', async t => {
+test('[v3:account] mark-as-favorite', async t => {
 	const {
 		sessionID,
 		userID,
@@ -297,7 +297,7 @@ test('[v3:account] mark as favorite', async t => {
 	t.is(markAsFavorite.status_code, 13);
 });
 
-test('[v3:account] rated movies', async t => {
+test('[v3:account] rated-movies', async t => {
 	const {
 		mdb,
 		sessionID,
@@ -349,7 +349,7 @@ test('[v3:account] rated movies', async t => {
 	t.is(ratedMovies.page, 1);
 });
 
-test('[v3:account] rated tv shows', async t => {
+test('[v3:account] rated-tv-shows', async t => {
 	const {
 		mdb,
 		sessionID,
@@ -401,7 +401,7 @@ test('[v3:account] rated tv shows', async t => {
 	t.is(ratedTVShows.page, 1);
 });
 
-test('[v3:account] rated tv episodes', async t => {
+test('[v3:account] rated-tv-episodes', async t => {
 	const {
 		mdb,
 		sessionID,
@@ -453,7 +453,7 @@ test('[v3:account] rated tv episodes', async t => {
 	t.is(ratedTVEpisodes.page, 1);
 });
 
-test('[v3:account] movie watchlist', async t => {
+test('[v3:account] movie-watchlist', async t => {
 	const {
 		mdb,
 		sessionID,
@@ -505,7 +505,7 @@ test('[v3:account] movie watchlist', async t => {
 	t.is(movieWatchlist.page, 1);
 });
 
-test('[v3:account] tv show watchlist', async t => {
+test('[v3:account] tv-show-watchlist', async t => {
 	const {
 		mdb,
 		sessionID,
@@ -557,7 +557,7 @@ test('[v3:account] tv show watchlist', async t => {
 	t.is(tvShowWatchlist.page, 1);
 });
 
-test('[v3:account] add to watchlist', async t => {
+test('[v3:account] add-to-watchlist', async t => {
 	const {
 		mdb,
 		sessionID,
