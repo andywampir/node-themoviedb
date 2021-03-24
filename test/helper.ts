@@ -30,7 +30,7 @@ export async function getSession(mdb: MovieDB): Promise<AuthenticationEndpointNS
 		const newSession = await mdb.authentication().newSession({ requestToken: validatedToken.request_token });
 
 		// eslint-disable-next-line require-atomic-updates
-		session = newSession
+		session = newSession;
 	}
 
 	return session;
