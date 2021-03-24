@@ -1,8 +1,8 @@
 // eslint-disable-next-line ava/use-test
 import ava, { TestInterface } from 'ava';
 
-import MovieDB from '../src';
-import { NotEnoughPermissionError } from '../src/errors';
+import MovieDB from '../../src';
+import { NotEnoughPermissionError } from '../../src/errors';
 
 interface Context {
 	mdb: MovieDB;

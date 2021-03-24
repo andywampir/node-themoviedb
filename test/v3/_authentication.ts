@@ -2,12 +2,11 @@
 // eslint-disable-next-line ava/use-test
 import ava, { TestInterface } from 'ava';
 
-import MovieDB from '../src';
+import MovieDB from '../../src';
 
-import { NotEnoughPermissionError } from '../src/errors';
-import { AuthenticationDeleteSessionFailure } from '../src/interfaces/v3/authentication';
+import { NotEnoughPermissionError } from '../../src/errors';
 // eslint-disable-next-line ava/no-import-test-files
-import * as testUtils from './helper';
+import * as testUtils from '../helper';
 
 interface Context {
 	mdb: MovieDB;
