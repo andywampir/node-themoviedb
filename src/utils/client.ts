@@ -58,24 +58,26 @@ export default class Client implements IClient {
 				case 401: {
 					const {
 						status_code, status_message,
-					} = error.response.body as ResponseError;
+					} = JSON.parse(error.response.body as string) as ResponseError;
 
 					return new NotEnoughPermissionError(status_message, status_code);
 				}
 
 				case 404: {
-					const { status_code } = error.response.body as ResponseError;
+					const { status_code } = JSON.parse(error.response.body as string) as ResponseError;
 
 					return new NotFoundError(status_code);
 				}
 
 				case 500: {
-					const statusCode = (error.response.body as ResponseError).status_code ?? 11;
-					const statusMessage
-						= (error.response.body as ResponseError).status_message
-							?? 'Internal error: Something went wrong, contact TMDb.';
+					const {
+						status_code, status_message,
+					} = JSON.parse(error.response.body as string) as ResponseError;
 
-					return new InternalServerError(statusMessage, statusCode);
+					return new InternalServerError(
+						status_message ?? 'Internal error: Something went wrong, contact TMDb.',
+						status_code ?? 11,
+					);
 				}
 
 				default: {
