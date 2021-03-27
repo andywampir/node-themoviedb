@@ -140,4 +140,4 @@ test('[v3:authentication] delete-session', async t => {
 	await t.notThrowsAsync(authentication.deleteSession({ sessionID: newGuestSession.guest_session_id }));
 });
 
-test.todo('convert token from v4');
+test.todo('[v3:authentication] convert-token-from-v4');
