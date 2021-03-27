@@ -69,7 +69,8 @@ test('[v3:authentication] user-session', async t => {
 		tt.true(requestToken.success);
 		tt.truthy(requestToken.request_token);
 		tt.truthy(requestToken.expires_at);
-		const notEnoughPermissionError = await tt.throwsAsync<NotEnoughPermissionError>(authentication.validateToken({
+		const notEnoughPermissionError = await tt.throwsAsync<NotEnoughPermissionError>(
+			authentication.validateToken({
 				password: 'fake_password',
 				username: 'fake_username',
 				requestToken: 'fake_request_token',
@@ -78,7 +79,10 @@ test('[v3:authentication] user-session', async t => {
 		);
 
 		tt.is(notEnoughPermissionError.httpCode, 401);
-		tt.is(notEnoughPermissionError.message, 'Invalid request token: The request token is either expired or invalid.');
+		tt.is(
+			notEnoughPermissionError.message,
+			'Invalid request token: The request token is either expired or invalid.',
+		);
 		tt.is(notEnoughPermissionError.shortMessage, 'Not Enough Permission');
 		tt.is(notEnoughPermissionError.statusCode, 33);
 
@@ -129,8 +133,8 @@ test('[v3:authentication] delete-session', async t => {
 	t.is(notEnoughPermissionError.shortMessage, 'Not Enough Permission');
 	t.is(notEnoughPermissionError.statusCode, 7);
 
-	const failureResponse =
-		await authentication
+	const failureResponse
+		= await authentication
 			.deleteSession({ sessionID: 'fake_session_id' }) as AuthenticationEndpointNS.Types.DeleteSessionFailure;
 
 	t.false(failureResponse.success);
