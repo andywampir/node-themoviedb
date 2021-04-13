@@ -16,6 +16,7 @@
 	"plugins": [
 		"@typescript-eslint"
 	],
+	"extends": "plugin:ava/recommended",
 	"rules": {
 		"for-direction": "error",
 		"no-await-in-loop": "error",
