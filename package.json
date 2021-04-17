@@ -15,6 +15,7 @@
 		"@typescript-eslint/parser": "^4.22.0",
 		"ava": "next",
 		"c8": "^7.7.1",
+		"del-cli": "^3.0.1",
 		"dotenv": "^8.2.0",
 		"eslint": "^7.24.0",
 		"eslint-plugin-ava": "^12.0.0",
@@ -28,7 +29,7 @@
 		"got": "^11.8.2"
 	},
 	"scripts": {
-		"build": "tsc",
+		"build": "del ./dist && tsc",
 		"test": "ava --serial",
 		"coverage": "c8 yarn test",
 		"coverage:alternative": "nyc yarn test",
