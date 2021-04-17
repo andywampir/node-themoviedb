@@ -62,16 +62,16 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 	}
 
 	public async changes(options?: TVShowEndpointNS.Options.Changes): Promise<TVShowEndpointNS.Results.Changes> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/changes`,
+			`tv/${options?.tvID ?? this.tvID}/changes`,
 			{
 				searchParams: {
-					start_date: options.startDate,
-					end_date: options.endDate,
-					page: options.page ?? 1,
+					start_date: options?.startDate,
+					end_date: options?.endDate,
+					page: options?.page ?? 1,
 				},
 			},
 		);
@@ -80,93 +80,93 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 	public async contentRatings(
 		options?: TVShowEndpointNS.Options.ContentRatings,
 	): Promise<TVShowEndpointNS.Results.ContentRatings> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/content_ratings`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/${options?.tvID ?? this.tvID}/content_ratings`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
 	public async credits(options?: TVShowEndpointNS.Options.Credits): Promise<TVShowEndpointNS.Results.Credits> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/${options?.tvID ?? this.tvID}`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
 	public async episodeGroups(
 		options?: TVShowEndpointNS.Options.EpisodeGroups,
 	): Promise<TVShowEndpointNS.Results.EpisodeGroups> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/episode_groups`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/${options?.tvID ?? this.tvID}/episode_groups`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
 	public async externalIDs(
 		options?: TVShowEndpointNS.Options.ExternalIDs,
 	): Promise<TVShowEndpointNS.Results.ExternalIDs> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/external_ids`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/${options?.tvID ?? this.tvID}/external_ids`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
 	public async images(options?: TVShowEndpointNS.Options.Images): Promise<TVShowEndpointNS.Results.Images> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/images`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/${options?.tvID ?? this.tvID}/images`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
 	public async keywords(options?: TVShowEndpointNS.Options.Keywords): Promise<TVShowEndpointNS.Results.Keywords> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
-		return this.client.get(`tv/${options.tvID ?? this.tvID}`);
+		return this.client.get(`tv/${options?.tvID ?? this.tvID}`);
 	}
 
 	public async recommendations(
 		options?: TVShowEndpointNS.Options.Recommendations,
 	): Promise<TVShowEndpointNS.Results.Recommendations> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/recommendations`,
+			`tv/${options?.tvID ?? this.tvID}/recommendations`,
 			{
 				searchParams: {
-					language: options.language ?? this.language,
-					page: options.page ?? 1,
+					language: options?.language ?? this.language,
+					page: options?.page ?? 1,
 				},
 			},
 		);
 	}
 
 	public async reviews(options?: TVShowEndpointNS.Options.Reviews): Promise<TVShowEndpointNS.Results.Reviews> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/reviews`,
+			`tv/${options?.tvID ?? this.tvID}/reviews`,
 			{
 				searchParams: {
-					language: options.language ?? this.language,
-					page: options.page ?? 1,
+					language: options?.language ?? this.language,
+					page: options?.page ?? 1,
 				},
 			},
 		);
@@ -175,22 +175,22 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 	public async screenedTheatrically(
 		options?: TVShowEndpointNS.Options.ScreenedTheatrically,
 	): Promise<TVShowEndpointNS.Results.ScreenedTheatrically> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
-		return this.client.get(`tv/${options.tvID ?? this.tvID}/screened_theatrically`);
+		return this.client.get(`tv/${options?.tvID ?? this.tvID}/screened_theatrically`);
 	}
 
 	public async similar(options?: TVShowEndpointNS.Options.Similar): Promise<TVShowEndpointNS.Results.Similar> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/similar`,
+			`tv/${options?.tvID ?? this.tvID}/similar`,
 			{
 				searchParams: {
-					language: options.language ?? this.language,
-					page: options.page ?? 1,
+					language: options?.language ?? this.language,
+					page: options?.page ?? 1,
 				},
 			},
 		);
@@ -199,24 +199,24 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 	public async translations(
 		options?: TVShowEndpointNS.Options.Translations,
 	): Promise<TVShowEndpointNS.Results.Translations> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
-		return this.client.get(`tv/${options.tvID ?? this.tvID}/translations`);
+		return this.client.get(`tv/${options?.tvID ?? this.tvID}/translations`);
 	}
 
 	public async videos(options?: TVShowEndpointNS.Options.Videos): Promise<TVShowEndpointNS.Results.Videos> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/videos`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/${options?.tvID ?? this.tvID}/videos`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 
 	public async rate(options: TVShowEndpointNS.Options.Rate): Promise<TVShowEndpointNS.Results.Rate> {
-		if (!options.tvID ?? this.tvID)
+		if (!options.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
 		if (!('value' in options))
 			throw new RequiredParameterError('value');
@@ -238,17 +238,17 @@ export default class TVShowEndpoint implements TVShowEndpointNS.Class {
 	public async deleteRating(
 		options?: TVShowEndpointNS.Options.DeleteRating,
 	): Promise<TVShowEndpointNS.Results.DeleteRating> {
-		if (!options?.tvID ?? this.tvID)
+		if (!options?.tvID && this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!options.sessionID && !options.guestSessionID && !this.sessionID)
+		if (!options?.sessionID && !options?.guestSessionID && !this.sessionID)
 			throw new RequiredParameterError('sessionID or guestSessionID');
 
 		return this.client.delete(
-			`tv/${options.tvID ?? this.tvID}/rating`,
+			`tv/${options?.tvID ?? this.tvID}/rating`,
 			{
 				searchParams: {
-					guest_session_id: options.guestSessionID,
-					session_id: options.sessionID,
+					guest_session_id: options?.guestSessionID,
+					session_id: options?.sessionID,
 				},
 			},
 		);

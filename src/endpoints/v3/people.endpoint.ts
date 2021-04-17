@@ -15,7 +15,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	}
 
 	public async details(options: PeopleEndpointNS.Options.Details): Promise<PeopleEndpointNS.Results.Details> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
@@ -30,7 +30,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	}
 
 	public async changes(options: PeopleEndpointNS.Options.Changes): Promise<PeopleEndpointNS.Results.Changes> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
@@ -48,7 +48,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	public async movieCredits(
 		options: PeopleEndpointNS.Options.MovieCredits,
 	): Promise<PeopleEndpointNS.Results.MovieCredits> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
@@ -58,7 +58,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	}
 
 	public async tvCredits(options: PeopleEndpointNS.Options.TVCredits): Promise<PeopleEndpointNS.Results.TVCredits> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
@@ -70,7 +70,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	public async combinedCredits(
 		options: PeopleEndpointNS.Options.CombinedCredits,
 	): Promise<PeopleEndpointNS.Results.CombinedCredits> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
@@ -82,7 +82,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	public async externalIDs(
 		options: PeopleEndpointNS.Options.ExternalIDs,
 	): Promise<PeopleEndpointNS.Results.ExternalIDs> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
@@ -92,7 +92,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	}
 
 	public async images(options: PeopleEndpointNS.Options.Images): Promise<PeopleEndpointNS.Results.Images> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(`person/${options.personID ?? this.personID}/images`);
@@ -101,7 +101,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	public async taggedImages(
 		options: PeopleEndpointNS.Options.TaggedImages,
 	): Promise<PeopleEndpointNS.Results.TaggedImages> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(
@@ -118,7 +118,7 @@ export default class PeopleEndpoint implements PeopleEndpointNS.Class {
 	public async translations(
 		options: PeopleEndpointNS.Options.Translations,
 	): Promise<PeopleEndpointNS.Results.Translations> {
-		if (!options.personID || !this.personID)
+		if (!options.personID && !this.personID)
 			throw new RequiredParameterError('personID');
 
 		return this.client.get(

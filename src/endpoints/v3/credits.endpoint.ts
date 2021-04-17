@@ -12,8 +12,8 @@ export default class CreditsEndpoint implements CreditsEndpointNS.Class {
 		this.client = options.client;
 	}
 
-	public async details(creditID?: number): Promise<CreditsEndpointNS.Results.Details> {
-		if (!creditID || !this.creditID)
+	public async details(creditID?: string): Promise<CreditsEndpointNS.Results.Details> {
+		if (!creditID && !this.creditID)
 			throw new RequiredParameterError('creditID');
 
 		return this.client.get(`credit/${creditID ?? this.creditID}`);

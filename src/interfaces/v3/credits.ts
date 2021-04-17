@@ -2,7 +2,7 @@ import type { IClient } from '../../utils/client';
 
 namespace CreditsEndpointNS {
 	export interface Class {
-		details(creditID?: number): Promise<Results.Details>;
+		details(creditID?: string): Promise<Results.Details>;
 	}
 
 	export namespace Options {

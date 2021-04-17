@@ -21,20 +21,20 @@ export default class TVEpisodesEndpoint implements TVEpisodesEndpointNS.Class {
 	public async details(
 		options?: TVEpisodesEndpointNS.Options.Details,
 	): Promise<TVEpisodesEndpointNS.Results.Details> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}`
-				+ `/episode/${options.episodeNumber ?? this.episodeNumber}`,
+			`tv/${options?.tvID ?? this.tvID}/season/${options?.seasonNumber ?? this.seasonNumber}`
+				+ `/episode/${options?.episodeNumber ?? this.episodeNumber}`,
 			{
 				searchParams: {
-					language: options.language ?? this.language,
-					append_to_response: options.appendToResponse,
+					language: options?.language ?? this.language,
+					append_to_response: options?.appendToResponse,
 				},
 			},
 		);
@@ -59,13 +59,13 @@ export default class TVEpisodesEndpoint implements TVEpisodesEndpointNS.Class {
 	public async accountStates(
 		options?: TVEpisodesEndpointNS.Options.AccountStates,
 	): Promise<TVEpisodesEndpointNS.Results.AccountStates> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
-		if (!options.guestSessionID || !options.sessionID)
+		if (!options?.guestSessionID && !options?.sessionID)
 			throw new RequiredParameterError('sessionID or guestSessionID');
 
 		return this.client.get(
@@ -83,74 +83,74 @@ export default class TVEpisodesEndpoint implements TVEpisodesEndpointNS.Class {
 	public async credits(
 		options?: TVEpisodesEndpointNS.Options.Credits,
 	): Promise<TVEpisodesEndpointNS.Results.Credits> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}`
-				+ `/episode/${options.episodeNumber ?? this.episodeNumber}/credits`,
-			{ searchParams: { language: options.language } },
+			`tv/${options?.tvID ?? this.tvID}/season/${options?.seasonNumber ?? this.seasonNumber}`
+				+ `/episode/${options?.episodeNumber ?? this.episodeNumber}/credits`,
+			{ searchParams: { language: options?.language } },
 		);
 	}
 
 	public async externalIDs(
 		options?: TVEpisodesEndpointNS.Options.ExternalIDs,
 	): Promise<TVEpisodesEndpointNS.Results.ExternalIDs> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}`
-				+ `/episode/${options.episodeNumber ?? this.episodeNumber}/external_ids`,
+			`tv/${options?.tvID ?? this.tvID}/season/${options?.seasonNumber ?? this.seasonNumber}`
+				+ `/episode/${options?.episodeNumber ?? this.episodeNumber}/external_ids`,
 		);
 	}
 
 	public async images(options?: TVEpisodesEndpointNS.Options.Images): Promise<TVEpisodesEndpointNS.Results.Images> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}`
-				+ `/episode/${options.episodeNumber ?? this.episodeNumber}/images`,
+			`tv/${options?.tvID ?? this.tvID}/season/${options?.seasonNumber ?? this.seasonNumber}`
+				+ `/episode/${options?.episodeNumber ?? this.episodeNumber}/images`,
 		);
 	}
 
 	public async translations(
 		options?: TVEpisodesEndpointNS.Options.Translations,
 	): Promise<TVEpisodesEndpointNS.Results.Translations> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}`
-				+ `/episode/${options.episodeNumber ?? this.episodeNumber}/translations`,
+			`tv/${options?.tvID ?? this.tvID}/season/${options?.seasonNumber ?? this.seasonNumber}`
+				+ `/episode/${options?.episodeNumber ?? this.episodeNumber}/translations`,
 		);
 	}
 
 	public async rate(options: TVEpisodesEndpointNS.Options.Rate): Promise<TVEpisodesEndpointNS.Results.Rate> {
-		if (!this.tvID || !options.tvID)
+		if (!options.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
-		if (!options.sessionID || !options.guestSessionID)
+		if (!options.sessionID && !options.guestSessionID)
 			throw new RequiredParameterError('sessionID or guestSessionID');
 
 		return this.client.post(
@@ -169,13 +169,13 @@ export default class TVEpisodesEndpoint implements TVEpisodesEndpointNS.Class {
 	public async deleteRating(
 		options?: TVEpisodesEndpointNS.Options.DeleteRating,
 	): Promise<TVEpisodesEndpointNS.Results.DeleteRating> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
-		if (!options.sessionID || !options.guestSessionID)
+		if (!options?.sessionID || !options.guestSessionID)
 			throw new RequiredParameterError('sessionID or guestSessionID');
 
 		return this.client.delete(
@@ -191,17 +191,17 @@ export default class TVEpisodesEndpoint implements TVEpisodesEndpointNS.Class {
 	}
 
 	public async videos(options?: TVEpisodesEndpointNS.Options.Videos): Promise<TVEpisodesEndpointNS.Results.Videos> {
-		if (!this.tvID || !options?.tvID)
+		if (!options?.tvID && !this.tvID)
 			throw new RequiredParameterError('tvID');
-		if (!this.seasonNumber || !options.seasonNumber)
+		if (!options?.seasonNumber && !this.seasonNumber)
 			throw new RequiredParameterError('seasonNumber');
-		if (!this.episodeNumber || !options.episodeNumber)
+		if (!options?.episodeNumber && !this.episodeNumber)
 			throw new RequiredParameterError('episodeNumber');
 
 		return this.client.get(
-			`tv/${options.tvID ?? this.tvID}/season/${options.seasonNumber ?? this.seasonNumber}`
-				+ `/episode/${options.episodeNumber ?? this.episodeNumber}/videos`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/${options?.tvID ?? this.tvID}/season/${options?.seasonNumber ?? this.seasonNumber}`
+				+ `/episode/${options?.episodeNumber ?? this.episodeNumber}/videos`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 }

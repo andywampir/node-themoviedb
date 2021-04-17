@@ -17,12 +17,12 @@ export default class TVEpisodeGroupsEndpoint implements TVEpisodeGroupsEndpointN
 	public async details(
 		options?: TVEpisodeGroupsEndpointNS.Options.Details,
 	): Promise<TVEpisodeGroupsEndpointNS.Results.Details> {
-		if (!this.id || !options?.id)
+		if (!options?.id && !this.id)
 			throw new RequiredParameterError('id');
 
 		return this.client.get(
-			`tv/episode_groups/${options.id ?? this.id}`,
-			{ searchParams: { language: options.language ?? this.language } },
+			`tv/episode_groups/${options?.id ?? this.id}`,
+			{ searchParams: { language: options?.language ?? this.language } },
 		);
 	}
 }

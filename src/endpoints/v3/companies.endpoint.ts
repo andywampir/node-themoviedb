@@ -13,21 +13,21 @@ export default class CompaniesEndpoint implements CompaniesEndpointNS.Class {
 	}
 
 	public async details(companyID?: number): Promise<CompaniesEndpointNS.Results.Details> {
-		if (!companyID || !this.companyID)
+		if (!companyID && !this.companyID)
 			throw new RequiredParameterError('companyID');
 
 		return this.client.get(`company/${companyID ?? this.companyID}`);
 	}
 
 	public async alternativeNames(companyID?: number): Promise<CompaniesEndpointNS.Results.AlternativeNames> {
-		if (!companyID || !this.companyID)
+		if (!companyID && !this.companyID)
 			throw new RequiredParameterError('companyID');
 
 		return this.client.get(`company/${companyID ?? this.companyID}/alternative_names`);
 	}
 
 	public async images(companyID?: number): Promise<CompaniesEndpointNS.Results.Images> {
-		if (!companyID || !this.companyID)
+		if (!companyID && !this.companyID)
 			throw new RequiredParameterError('companyID');
 
 		return this.client.get(`company/${companyID ?? this.companyID}/images`);
