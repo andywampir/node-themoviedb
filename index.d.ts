@@ -1154,7 +1154,7 @@ declare namespace MovieDB {
       interface GetTranslations extends Common {}
 
       interface GetVideos extends Common {}
-      
+
       interface GetWatchProviders extends Common {}
 
       interface RateTVShow extends Common {
@@ -1918,52 +1918,55 @@ declare namespace MovieDB {
       interface GetVideos extends Objects.Videos {}
 
       interface GetWatchProviders {
-        AR: Objects.MovieWatchProvider
-        AT: Objects.MovieWatchProvider
-        AU: Objects.MovieWatchProvider
-        BE: Objects.MovieWatchProvider
-        BR: Objects.MovieWatchProvider
-        CA: Objects.MovieWatchProvider
-        CH: Objects.MovieWatchProvider
-        CL: Objects.MovieWatchProvider
-        CO: Objects.MovieWatchProvider
-        CZ: Objects.MovieWatchProvider
-        DE: Objects.MovieWatchProvider
-        DK: Objects.MovieWatchProvider
-        EC: Objects.MovieWatchProvider
-        EE: Objects.MovieWatchProvider
-        ES: Objects.MovieWatchProvider
-        FI: Objects.MovieWatchProvider
-        FR: Objects.MovieWatchProvider
-        GB: Objects.MovieWatchProvider
-        GR: Objects.MovieWatchProvider
-        HU: Objects.MovieWatchProvider
-        ID: Objects.MovieWatchProvider
-        IE: Objects.MovieWatchProvider
-        IN: Objects.MovieWatchProvider
-        IT: Objects.MovieWatchProvider
-        JP: Objects.MovieWatchProvider
-        KR: Objects.MovieWatchProvider
-        LT: Objects.MovieWatchProvider
-        LV: Objects.MovieWatchProvider
-        MX: Objects.MovieWatchProvider
-        MY: Objects.MovieWatchProvider
-        NL: Objects.MovieWatchProvider
-        NO: Objects.MovieWatchProvider
-        NZ: Objects.MovieWatchProvider
-        PE: Objects.MovieWatchProvider
-        PH: Objects.MovieWatchProvider
-        PL: Objects.MovieWatchProvider
-        PT: Objects.MovieWatchProvider
-        RO: Objects.MovieWatchProvider
-        RU: Objects.MovieWatchProvider
-        SE: Objects.MovieWatchProvider
-        SG: Objects.MovieWatchProvider
-        TH: Objects.MovieWatchProvider
-        TR: Objects.MovieWatchProvider
-        US: Objects.MovieWatchProvider
-        VE: Objects.MovieWatchProvider
-        ZA: Objects.MovieWatchProvider
+        id: number;
+        results: {
+          AR: Objects.MovieWatchProvider
+          AT: Objects.MovieWatchProvider
+          AU: Objects.MovieWatchProvider
+          BE: Objects.MovieWatchProvider
+          BR: Objects.MovieWatchProvider
+          CA: Objects.MovieWatchProvider
+          CH: Objects.MovieWatchProvider
+          CL: Objects.MovieWatchProvider
+          CO: Objects.MovieWatchProvider
+          CZ: Objects.MovieWatchProvider
+          DE: Objects.MovieWatchProvider
+          DK: Objects.MovieWatchProvider
+          EC: Objects.MovieWatchProvider
+          EE: Objects.MovieWatchProvider
+          ES: Objects.MovieWatchProvider
+          FI: Objects.MovieWatchProvider
+          FR: Objects.MovieWatchProvider
+          GB: Objects.MovieWatchProvider
+          GR: Objects.MovieWatchProvider
+          HU: Objects.MovieWatchProvider
+          ID: Objects.MovieWatchProvider
+          IE: Objects.MovieWatchProvider
+          IN: Objects.MovieWatchProvider
+          IT: Objects.MovieWatchProvider
+          JP: Objects.MovieWatchProvider
+          KR: Objects.MovieWatchProvider
+          LT: Objects.MovieWatchProvider
+          LV: Objects.MovieWatchProvider
+          MX: Objects.MovieWatchProvider
+          MY: Objects.MovieWatchProvider
+          NL: Objects.MovieWatchProvider
+          NO: Objects.MovieWatchProvider
+          NZ: Objects.MovieWatchProvider
+          PE: Objects.MovieWatchProvider
+          PH: Objects.MovieWatchProvider
+          PL: Objects.MovieWatchProvider
+          PT: Objects.MovieWatchProvider
+          RO: Objects.MovieWatchProvider
+          RU: Objects.MovieWatchProvider
+          SE: Objects.MovieWatchProvider
+          SG: Objects.MovieWatchProvider
+          TH: Objects.MovieWatchProvider
+          TR: Objects.MovieWatchProvider
+          US: Objects.MovieWatchProvider
+          VE: Objects.MovieWatchProvider
+          ZA: Objects.MovieWatchProvider
+        }
       }
 
       interface GetTranslations {
@@ -2588,52 +2591,55 @@ declare namespace MovieDB {
       interface GetVideos extends Objects.Videos {}
 
       interface GetWatchProviders {
-        AR: Objects.TVShowWatchProvider
-        AT: Objects.TVShowWatchProvider
-        AU: Objects.TVShowWatchProvider
-        BE: Objects.TVShowWatchProvider
-        BR: Objects.TVShowWatchProvider
-        CA: Objects.TVShowWatchProvider
-        CH: Objects.TVShowWatchProvider
-        CL: Objects.TVShowWatchProvider
-        CO: Objects.TVShowWatchProvider
-        CZ: Objects.TVShowWatchProvider
-        DE: Objects.TVShowWatchProvider
-        DK: Objects.TVShowWatchProvider
-        EC: Objects.TVShowWatchProvider
-        EE: Objects.TVShowWatchProvider
-        ES: Objects.TVShowWatchProvider
-        FI: Objects.TVShowWatchProvider
-        FR: Objects.TVShowWatchProvider
-        GB: Objects.TVShowWatchProvider
-        GR: Objects.TVShowWatchProvider
-        HU: Objects.TVShowWatchProvider
-        ID: Objects.TVShowWatchProvider
-        IE: Objects.TVShowWatchProvider
-        IN: Objects.TVShowWatchProvider
-        IT: Objects.TVShowWatchProvider
-        JP: Objects.TVShowWatchProvider
-        KR: Objects.TVShowWatchProvider
-        LT: Objects.TVShowWatchProvider
-        LV: Objects.TVShowWatchProvider
-        MX: Objects.TVShowWatchProvider
-        MY: Objects.TVShowWatchProvider
-        NL: Objects.TVShowWatchProvider
-        NO: Objects.TVShowWatchProvider
-        NZ: Objects.TVShowWatchProvider
-        PE: Objects.TVShowWatchProvider
-        PH: Objects.TVShowWatchProvider
-        PL: Objects.TVShowWatchProvider
-        PT: Objects.TVShowWatchProvider
-        RO: Objects.TVShowWatchProvider
-        RU: Objects.TVShowWatchProvider
-        SE: Objects.TVShowWatchProvider
-        SG: Objects.TVShowWatchProvider
-        TH: Objects.TVShowWatchProvider
-        TR: Objects.TVShowWatchProvider
-        US: Objects.TVShowWatchProvider
-        VE: Objects.TVShowWatchProvider
-        ZA: Objects.TVShowWatchProvider
+        id: number;
+        results: {
+          AR: Objects.TVShowWatchProvider
+          AT: Objects.TVShowWatchProvider
+          AU: Objects.TVShowWatchProvider
+          BE: Objects.TVShowWatchProvider
+          BR: Objects.TVShowWatchProvider
+          CA: Objects.TVShowWatchProvider
+          CH: Objects.TVShowWatchProvider
+          CL: Objects.TVShowWatchProvider
+          CO: Objects.TVShowWatchProvider
+          CZ: Objects.TVShowWatchProvider
+          DE: Objects.TVShowWatchProvider
+          DK: Objects.TVShowWatchProvider
+          EC: Objects.TVShowWatchProvider
+          EE: Objects.TVShowWatchProvider
+          ES: Objects.TVShowWatchProvider
+          FI: Objects.TVShowWatchProvider
+          FR: Objects.TVShowWatchProvider
+          GB: Objects.TVShowWatchProvider
+          GR: Objects.TVShowWatchProvider
+          HU: Objects.TVShowWatchProvider
+          ID: Objects.TVShowWatchProvider
+          IE: Objects.TVShowWatchProvider
+          IN: Objects.TVShowWatchProvider
+          IT: Objects.TVShowWatchProvider
+          JP: Objects.TVShowWatchProvider
+          KR: Objects.TVShowWatchProvider
+          LT: Objects.TVShowWatchProvider
+          LV: Objects.TVShowWatchProvider
+          MX: Objects.TVShowWatchProvider
+          MY: Objects.TVShowWatchProvider
+          NL: Objects.TVShowWatchProvider
+          NO: Objects.TVShowWatchProvider
+          NZ: Objects.TVShowWatchProvider
+          PE: Objects.TVShowWatchProvider
+          PH: Objects.TVShowWatchProvider
+          PL: Objects.TVShowWatchProvider
+          PT: Objects.TVShowWatchProvider
+          RO: Objects.TVShowWatchProvider
+          RU: Objects.TVShowWatchProvider
+          SE: Objects.TVShowWatchProvider
+          SG: Objects.TVShowWatchProvider
+          TH: Objects.TVShowWatchProvider
+          TR: Objects.TVShowWatchProvider
+          US: Objects.TVShowWatchProvider
+          VE: Objects.TVShowWatchProvider
+          ZA: Objects.TVShowWatchProvider
+        }
       }
 
       interface RateTVShow extends Objects.Status {}
