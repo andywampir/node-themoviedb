@@ -28,6 +28,21 @@ declare namespace MovieDB {
       media_type: 'movie';
     }
 
+    interface MovieWatchProvider extends TVShowWatchProvider {
+      rent: {
+        display_priority: number;
+        logo_path: string;
+        provider_id: number;
+        provider_name: string;
+      }[];
+      buy: {
+        display_priority: number;
+        logo_path: string;
+        provider_id: number;
+        provider_name: string;
+      }[];
+    }
+
     interface TVShow {
       poster_path: string | null;
       popularity: number;
@@ -42,6 +57,16 @@ declare namespace MovieDB {
       vote_count: number;
       name: string;
       original_name: string;
+    }
+
+    interface TVShowWatchProvider {
+      link: string;
+      flatrate: {
+        display_priority: number;
+        logo_path: string;
+        provider_id: number;
+        provider_name: string;
+      }[];
     }
 
     interface TVShowWithRating extends TVShow {
@@ -323,6 +348,7 @@ declare namespace MovieDB {
       getKeywords(args: Arguments.Movie.GetKeywords): Response<Responses.Movie.GetKeywords>;
       getReleaseDates(args: Arguments.Movie.GetReleaseDates): Response<Responses.Movie.GetReleaseDates>;
       getVideos(args: Arguments.Movie.GetVideos): Response<Responses.Movie.GetVideos>;
+      getWatchProviders(args: Arguments.Movie.GetWatchProviders): Response<Responses.Movie.GetWatchProviders>;
       getTranslations(args: Arguments.Movie.GetTranslations): Response<Responses.Movie.GetTranslations>;
       getRecommendations(args: Arguments.Movie.GetRecommendations): Response<Responses.Movie.GetRecommendations>;
       getSimilarMovies(args: Arguments.Movie.GetSimilarMovies): Response<Responses.Movie.GetSimilarMovies>;
@@ -420,6 +446,7 @@ declare namespace MovieDB {
       getSimilarTVShows(args: Arguments.TV.GetSimilarTVShows): Response<Responses.TV.GetSimilarTVShows>;
       getTranslations(args: Arguments.TV.GetTranslations): Response<Responses.TV.GetTranslations>;
       getVideos(args: Arguments.TV.GetVideos): Response<Responses.TV.GetVideos>;
+      getWatchProviders(args: Arguments.TV.GetWatchProviders): Response<Responses.TV.GetWatchProviders>;
       rateTVShow(args: Arguments.TV.RateTVShow): Response<Responses.TV.RateTVShow>;
       deleteRating(args: Arguments.TV.DeleteRating): Response<Responses.TV.DeleteRating>;
       getLatest(): Response<Responses.TV.GetLatest>;
@@ -839,6 +866,8 @@ declare namespace MovieDB {
 
       interface GetVideos extends Common {}
 
+      interface GetWatchProviders extends Common {}
+
       interface GetTranslations extends Common {}
 
       interface GetRecommendations extends Common {
@@ -1125,6 +1154,8 @@ declare namespace MovieDB {
       interface GetTranslations extends Common {}
 
       interface GetVideos extends Common {}
+      
+      interface GetWatchProviders extends Common {}
 
       interface RateTVShow extends Common {
         query?: {
@@ -1886,6 +1917,55 @@ declare namespace MovieDB {
 
       interface GetVideos extends Objects.Videos {}
 
+      interface GetWatchProviders {
+        AR: Objects.MovieWatchProvider
+        AT: Objects.MovieWatchProvider
+        AU: Objects.MovieWatchProvider
+        BE: Objects.MovieWatchProvider
+        BR: Objects.MovieWatchProvider
+        CA: Objects.MovieWatchProvider
+        CH: Objects.MovieWatchProvider
+        CL: Objects.MovieWatchProvider
+        CO: Objects.MovieWatchProvider
+        CZ: Objects.MovieWatchProvider
+        DE: Objects.MovieWatchProvider
+        DK: Objects.MovieWatchProvider
+        EC: Objects.MovieWatchProvider
+        EE: Objects.MovieWatchProvider
+        ES: Objects.MovieWatchProvider
+        FI: Objects.MovieWatchProvider
+        FR: Objects.MovieWatchProvider
+        GB: Objects.MovieWatchProvider
+        GR: Objects.MovieWatchProvider
+        HU: Objects.MovieWatchProvider
+        ID: Objects.MovieWatchProvider
+        IE: Objects.MovieWatchProvider
+        IN: Objects.MovieWatchProvider
+        IT: Objects.MovieWatchProvider
+        JP: Objects.MovieWatchProvider
+        KR: Objects.MovieWatchProvider
+        LT: Objects.MovieWatchProvider
+        LV: Objects.MovieWatchProvider
+        MX: Objects.MovieWatchProvider
+        MY: Objects.MovieWatchProvider
+        NL: Objects.MovieWatchProvider
+        NO: Objects.MovieWatchProvider
+        NZ: Objects.MovieWatchProvider
+        PE: Objects.MovieWatchProvider
+        PH: Objects.MovieWatchProvider
+        PL: Objects.MovieWatchProvider
+        PT: Objects.MovieWatchProvider
+        RO: Objects.MovieWatchProvider
+        RU: Objects.MovieWatchProvider
+        SE: Objects.MovieWatchProvider
+        SG: Objects.MovieWatchProvider
+        TH: Objects.MovieWatchProvider
+        TR: Objects.MovieWatchProvider
+        US: Objects.MovieWatchProvider
+        VE: Objects.MovieWatchProvider
+        ZA: Objects.MovieWatchProvider
+      }
+
       interface GetTranslations {
         id: number;
         translations: {
@@ -2506,6 +2586,55 @@ declare namespace MovieDB {
       }
 
       interface GetVideos extends Objects.Videos {}
+
+      interface GetWatchProviders {
+        AR: Objects.TVShowWatchProvider
+        AT: Objects.TVShowWatchProvider
+        AU: Objects.TVShowWatchProvider
+        BE: Objects.TVShowWatchProvider
+        BR: Objects.TVShowWatchProvider
+        CA: Objects.TVShowWatchProvider
+        CH: Objects.TVShowWatchProvider
+        CL: Objects.TVShowWatchProvider
+        CO: Objects.TVShowWatchProvider
+        CZ: Objects.TVShowWatchProvider
+        DE: Objects.TVShowWatchProvider
+        DK: Objects.TVShowWatchProvider
+        EC: Objects.TVShowWatchProvider
+        EE: Objects.TVShowWatchProvider
+        ES: Objects.TVShowWatchProvider
+        FI: Objects.TVShowWatchProvider
+        FR: Objects.TVShowWatchProvider
+        GB: Objects.TVShowWatchProvider
+        GR: Objects.TVShowWatchProvider
+        HU: Objects.TVShowWatchProvider
+        ID: Objects.TVShowWatchProvider
+        IE: Objects.TVShowWatchProvider
+        IN: Objects.TVShowWatchProvider
+        IT: Objects.TVShowWatchProvider
+        JP: Objects.TVShowWatchProvider
+        KR: Objects.TVShowWatchProvider
+        LT: Objects.TVShowWatchProvider
+        LV: Objects.TVShowWatchProvider
+        MX: Objects.TVShowWatchProvider
+        MY: Objects.TVShowWatchProvider
+        NL: Objects.TVShowWatchProvider
+        NO: Objects.TVShowWatchProvider
+        NZ: Objects.TVShowWatchProvider
+        PE: Objects.TVShowWatchProvider
+        PH: Objects.TVShowWatchProvider
+        PL: Objects.TVShowWatchProvider
+        PT: Objects.TVShowWatchProvider
+        RO: Objects.TVShowWatchProvider
+        RU: Objects.TVShowWatchProvider
+        SE: Objects.TVShowWatchProvider
+        SG: Objects.TVShowWatchProvider
+        TH: Objects.TVShowWatchProvider
+        TR: Objects.TVShowWatchProvider
+        US: Objects.TVShowWatchProvider
+        VE: Objects.TVShowWatchProvider
+        ZA: Objects.TVShowWatchProvider
+      }
 
       interface RateTVShow extends Objects.Status {}
 
