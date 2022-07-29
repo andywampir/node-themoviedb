@@ -2112,10 +2112,11 @@ declare namespace MovieDB {
 
     namespace Person {
       interface GetDetails {
-        birthdate: string | null;
+        birthday: string | null;
         known_for_department: string;
         deathday: string | null;
         id: number;
+        name: string;
         also_known_as: string[];
         gender: 0 | 1 | 2;
         biography: string;
