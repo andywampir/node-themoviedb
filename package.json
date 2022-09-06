@@ -27,7 +27,7 @@
     "preinstall": "yarn build"
   },
   "files": [
-    "dist",
+    "dist/**/*.js*",
     "LICENSE.md",
     "index.d.ts"
   ],
