@@ -23,8 +23,7 @@
     "release": "yarn build && np",
     "release:preview": "np --preview",
     "prepublish": "eslint --ext .ts ./src/**",
-    "prepare": "npm run build",
-    "preinstall": "yarn install && yarn build"
+    "prepare": "npm run build"
   },
   "files": [
     "dist/**/*.js*",
