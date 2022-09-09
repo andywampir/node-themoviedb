@@ -1805,7 +1805,7 @@ declare namespace MovieDB {
           name: string;
         }[];
         release_date: string;
-        revenue: string;
+        revenue: number;
         runtime: number | null;
         spoken_language: {
           iso_639_1: string;
