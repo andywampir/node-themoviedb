@@ -68,6 +68,10 @@ const rootEndpoints: RequestOption[] = [
     endpoint: `${endpointBaseURL}/{tv_id}/videos`,
     name: 'getVideos',
   }, {
+    type: 'GET',
+    endpoint: `${endpointBaseURL}/{tv_id}/watch/providers`,
+    name: 'getWatchProviders',
+  }, {
     type: 'POST',
     endpoint: `${endpointBaseURL}/{tv_id}/rating`,
     name: 'rateTVShow',

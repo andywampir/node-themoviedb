@@ -22,10 +22,11 @@
     "test": "echo \"No test specified\"",
     "release": "yarn build && np",
     "release:preview": "np --preview",
-    "prepublish": "eslint --ext .ts ./src/**"
+    "prepublish": "eslint --ext .ts ./src/**",
+    "prepare": "npm run build"
   },
   "files": [
-    "dist",
+    "dist/**/*.js*",
     "LICENSE.md",
     "index.d.ts"
   ],

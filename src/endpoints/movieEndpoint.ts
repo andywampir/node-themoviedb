@@ -45,6 +45,10 @@ const endpoints: RequestOption[] = [
     name: 'getVideos',
   }, {
     type: 'GET',
+    endpoint: `${endpointBaseURL}/{movie_id}/watch/providers`,
+    name: 'getWatchProviders',
+  }, {
+    type: 'GET',
     endpoint: `${endpointBaseURL}/{movie_id}/translations`,
     name: 'getTranslations',
   }, {
